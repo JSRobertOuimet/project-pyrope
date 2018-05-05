@@ -1,0 +1,19 @@
+{
+  "name": "project-pyrope",
+  "version": "1.0.0",
+  "description": "Set reading goals and share them with your friends.",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "author": "Jean-Simon Robert Ouimet",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.16.3",
+    "mongoose": "^5.0.17"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.3"
+  }
+}
