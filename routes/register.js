@@ -3,16 +3,15 @@ const
   router = express.Router(),
   bcrypt = require("bcryptjs"),
 
-  validateUserInput = require("../validation/validation");
+  validateUserInputs = require("../validation/validation");
 
   User = require("../models/User");
 
-// ==============================
-// POST requests
+// Register user
 router.post("/", (req, res) => {
-  const errors = validateUserInput(req.body);
+  const errors = validateUserInputs(req.body);
 
-  if(errors) {
+  if(Object.keys(errors).length > 0) {
     res
       .status(422)
       .json(errors);
