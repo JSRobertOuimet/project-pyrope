@@ -1,7 +1,7 @@
 {
   "name": "project-pyrope",
   "version": "1.0.0",
-  "description": "Set reading goals and share them with your friends.",
+  "description": "Set reading goals and share your progress with your friends.",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js"
@@ -11,9 +11,12 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "express": "^4.16.3",
-    "mongoose": "^5.0.17"
+    "mongoose": "^5.0.17",
+    "validator": "^10.1.0"
   },
   "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-plugin-react": "^7.7.0",
     "nodemon": "^1.17.3"
   }
 }
