@@ -20,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/register", register);
-// app.use("/login", login);
+app.use("/login", login);
 app.use("/users", users);
 
 app.listen(port, () => console.log(`Server listening on port ${port}...`));
