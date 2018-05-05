@@ -10,7 +10,7 @@ const validate = userInputs => {
 
   // Password
   if(!validator.isLength(userInputs.password, { min: 8 })) {
-    errors.password = "Password must be at least 8 characters long.";
+    errors.password = "The password must be at least 8 characters long.";
   }
 
   return errors;

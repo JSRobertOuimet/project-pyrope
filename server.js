@@ -1,5 +1,6 @@
 const
   express = require("express"),
+  passport = require("passport"),
 
   mongoURI = require("./config/credentials").mongoURI,
   connect = require("./config/connection"),
@@ -17,6 +18,10 @@ connect(mongoURI);
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Passport
+app.use(passport.initialize());
+require("./config/passport")(passport);
 
 // Routes
 app.use("/register", register);

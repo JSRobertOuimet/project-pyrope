@@ -3,7 +3,7 @@ const
   router = express.Router(),
   bcrypt = require("bcryptjs"),
 
-  validateUserInputs = require("../validation/validation");
+  validateUserInputs = require("../validation/validation"),
 
   User = require("../models/User");
 
@@ -18,34 +18,34 @@ router.post("/", (req, res) => {
   }
   else {
     User
-    .findOne({ email: req.body.email })
-    .then(user => {
-      if(user) {
-        res
-          .status(409)
-          .json({ error: "This email address has already been registered."});
-      }
-      else {
-        newUser = new User({
-          email: req.body.email,
-          password: req.body.password
-        });
+      .findOne({ email: req.body.email })
+      .then(user => {
+        if(user) {
+          res
+            .status(409)
+            .json({ email: "This email address has already been used."});
+        }
+        else {
+          const newUser = new User({
+            email: req.body.email,
+            password: req.body.password
+          });
 
-        bcrypt.genSalt(10, (err, salt) => {
-          if(err) throw err;
-
-          bcrypt.hash(newUser.password, salt, (err, hash) => {
+          bcrypt.genSalt(10, (err, salt) => {
             if(err) throw err;
 
-            newUser.password = hash;
-            newUser
-              .save()
-              .then(user => res.json(user))
-              .catch(err => console.log(err));
+            bcrypt.hash(newUser.password, salt, (err, hash) => {
+              if(err) throw err;
+
+              newUser.password = hash;
+              newUser
+                .save()
+                .then(user => res.json(user))
+                .catch(err => console.log(err));
+            });
           });
-        });
-      }
-    });
+        }
+      });
   }
 });
 
