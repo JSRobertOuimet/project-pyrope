@@ -3,13 +3,14 @@ const
   router = express.Router(),
   bcrypt = require("bcryptjs"),
 
-  validateUserInputs = require("../validation/validation"),
+  validate = require("../validation/validation"),
+  messages = require("../messaging/messaging"),
 
   User = require("../models/User");
 
-// Register user
+// Register user (private)
 router.post("/", (req, res) => {
-  const errors = validateUserInputs(req.body);
+  const errors = validate(req.body, "register");
 
   if(Object.keys(errors).length > 0) {
     res
@@ -22,8 +23,8 @@ router.post("/", (req, res) => {
       .then(user => {
         if(user) {
           res
-            .status(409)
-            .json({ email: "This email address has already been used."});
+            .status(422)
+            .json({ message: messages.errorEmailAlreadyUsed });
         }
         else {
           const newUser = new User({
@@ -40,12 +41,13 @@ router.post("/", (req, res) => {
               newUser.password = hash;
               newUser
                 .save()
-                .then(user => res.json(user))
+                .then(user => res.json({ message: messages.successRegisteredUser, user }))
                 .catch(err => console.log(err));
             });
           });
         }
-      });
+      })
+      .catch(err => console.log(err));
   }
 });
 

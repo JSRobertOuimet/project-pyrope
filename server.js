@@ -8,6 +8,7 @@ const
   register = require("./routes/register"),
   login = require("./routes/login"),
   users = require("./routes/users"),
+  profiles = require("./routes/profiles"),
 
   app = express(),
   port = 5000;
@@ -27,5 +28,6 @@ require("./config/passport")(passport);
 app.use("/register", register);
 app.use("/login", login);
 app.use("/users", users);
+app.use("/profiles", profiles);
 
 app.listen(port, () => console.log(`Server listening on port ${port}...`));

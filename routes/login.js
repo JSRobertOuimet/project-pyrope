@@ -7,13 +7,13 @@ const
   jwtKey = require("../config/credentials").jwtKey,
 
   validateUserInputs = require("../validation/validation"),
+  messages = require("../messaging/messaging"),
 
   User = require("../models/User");
 
+// Log in (public)
 router.post("/", (req, res) => {
-  const
-    errors = validateUserInputs(req.body),
-    emailOrPasswordError = { "emailOrPassword": "The email address or password is incorrect." };
+  const errors = validateUserInputs(req.body);
 
   if(Object.keys(errors).length > 0) {
     res
@@ -27,7 +27,7 @@ router.post("/", (req, res) => {
         if(!user) {
           res
             .status(401)
-            .json(emailOrPasswordError);
+            .json({ message: messages.errorIncorrectEmailOrPassword });
         }
         else {
           bcrypt
@@ -40,17 +40,19 @@ router.post("/", (req, res) => {
                   if(err) throw err;
                   res
                     .status(303)
-                    .json({ success: true, token: "Bearer " + token });
+                    .json({ message: messages.successLoggedIn, token: "Bearer " + token });
                 });
               }
               else {
                 res
                   .status(401)
-                  .json(emailOrPasswordError);
+                  .json({ message: messages.errorIncorrectEmailOrPassword });
               }
-            });
+            })
+            .catch(err => console.log(err));
         }
-      });
+      })
+      .catch(err => console.log(err));
   }
 });
 
