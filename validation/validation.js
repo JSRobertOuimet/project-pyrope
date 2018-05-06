@@ -1,4 +1,6 @@
-const validator = require("validator");
+const
+  validator = require("validator"),
+  messages = require("../messaging/messaging");
 
 const validate = (userInputs, action) => {
   let errors = {};
@@ -20,25 +22,25 @@ const validate = (userInputs, action) => {
 
   function emailValidation(email) {
     if(!validator.isEmail(email + "")) {
-      return errors.email = "Please enter a valid email address.";
+      return errors.email = messages.errorInvalidEmail;
     }
   }
 
   function passwordValidation(password) {
     if(!validator.isLength(password + "", { min: 8 })) {
-      return errors.password = "The password must be at least 8 characters long.";
+      return errors.password = messages.errorInvalidPassword;
     }
   }
 
   function usernameValidation(username) {
     if(!validator.isLength(username + "", { min: 2, max: 40 })) {
-      return errors.username = "Your username must be between 2 and 40 characters long.";
+      return errors.username = messages.errorInvalidUsername;
     }
   }
 
   function aboutValidation(about) {
     if(!validator.isLength(about + "", { max: 40 })) {
-      return errors.username = "Your profile’s about section cannot exceed 140 characters.";
+      return errors.about = messages.errorInvalidAbout;
     }
   }
 };

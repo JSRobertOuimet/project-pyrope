@@ -1,17 +1,17 @@
 const messages = {
-  error:  {
-    emailAlreadyUsed: "This email address has already been used.",
-    incorrectEmailOrPassword: "The email address or password is incorrect.",
-    noProfileFound: "No profile found.",
-    noUserFound: "No user found.",
-    usernameAlreadyUsed: "This username has already been used."
-  },
-  success: {
-    createdProfile: "Your profile has been successfully created.",
-    loggedIn: "You have been successfully logged in.",
-    registeredUser: "You have been successfully registered.",
-    updatedProfile: "Your profile has been successfully updated."
-  }
+  errorEmailAlreadyUsed: "This email address has already been used.",
+  errorIncorrectEmailOrPassword: "The email address or password is incorrect.",
+  errorInvalidAbout: "Your profile’s about section cannot exceed 140 characters.",
+  errorInvalidEmail: "Please enter a valid email address.",
+  errorInvalidPassword: "The password must be at least 8 characters long.",
+  errorInvalidUsername: "Your username must be between 2 and 40 characters long.",
+  errorNoProfileFound: "No profile found.",
+  errorNoUserFound: "No user found.",
+  errorUsernameAlreadyUsed: "This username has already been used.",
+  successCreatedProfile: "Your profile has been successfully created.",
+  successLoggedIn: "You have been successfully logged in.",
+  successRegisteredUser: "You have been successfully registered.",
+  successUpdatedProfile: "Your profile has been successfully updated."
 };
 
 module.exports = messages;
