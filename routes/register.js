@@ -10,11 +10,11 @@ const
 
 // Register user (private)
 router.post("/", (req, res) => {
-  const errors = validate(req.body, "register");
+  const errors = validate(req.body, "registerUser");
 
   if(Object.keys(errors).length > 0) {
     res
-      .status(422)
+      .status(400)
       .json(errors);
   }
   else {
@@ -23,7 +23,7 @@ router.post("/", (req, res) => {
       .then(user => {
         if(user) {
           res
-            .status(422)
+            .status(409)
             .json({ message: messages.errorEmailAlreadyUsed });
         }
         else {

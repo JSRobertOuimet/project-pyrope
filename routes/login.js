@@ -17,7 +17,7 @@ router.post("/", (req, res) => {
 
   if(Object.keys(errors).length > 0) {
     res
-      .status(422)
+      .status(400)
       .json(errors);
   }
   else {

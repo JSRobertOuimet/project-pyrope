@@ -16,7 +16,7 @@ router
       .then(profiles => {
         if(profiles.length === 0) {
           res
-            .status(400)
+            .status(404)
             .json({ message: messages.errorNoProfileFound });
         }
         else {
@@ -69,7 +69,7 @@ router
               .then(profile => {
                 if(profile) {
                   res
-                    .status(400)
+                    .status(409)
                     .json({ message: messages.errorUsernameAlreadyUsed });
                 }
                 else {
@@ -77,7 +77,7 @@ router
                     .save()
                     .then(profile => {
                       res
-                        .status(200)
+                        .status(201)
                         .json({ message: messages.successCreatedProfile, profile });
                     })
                     .catch(err => console.log(err));

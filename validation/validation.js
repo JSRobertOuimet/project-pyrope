@@ -6,7 +6,7 @@ const validate = (userInputs, action) => {
   let errors = {};
 
   switch(action) {
-  case "register":
+  case "registerUser":
     emailValidation(userInputs.email);
     passwordValidation(userInputs.password);
     break;

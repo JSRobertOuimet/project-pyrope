@@ -14,7 +14,7 @@ router
       .then(users => {
         if(users.length === 0) {
           res
-            .status(400)
+            .status(404)
             .json({ message: messages.errorNoUserFound });
         }
         else {
