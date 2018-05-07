@@ -10,7 +10,7 @@ const
 options.jwtFromRequest = ExtractJWT.fromAuthHeaderAsBearerToken();
 options.secretOrKey = jwtKey;
 
-module.exports = passport =>
+module.exports = passport => {
   passport
     .use(new JWTStrategy(options, (jwtPayload, done) => {
       User
@@ -25,3 +25,4 @@ module.exports = passport =>
         })
         .catch(err => console.log(err));
     }));
+};
