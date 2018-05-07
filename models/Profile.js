@@ -22,6 +22,11 @@ const
     friends: {
       type: Array,
       required: false
+    },
+    public: {
+      type: Boolean,
+      default: true,
+      required: true
     }
   });
 

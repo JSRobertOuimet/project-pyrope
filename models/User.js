@@ -11,7 +11,7 @@ const
       type: String,
       required: true
     },
-    registration: {
+    registeredOn: {
       type: Date,
       default: Date.now()
     }

@@ -6,7 +6,8 @@ const
   validateUserInputs = require("../validation/validation"),
   messages = require("../messaging/messaging"),
 
-  Profile = require("../models/Profile");
+  Profile = require("../models/Profile"),
+  Challenge = require("../models/Challenge");
 
 // Get all public profiles (public)
 router
@@ -41,8 +42,9 @@ router
     }
     else {
       profileData.user_id = req.user.id;
-      if(req.body.username) profileData.username = req.body.username;
-      if(req.body.about) profileData.about = req.body.about;
+      profileData.username = req.body.username;
+      profileData.about = req.body.about;
+      profileData.public = req.body.public;
 
       Profile
         .findOne({ user_id: req.user.id })
@@ -86,6 +88,27 @@ router
               .catch(err => console.log(err));
           }
         });
+    }
+  });
+
+router
+  .post("/me/challenge", (req, res) => {
+    const
+      errors = validateUserInputs(req.body, "createChallenge"),
+      challengeData = {};
+
+    if(Object.keys(errors).length > 0) {
+      res
+        .status(400)
+        .json(errors);
+    }
+    else {
+      challengeData.book.author = req.body.bookAuthor;
+      challengeData.book.title = req.body.bookTitle;
+      challengeData.book.numberOfPages = req.body.bookNumberOfPages;
+      challengeData.readingGoal.numberOfPages = req.body.readingGoalNumberOfPages;
+      challengeData.readingGoal.timePeriod = req.body.readingGoalTimePeriod;
+      challengeData.public = req.body.public;
     }
   });
 
