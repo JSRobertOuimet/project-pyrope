@@ -8,6 +8,7 @@ const messages = {
   errorNoProfileFound: "No profile found.",
   errorNoUserFound: "No user found.",
   errorUsernameAlreadyUsed: "This username has already been used.",
+  successCreatedChallenge: "Your reading challenge has been successfully created.",
   successCreatedProfile: "Your profile has been successfully created.",
   successLoggedIn: "You have been successfully logged in.",
   successRegisteredUser: "You have been successfully registered.",

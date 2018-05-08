@@ -2,7 +2,7 @@ const
   mongoose = require("mongoose"),
   Schema = mongoose.Schema,
 
-  readingSessionSchema = new Schema({
+  sessionSchema = new Schema({
     date: {
       type: Date,
       default: Date.now(),
@@ -20,4 +20,4 @@ const
     }
   });
 
-module.exports = mongoose.model("ReadingSession", readingSessionSchema);
+module.exports = mongoose.model("ReadingSession", sessionSchema);

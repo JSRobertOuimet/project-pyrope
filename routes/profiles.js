@@ -28,7 +28,7 @@ router
       .catch(err => console.log(err));
   });
 
-// Create or update authenticated user's profile (private)
+// Create or update user's profile (private)
 router
   .post("/me", passport.authenticate("jwt", { session: false }), (req, res) => {
     const
@@ -44,7 +44,6 @@ router
       profileData.user_id = req.user.id;
       profileData.username = req.body.username;
       profileData.about = req.body.about;
-      profileData.public = req.body.public;
 
       Profile
         .findOne({ user_id: req.user.id })
@@ -91,11 +90,10 @@ router
     }
   });
 
+// Create challenge (private)
 router
-  .post("/me/challenge", (req, res) => {
-    const
-      errors = validateUserInputs(req.body, "createChallenge"),
-      challengeData = {};
+  .post("/me/challenges", passport.authenticate("jwt", { session: false }), (req, res) => {
+    const errors = validateUserInputs(req.body, "createChallenge");
 
     if(Object.keys(errors).length > 0) {
       res
@@ -103,13 +101,35 @@ router
         .json(errors);
     }
     else {
-      challengeData.book.author = req.body.bookAuthor;
-      challengeData.book.title = req.body.bookTitle;
-      challengeData.book.numberOfPages = req.body.bookNumberOfPages;
-      challengeData.readingGoal.numberOfPages = req.body.readingGoalNumberOfPages;
-      challengeData.readingGoal.timePeriod = req.body.readingGoalTimePeriod;
-      challengeData.public = req.body.public;
-    }
+      Profile
+        .findOne({ user_id: req.user.id })
+        .then(profile => {
+          const challenge = new Challenge({
+            book: {
+              author: req.body.author,
+              title: req.body.title,
+              numberOfPages: req.body.bookNumberOfPages
+            },
+            readingGoal: {
+              numberOfPages: req.body.goalNumberOfPages,
+              timePeriod: req.body.goalTimePeriod
+            }
+          });
+
+          profile.challenges
+            .unshift(challenge);
+
+          profile
+            .save()
+            .then(profile => {
+              res
+                .status(201)
+                .json({ message: messages.successCreatedChallenge, profile });
+            })
+            .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+    }   
   });
 
 module.exports = router;
