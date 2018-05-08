@@ -93,43 +93,34 @@ router
 // Create challenge (private)
 router
   .post("/me/challenges", passport.authenticate("jwt", { session: false }), (req, res) => {
-    const errors = validateUserInputs(req.body, "createChallenge");
+    Profile
+      .findOne({ user_id: req.user.id })
+      .then(profile => {
+        const challenge = new Challenge({
+          book: {
+            author: req.body.author,
+            title: req.body.title,
+            numberOfPages: req.body.bookNumberOfPages
+          },
+          readingGoal: {
+            numberOfPages: req.body.goalNumberOfPages,
+            timePeriod: req.body.goalTimePeriod
+          }
+        });
 
-    if(Object.keys(errors).length > 0) {
-      res
-        .status(400)
-        .json(errors);
-    }
-    else {
-      Profile
-        .findOne({ user_id: req.user.id })
-        .then(profile => {
-          const challenge = new Challenge({
-            book: {
-              author: req.body.author,
-              title: req.body.title,
-              numberOfPages: req.body.bookNumberOfPages
-            },
-            readingGoal: {
-              numberOfPages: req.body.goalNumberOfPages,
-              timePeriod: req.body.goalTimePeriod
-            }
-          });
+        profile.challenges
+          .unshift(challenge);
 
-          profile.challenges
-            .unshift(challenge);
-
-          profile
-            .save()
-            .then(profile => {
-              res
-                .status(201)
-                .json({ message: messages.successCreatedChallenge, profile });
-            })
-            .catch(err => console.log(err));
-        })
-        .catch(err => console.log(err));
-    }   
+        profile
+          .save()
+          .then(profile => {
+            res
+              .status(201)
+              .json({ message: messages.successCreatedChallenge, profile });
+          })
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
   });
 
 module.exports = router;
