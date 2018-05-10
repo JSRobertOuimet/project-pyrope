@@ -148,7 +148,7 @@ router
               .then(profile => {
                 res
                   .status(201)
-                  .json(profile);
+                  .json({ message: messages.successCreatedSession, profile });
               })
               .catch(err => console.log(err));
           }

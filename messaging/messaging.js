@@ -10,6 +10,7 @@ const messages = {
   errorUsernameAlreadyUsed: "This username has already been used.",
   successCreatedChallenge: "Your reading challenge has been successfully created.",
   successCreatedProfile: "Your profile has been successfully created.",
+  successCreatedSession: "Your reading session has been successfully created.",
   successLoggedIn: "You have been successfully logged in.",
   successRegisteredUser: "You have been successfully registered.",
   successUpdatedProfile: "Your profile has been successfully updated."
