@@ -7,7 +7,8 @@ const
   messages = require("../messaging/messaging"),
 
   Profile = require("../models/Profile"),
-  Challenge = require("../models/Challenge");
+  Challenge = require("../models/Challenge"),
+  Session = require("../models/Session");
 
 // Get all public profiles (public)
 router
@@ -119,6 +120,39 @@ router
               .json({ message: messages.successCreatedChallenge, profile });
           })
           .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+  });
+
+router
+  .post("/me/challenges/:challenge_id", passport.authenticate("jwt", { session: false }), (req, res) => {
+    Profile
+      .findOne({ user_id: req.user.id })
+      .then(profile => {
+        const challenges = profile.challenges;
+
+        challenges.forEach(challenge => {
+          if(challenge._id.toString() === req.params.challenge_id) {
+            const session = new Session({
+              numberOfPagesRead: req.body.numberOfPagesRead,
+              notes: req.body.notes
+            });
+
+            challenge.sessions
+              .unshift(session);
+
+            profile.markModified("challenges");
+
+            profile
+              .save()
+              .then(profile => {
+                res
+                  .status(201)
+                  .json(profile);
+              })
+              .catch(err => console.log(err));
+          }
+        });
       })
       .catch(err => console.log(err));
   });

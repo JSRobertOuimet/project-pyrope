@@ -27,9 +27,9 @@ const
         required: true
       }
     },
-    readingSessions: {
-      type: Array,
-      required: false
+    sessions: {
+      type: Schema.Types.ObjectId,
+      ref: "session"
     },
     public: {
       type: Boolean,
