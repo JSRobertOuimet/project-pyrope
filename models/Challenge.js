@@ -17,7 +17,7 @@ const
         required: true
       }
     },
-    readingGoal: {
+    goal: {
       numberOfPages: {
         type: Number,
         required: true

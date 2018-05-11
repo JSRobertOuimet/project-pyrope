@@ -123,7 +123,7 @@ router
             title: req.body.title,
             numberOfPages: req.body.bookNumberOfPages
           },
-          readingGoal: {
+          goal: {
             numberOfPages: req.body.goalNumberOfPages,
             timePeriod: req.body.goalTimePeriod
           }
