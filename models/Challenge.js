@@ -28,8 +28,8 @@ const
       }
     },
     sessions: {
-      type: Schema.Types.ObjectId,
-      ref: "session"
+      type: Array,
+      required: true
     },
     public: {
       type: Boolean,
