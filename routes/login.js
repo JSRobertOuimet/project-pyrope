@@ -36,7 +36,7 @@ router.post("/", (req, res) => {
               if(isMatch) {
                 const payload = { id: user.id };
 
-                jwt.sign(payload, jwtKey, { expiresIn: 3600 }, (err, token) => {
+                jwt.sign(payload, jwtKey, { expiresIn: 3600 /* 1 hour */ }, (err, token) => {
                   if(err) throw err;
                   res
                     .status(303)

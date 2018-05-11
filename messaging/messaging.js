@@ -15,6 +15,7 @@ const messages = {
   successLoggedIn: "You are now logged in.",
   successProfileFound: "The profile you were looking for was found.",
   successRegisteredUser: "You have been registered.",
+  successUpdatedChallenge: "Your challenge has been updated.",
   successUpdatedProfile: "Your profile has been updated."
 };
 
