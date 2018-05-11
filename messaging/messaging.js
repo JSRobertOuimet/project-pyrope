@@ -12,6 +12,7 @@ const messages = {
   successCreatedProfile: "Your profile has been successfully created.",
   successCreatedSession: "Your reading session has been successfully created.",
   successLoggedIn: "You have been successfully logged in.",
+  successProfileFound: "The profile you were looking for was found.",
   successRegisteredUser: "You have been successfully registered.",
   successUpdatedProfile: "Your profile has been successfully updated."
 };

@@ -29,6 +29,26 @@ router
       .catch(err => console.log(err));
   });
 
+// Get specific public profile by username (public)
+router
+  .get("/:username", (req, res) => {
+    Profile
+      .findOne({ username: req.params.username })
+      .then(profile => {
+        if(!profile) {
+          res
+            .status(404)
+            .json({ message: messages.errorNoProfileFound });
+        }
+        else {
+          res
+            .status(200)
+            .json({ message: messages.successProfileFound, profile });
+        }
+      })
+      .catch(err => console.log(err));
+  });
+
 // Create or update user's profile (private)
 router
   .post("/me", passport.authenticate("jwt", { session: false }), (req, res) => {
@@ -124,6 +144,7 @@ router
       .catch(err => console.log(err));
   });
 
+// Create session (private)
 router
   .post("/me/challenges/:challenge_id", passport.authenticate("jwt", { session: false }), (req, res) => {
     Profile

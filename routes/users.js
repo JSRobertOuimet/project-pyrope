@@ -26,11 +26,4 @@ router
       .catch(err => console.log(err));
   });
 
-// Get specific user with username (public)
-router
-  .get("/:username", (req, res) => {
-    res
-      .send(`User with id ${req.params.username}...`);
-  });
-
 module.exports = router;
