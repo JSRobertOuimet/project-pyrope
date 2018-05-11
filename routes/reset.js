@@ -1,9 +1,9 @@
 const
   express = require("express"),
   router = express.Router(),
-  nodemailer = require("nodemailer"),
+  sg = require("@sendgrid/mail"),
 
-  testAccount = require("../config/credentials").testAccount,
+  sgAPIKey = require("../config/credentials").sgAPIKey,
 
   validateUserInputs = require("../validation/validation"),
   messages = require("../messaging/messaging");
@@ -18,36 +18,20 @@ router
         .json(errors);
     }
     else {
-      nodemailer.createTestAccount(() => {
-        const transporter = nodemailer.createTransport({
-          host: "smtp.ethereal.email",
-          port: 587,
-          secure: false,
-          auth: {
-            user: testAccount.user,
-            pass: testAccount.password
-          }
-        });
+      sg.setApiKey(sgAPIKey);
+      const msg = {
+        to: `${req.body.email}`,
+        from: "reset@project-pyrope.com",
+        subject: "Reset Password",
+        text: "Here's the link to reset your password!",
+        html: "<p>Here's the link to reset your password!"
+      };
 
-        const config = {
-          from: "'Project Pyrope' <info@project-pyrope.com>",
-          to: `${req.body.email}`,
-          subject: "Reset your Password",
-          text: "Here's the link to reset your password!",
-          html: "<p>Here's the link to reset your password!"
-        };
+      sg.send(msg);
 
-        transporter.sendMail(config, error => {
-          if(error) {
-            console.log(error);
-          }
-          else {
-            res
-              .status(200)
-              .json({ message: messages.successEmailSent });
-          }
-        });
-      });
+      res
+        .status(200)
+        .json({ message: messages.successEmailSent });
     }
   });
 

@@ -8,14 +8,14 @@ const messages = {
   errorNoProfileFound: "No profile found.",
   errorNoUserFound: "No user found.",
   errorUsernameAlreadyUsed: "This username has already been used.",
-  successCreatedChallenge: "Your reading challenge has been successfully created.",
-  successCreatedProfile: "Your profile has been successfully created.",
-  successCreatedSession: "Your reading session has been successfully created.",
-  successEmailSent: "An email with a link to reset your password has been successfully sent.",
-  successLoggedIn: "You have been successfully logged in.",
+  successCreatedChallenge: "Your reading challenge has been created.",
+  successCreatedProfile: "Your profile has been created.",
+  successCreatedSession: "Your reading session has been created.",
+  successEmailSent: "An email with a link to reset your password has been sent.",
+  successLoggedIn: "You are now logged in.",
   successProfileFound: "The profile you were looking for was found.",
-  successRegisteredUser: "You have been successfully registered.",
-  successUpdatedProfile: "Your profile has been successfully updated."
+  successRegisteredUser: "You have been registered.",
+  successUpdatedProfile: "Your profile has been updated."
 };
 
 module.exports = messages;
