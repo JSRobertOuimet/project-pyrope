@@ -10,6 +10,9 @@ const validate = (userInputs, action) => {
     emailValidation(userInputs.email);
     passwordValidation(userInputs.password);
     break;
+  case "resetPassword":
+    emailValidation(userInputs.email);
+    break;
   case "updateOrCreateProfile":
     usernameValidation(userInputs.username);
     aboutValidation(userInputs.about);

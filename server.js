@@ -7,6 +7,7 @@ const
 
   register = require("./routes/register"),
   login = require("./routes/login"),
+  reset = require("./routes/reset"),
   users = require("./routes/users"),
   profiles = require("./routes/profiles"),
 
@@ -27,6 +28,7 @@ require("./config/passport")(passport);
 // Routes
 app.use("/register", register);
 app.use("/login", login);
+app.use("/reset", reset);
 app.use("/users", users);
 app.use("/profiles", profiles);
 

@@ -11,6 +11,7 @@ const messages = {
   successCreatedChallenge: "Your reading challenge has been successfully created.",
   successCreatedProfile: "Your profile has been successfully created.",
   successCreatedSession: "Your reading session has been successfully created.",
+  successEmailSent: "An email with a link to reset your password has been successfully sent.",
   successLoggedIn: "You have been successfully logged in.",
   successProfileFound: "The profile you were looking for was found.",
   successRegisteredUser: "You have been successfully registered.",
