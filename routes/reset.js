@@ -8,6 +8,8 @@ const
   validateUserInputs = require("../validation/validation"),
   messages = require("../messaging/messaging");
 
+// @desc      POST request to obtain reset password link
+// @access    Public
 router
   .post("/", (req, res) => {
     const errors = validateUserInputs(req.body, "resetPassword");

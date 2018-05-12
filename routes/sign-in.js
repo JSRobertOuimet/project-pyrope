@@ -11,7 +11,8 @@ const
 
   User = require("../models/User");
 
-// Log in (public)
+// @desc      POST existing user's credentials to sign in
+// @access    Public
 router.post("/", (req, res) => {
   const errors = validateUserInputs(req.body);
 

@@ -8,7 +8,8 @@ const
 
   User = require("../models/User");
 
-// Register user (private)
+// @desc      POST new user
+// @access    Private
 router.post("/", (req, res) => {
   const errors = validate(req.body, "registerUser");
 

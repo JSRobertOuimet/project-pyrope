@@ -2,20 +2,19 @@ const
   express = require("express"),
   passport = require("passport"),
 
-  mongoURI = require("./config/credentials").mongoURI,
+  mongoUri = require("./config/credentials").mongoUri,
   connect = require("./config/connection"),
 
   register = require("./routes/register"),
-  login = require("./routes/login"),
+  signIn = require("./routes/sign-in"),
   reset = require("./routes/reset"),
-  users = require("./routes/users"),
   profiles = require("./routes/profiles"),
 
   app = express(),
   port = 5000;
 
 // Database
-connect(mongoURI);
+connect(mongoUri);
 
 // Middleware
 app.use(express.json());
@@ -27,9 +26,8 @@ require("./config/passport")(passport);
 
 // Routes
 app.use("/register", register);
-app.use("/login", login);
+app.use("/sign-in", signIn);
 app.use("/reset", reset);
-app.use("/users", users);
 app.use("/profiles", profiles);
 
 app.listen(port, () => console.log(`Server listening on port ${port}...`));

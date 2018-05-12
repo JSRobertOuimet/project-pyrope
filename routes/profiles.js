@@ -15,7 +15,7 @@ const
 router
   .get("/me/dashboard", passport.authenticate("jwt", { session: false }), (req, res) => {
     Profile
-      .findOne({ user_id: req.user.id })
+      .findOne({ userId: req.user.id })
       .then(profile => {
         res.json(profile);
       })
@@ -29,7 +29,7 @@ router
     Profile
       .find({ public: true })
       .then(profiles => {
-        if(profiles.length === 0) {
+        if (profiles.length === 0) {
           res
             .status(404)
             .json({ message: messages.errorNoProfileFound });
@@ -50,12 +50,12 @@ router
     Profile
       .findOne({ username: req.params.username })
       .then(profile => {
-        if(!profile || profile.public === false) {
+        if (!profile || profile.public === false) {
           res
             .status(400)
             .json({ message: messages.errorNoProfileFound });
         }
-        else if(profile.user_id === req.user.id) {
+        else if (profile.userId === req.user.id) {
           res
             .status(302)
             .redirect("me/dashboard");
@@ -77,24 +77,24 @@ router
       errors = validateUserInputs(req.body, "updateOrCreateProfile"),
       profileData = {};
 
-    if(Object.keys(errors).length > 0) {
+    if (Object.keys(errors).length > 0) {
       res
         .status(400)
         .json(errors);
     }
     else {
-      profileData.user_id = req.user.id;
+      profileData.userId = req.user.id;
       profileData.username = req.body.username;
       profileData.about = req.body.about;
 
       Profile
-        .findOne({ user_id: req.user.id })
+        .findOne({ userId: req.user.id })
         .then(profile => {
           // Update existing profile
-          if(profile) {
+          if (profile) {
             Profile
               .findOneAndUpdate(
-                { user_id: req.user.id },
+                { userId: req.user.id },
                 { $set: profileData },
                 { new: true }
               )
@@ -110,7 +110,7 @@ router
             Profile
               .findOne({ username: profileData.username })
               .then(profile => {
-                if(profile) {
+                if (profile) {
                   res
                     .status(409)
                     .json({ message: messages.errorUsernameAlreadyUsed });
@@ -137,7 +137,7 @@ router
 router
   .post("/me/challenges", passport.authenticate("jwt", { session: false }), (req, res) => {
     Profile
-      .findOne({ user_id: req.user.id })
+      .findOne({ userId: req.user.id })
       .then(profile => {
         const challenge = new Challenge({
           book: {
@@ -169,14 +169,14 @@ router
 // @desc      POST session for a specific challenge
 // @access    Private
 router
-  .post("/me/challenges/:challenge_id/sessions", passport.authenticate("jwt", { session: false }), (req, res) => {
+  .post("/me/challenges/:challengeId/sessions", passport.authenticate("jwt", { session: false }), (req, res) => {
     Profile
-      .findOne({ user_id: req.user.id })
+      .findOne({ userId: req.user.id })
       .then(profile => {
         const challenges = profile.challenges;
 
         challenges.forEach(challenge => {
-          if(challenge._id.toString() === req.params.challenge_id) {
+          if (challenge._id.toString() === req.params.challengeId) {
             const session = new Session({
               numberOfPagesRead: req.body.numberOfPagesRead,
               notes: req.body.notes
