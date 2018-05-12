@@ -4,7 +4,9 @@
   "description": "Set reading goals and share your progress with your friends.",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js"
+    "server": "nodemon server.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Jean-Simon Robert Ouimet",
   "license": "MIT",

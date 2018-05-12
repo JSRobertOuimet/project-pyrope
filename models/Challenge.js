@@ -31,6 +31,11 @@ const
       type: Array,
       required: true
     },
+    completed: {
+      type: Boolean,
+      default: false,
+      required: true
+    },
     public: {
       type: Boolean,
       default: true,

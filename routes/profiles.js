@@ -13,11 +13,11 @@ const
 // @desc      GET logged in user's dashboard
 // @access    Private
 router
-  .get("/dashboard", passport.authenticate("jwt", { session: false }), (req, res) => {
+  .get("/me/dashboard", passport.authenticate("jwt", { session: false }), (req, res) => {
     Profile
       .findOne({ user_id: req.user.id })
       .then(profile => {
-        res.send(profile);
+        res.json(profile);
       })
       .catch(err => console.log(err));
   });
@@ -58,7 +58,7 @@ router
         else if(profile.user_id === req.user.id) {
           res
             .status(302)
-            .redirect("dashboard");
+            .redirect("me/dashboard");
         }
         else {
           res
@@ -72,7 +72,7 @@ router
 // @desc      POST user profile (create or edit)
 // @access    Private
 router
-  .post("/me", passport.authenticate("jwt", { session: false }), (req, res) => {
+  .post("/me/create-profile", passport.authenticate("jwt", { session: false }), (req, res) => {
     const
       errors = validateUserInputs(req.body, "updateOrCreateProfile"),
       profileData = {};
