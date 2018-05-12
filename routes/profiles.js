@@ -72,7 +72,7 @@ router
 // @desc      POST user profile (create or edit)
 // @access    Private
 router
-  .post("/me/create-profile", passport.authenticate("jwt", { session: false }), (req, res) => {
+  .post("/me/profile", passport.authenticate("jwt", { session: false }), (req, res) => {
     const
       errors = validateUserInputs(req.body, "updateOrCreateProfile"),
       profileData = {};
@@ -160,6 +160,33 @@ router
             res
               .status(201)
               .json({ message: messages.successCreatedChallenge, profile });
+          })
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+  });
+
+// @desc      DELETE a specific challenge
+// @access    Private
+router
+  .delete("/me/challenges/:challengeId", passport.authenticate("jwt", { session: false }), (req, res) => {
+    Profile
+      .findOne({ userId: req.user.id })
+      .then(profile => {
+        const challenges = profile.challenges;
+
+        const index = challenges
+          .map(challenge => challenge._id.toString())
+          .indexOf(req.params.challengeId);
+
+        challenges.splice(index, 1);
+        profile.markModified("challenges");
+        profile
+          .save()
+          .then(profile => {
+            res
+              .status(200)
+              .json({ message: messages.successDeletedChallenge, profile });
           })
           .catch(err => console.log(err));
       })
