@@ -9,7 +9,7 @@ const
   signIn = require("./routes/auth/sign-in"),
   reset = require("./routes/auth/reset"),
   profiles = require("./routes/browse/profiles"),
-  profile = require("./routes/dashboard/profile"),
+  dashboard = require("./routes/dashboard/dashboard"),
   account = require("./routes/account/account"),
 
   app = express(),
@@ -49,7 +49,7 @@ app.use("/auth/reset", reset);
 app.use("/browse/profiles", profiles);
 
 // Dashboard
-app.use("/browse/profile", profile);
+app.use("/dashboard/dashboard", dashboard);
 
 // Account
 app.use("/account", account);
