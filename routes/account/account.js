@@ -6,16 +6,17 @@ const
   validateUserInputs = require("../../validation/validation"),
   messages = require("../../messaging/messaging"),
 
+  User = require("../../models/User"),
   Profile = require("../../models/Profile");
 
 // @desc      GET logged in user's account
 // @access    Private
 router
   .get("/", passport.authenticate("jwt", { session: false }), (req, res) => {
-    Profile
-      .findOne({ userId: req.user.id })
-      .then(profile => {
-        res.json(profile);
+    User
+      .findOne({ _id: req.user.id })
+      .then(user => {
+        res.json(user);
       })
       .catch(err => console.log(err));
   });

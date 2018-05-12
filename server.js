@@ -49,7 +49,7 @@ app.use("/auth/reset", reset);
 app.use("/browse/profiles", profiles);
 
 // Dashboard
-app.use("/dashboard/dashboard", dashboard);
+app.use("/dashboard", dashboard);
 
 // Account
 app.use("/account", account);

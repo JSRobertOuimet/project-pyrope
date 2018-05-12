@@ -59,7 +59,7 @@ router
 // @desc      DELETE specific challenge
 // @access    Private
 router
-  .delete("/me/challenges/:challengeId", passport.authenticate("jwt", { session: false }), (req, res) => {
+  .delete("/challenges/:challengeId", passport.authenticate("jwt", { session: false }), (req, res) => {
     Profile
       .findOne({ userId: req.user.id })
       .then(profile => {
@@ -86,7 +86,7 @@ router
 // @desc      POST session for a specific challenge
 // @access    Private
 router
-  .post("/me/challenges/:challengeId/sessions", passport.authenticate("jwt", { session: false }), (req, res) => {
+  .post("/challenges/:challengeId/sessions", passport.authenticate("jwt", { session: false }), (req, res) => {
     Profile
       .findOne({ userId: req.user.id })
       .then(profile => {
