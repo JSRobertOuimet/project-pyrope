@@ -3,7 +3,6 @@ const
   router = express.Router(),
   passport = require("passport"),
 
-  validateUserInputs = require("../../validation/validation"),
   messages = require("../../messaging/messaging"),
 
   Profile = require("../../models/Profile"),

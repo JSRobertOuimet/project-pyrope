@@ -84,4 +84,22 @@ router
     }
   });
 
+// @desc      DELETE user account and profile
+// @access    Private
+router
+  .delete("/", passport.authenticate("jwt", { session: false }), (req, res) => {
+    Profile
+      .findOneAndRemove({ userId: req.user.id })
+      .then(() => {
+        User.findOneAndRemove({ _id: req.user.id })
+          .then(() => {
+            res
+              .status(200)
+              .json({ message: messages.successDeletedProfileAndUser });
+          })
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+  });
+
 module.exports = router;
