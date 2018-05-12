@@ -55,6 +55,26 @@ router
       .catch(err => console.log(err));
   });
 
+// @desc      GET specific challenge
+// @access    Private
+router
+  .get("/challenges/:challengeId", passport.authenticate("jwt", { session: false }), (req, res) => {
+    Profile
+      .findOne({ userId: req.user.id })
+      .then(profile => {
+        const challenges = profile.challenges;
+
+        challenges.forEach(challenge => {
+          if(challenge._id.toString() === req.params.challengeId) {
+            res
+              .status(200)
+              .json(challenge);
+          }
+        });
+      })
+      .catch(err => console.log(err));
+  });
+
 // @desc      DELETE specific challenge
 // @access    Private
 router
