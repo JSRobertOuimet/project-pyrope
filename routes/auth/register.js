@@ -3,10 +3,10 @@ const
   router = express.Router(),
   bcrypt = require("bcryptjs"),
 
-  validate = require("../validation/validation"),
-  messages = require("../messaging/messaging"),
+  validate = require("../../validation/validation"),
+  messages = require("../../messaging/messaging"),
 
-  User = require("../models/User");
+  User = require("../../models/User");
 
 // @desc      POST new user
 // @access    Private

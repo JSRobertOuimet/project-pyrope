@@ -3,24 +3,12 @@ const
   router = express.Router(),
   passport = require("passport"),
 
-  validateUserInputs = require("../validation/validation"),
-  messages = require("../messaging/messaging"),
+  validateUserInputs = require("../../validation/validation"),
+  messages = require("../../messaging/messaging"),
 
-  Profile = require("../models/Profile"),
-  Challenge = require("../models/Challenge"),
-  Session = require("../models/Session");
-
-// @desc      GET logged in user's dashboard
-// @access    Private
-router
-  .get("/me/dashboard", passport.authenticate("jwt", { session: false }), (req, res) => {
-    Profile
-      .findOne({ userId: req.user.id })
-      .then(profile => {
-        res.json(profile);
-      })
-      .catch(err => console.log(err));
-  });
+  Profile = require("../../models/Profile"),
+  Challenge = require("../../models/Challenge"),
+  Session = require("../../models/Session");
 
 // @desc      GET all public profiles
 // @access    Private
@@ -65,6 +53,18 @@ router
             .status(200)
             .json(profile);
         }
+      })
+      .catch(err => console.log(err));
+  });
+
+// @desc      GET logged in user's dashboard
+// @access    Private
+router
+  .get("/me/dashboard", passport.authenticate("jwt", { session: false }), (req, res) => {
+    Profile
+      .findOne({ userId: req.user.id })
+      .then(profile => {
+        res.json(profile);
       })
       .catch(err => console.log(err));
   });
@@ -166,7 +166,7 @@ router
       .catch(err => console.log(err));
   });
 
-// @desc      DELETE a specific challenge
+// @desc      DELETE specific challenge
 // @access    Private
 router
   .delete("/me/challenges/:challengeId", passport.authenticate("jwt", { session: false }), (req, res) => {

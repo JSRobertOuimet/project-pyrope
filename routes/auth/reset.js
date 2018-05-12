@@ -3,10 +3,10 @@ const
   router = express.Router(),
   sg = require("@sendgrid/mail"),
 
-  sgAPIKey = require("../config/credentials").sgAPIKey,
+  sgAPIKey = require("../../config/credentials").sgAPIKey,
 
-  validateUserInputs = require("../validation/validation"),
-  messages = require("../messaging/messaging");
+  validateUserInputs = require("../../validation/validation"),
+  messages = require("../../messaging/messaging");
 
 // @desc      POST request to obtain reset password link
 // @access    Public

@@ -4,12 +4,12 @@ const
   bcrypt = require("bcryptjs"),
   jwt = require("jsonwebtoken"),
 
-  jwtKey = require("../config/credentials").jwtKey,
+  jwtKey = require("../../config/credentials").jwtKey,
 
-  validateUserInputs = require("../validation/validation"),
-  messages = require("../messaging/messaging"),
+  validateUserInputs = require("../../validation/validation"),
+  messages = require("../../messaging/messaging"),
 
-  User = require("../models/User");
+  User = require("../../models/User");
 
 // @desc      POST existing user's credentials to sign in
 // @access    Public
