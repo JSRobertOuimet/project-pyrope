@@ -102,6 +102,29 @@ router
       .catch(err => console.log(err));
   });
 
+// @desc      GET session for a specific challenge
+// @access    Private
+router
+  .get("/challenges/:challengeId/sessions", passport.authenticate("jwt", { session: false }), (req, res) => {
+    Profile
+      .findOne({ userId: req.user.id })
+      .then(profile => {
+        const challenges = profile.challenges;
+        let currentChallenge;
+
+        challenges.forEach(challenge => {
+          if(challenge._id.toString() === req.params.challengeId) {
+            currentChallenge = challenge;
+          }
+        });
+
+        res
+          .status(200)
+          .json(currentChallenge.sessions);
+      })
+      .catch(err => console.log(err));
+  });
+
 // @desc      POST session for a specific challenge
 // @access    Private
 router
