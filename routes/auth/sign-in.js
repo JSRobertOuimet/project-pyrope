@@ -14,7 +14,7 @@ const
 // @desc      POST existing user's credentials to sign in
 // @access    Public
 router.post("/", (req, res) => {
-  const errors = validateUserInputs(req.body);
+  const errors = validateUserInputs(req.body, "signInUser");
 
   if(Object.keys(errors).length > 0) {
     res

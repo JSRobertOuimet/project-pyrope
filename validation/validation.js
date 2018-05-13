@@ -10,6 +10,10 @@ const validate = (userInputs, action) => {
     emailValidation(userInputs.email);
     passwordValidation(userInputs.password);
     break;
+  case "signInUser":
+    emailValidation(userInputs.email);
+    passwordValidation(userInputs.password);
+    break;
   case "resetPassword":
     emailValidation(userInputs.email);
     break;
@@ -18,7 +22,7 @@ const validate = (userInputs, action) => {
     aboutValidation(userInputs.about);
     break;
   default:
-    console.log("none");
+    console.log("We're good to go!");
   }
 
   return errors;
