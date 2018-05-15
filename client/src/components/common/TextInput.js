@@ -13,7 +13,9 @@ const TextInput = ({ label, type, name, value, placeholder, error, onChange }) =
         value={value}
         placeholder={placeholder}
         className={classnames("form-control", { "is-invalid": error })}
-        onChange={onChange} />
+        onChange={onChange}
+      />
+      {error && <div className="invalid-feedback">{error}</div>}
     </div>
   );
 };
@@ -26,10 +28,6 @@ TextInput.propTypes = {
   value: propTypes.string,
   placeholder: propTypes.string,
   onChange: propTypes.func.isRequired
-};
-
-TextInput.defaultProps = {
-  type: "text"
 };
 
 export default TextInput;

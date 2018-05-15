@@ -10,9 +10,11 @@ class App extends Component {
       <BrowserRouter>
         <React.Fragment>
           <div className="container">
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/sign-in" component={SignIn} />
-            <Route exact path="/reset-password" component={ResetPassword} />
+            <div className="row justify-content-center">
+              <Route exact path="/auth/register" component={Register} />
+              <Route exact path="/auth/sign-in" component={SignIn} />
+              <Route exact path="/auth/reset-password" component={ResetPassword} />
+            </div>
           </div>
         </React.Fragment>
       </BrowserRouter>
