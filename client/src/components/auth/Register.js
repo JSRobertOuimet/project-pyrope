@@ -46,7 +46,7 @@ class Register extends Component {
 
   render() {
     return (
-      <div className="mt-5">
+      <div className="col-md-4 mt-5">
         <div className="card mb-1">
           <div className="card-body">
             <h1 className="card-title h3 text-center">Register</h1>
