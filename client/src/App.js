@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route } from "react-router-dom";
 import Register from "./components/auth/Register";
-import SignIn from "./components/auth/Register";
+import SignIn from "./components/auth/SignIn";
 import ResetPassword from "./components/auth/ResetPassword";
 
 class App extends Component {

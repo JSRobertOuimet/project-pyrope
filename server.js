@@ -2,7 +2,7 @@ const
   express = require("express"),
   passport = require("passport"),
 
-  mongoUri = require("./config/credentials").mongoUri,
+  mongoURI = require("./config/credentials").mongoURI,
   connect = require("./config/connection"),
 
   register = require("./routes/auth/register"),
@@ -20,7 +20,7 @@ const
 // Database
 // ------------------------------
 
-connect(mongoUri);
+connect(mongoURI);
 
 
 // ------------------------------
