@@ -9,7 +9,7 @@ const validate = (userInputs, action) => {
     case "registerUser":
       emailValidation(userInputs.email);
       passwordValidation(userInputs.password);
-      confirmPasswordValidation(userInputs.confirmPassword);
+      confirmPasswordValidation(userInputs.password, userInputs.confirmPassword);
       break;
     case "signInUser":
       emailValidation(userInputs.email);
