@@ -10,8 +10,8 @@ import SubmitButton from "../common/SubmitButton";
 import axios from "axios";
 
 class Register extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
     this.state = {
       email: "",
