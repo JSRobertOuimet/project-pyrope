@@ -6,24 +6,24 @@ const validate = (userInputs, action) => {
   let errors = {};
 
   switch(action) {
-  case "registerUser":
-    emailValidation(userInputs.email);
-    passwordValidation(userInputs.password);
-    confirmPasswordValidation(userInputs.confirmPassword);
-    break;
-  case "signInUser":
-    emailValidation(userInputs.email);
-    passwordValidation(userInputs.password);
-    break;
-  case "resetPassword":
-    emailValidation(userInputs.email);
-    break;
-  case "updateOrCreateProfile":
-    usernameValidation(userInputs.username);
-    aboutValidation(userInputs.about);
-    break;
-  default:
-    console.log("We're good to go!");
+    case "registerUser":
+      emailValidation(userInputs.email);
+      passwordValidation(userInputs.password);
+      confirmPasswordValidation(userInputs.confirmPassword);
+      break;
+    case "signInUser":
+      emailValidation(userInputs.email);
+      passwordValidation(userInputs.password);
+      break;
+    case "resetPassword":
+      emailValidation(userInputs.email);
+      break;
+    case "updateOrCreateProfile":
+      usernameValidation(userInputs.username);
+      aboutValidation(userInputs.about);
+      break;
+    default:
+      console.log("We're good to go!");
   }
 
   return errors;
