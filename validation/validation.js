@@ -9,6 +9,7 @@ const validate = (userInputs, action) => {
   case "registerUser":
     emailValidation(userInputs.email);
     passwordValidation(userInputs.password);
+    confirmPasswordValidation(userInputs.confirmPassword);
     break;
   case "signInUser":
     emailValidation(userInputs.email);
@@ -36,6 +37,12 @@ const validate = (userInputs, action) => {
   function passwordValidation(password) {
     if(!validator.isLength(password + "", { min: 8 })) {
       return errors.password = messages.errorInvalidPassword;
+    }
+  }
+
+  function confirmPasswordValidation(password, confirmPassword) {
+    if(password !== confirmPassword) {
+      return errors.confirmPassword = messages.errorUnmatchedPasswords;
     }
   }
 

@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+
+// Components
 import TextInput from "../common/TextInput";
 import SubmitButton from "../common/SubmitButton";
+
+// Methods
+// import { registerUser } from "../actions/authActions";
+import axios from "axios";
 
 class Register extends Component {
   constructor(props) {
@@ -28,7 +34,7 @@ class Register extends Component {
 
   onChange(e) {
     this.setState({
-      [e.target.name]: [e.target.value]
+      [e.target.name]: e.target.value
     });
   }
 
@@ -41,22 +47,32 @@ class Register extends Component {
       confirmPassword: this.state.confirmPassword
     };
 
-    this.props.registerUser(newUser, this.props.history);
+    axios
+      .post("/auth/register", newUser)
+      .then(res => console.log(res))
+      .catch(err => this.setState({
+        errors: err.response.data
+      }));
+
+    // this.props.registerUser(newUser, this.props.history);
   }
 
   render() {
+    const { errors } = this.state;
+
     return (
-      <div className="col-md-4 mt-5">
+      <div className="col-md-6 col-lg-4 mt-5">
         <div className="card mb-1">
           <div className="card-body">
             <h1 className="card-title h3 text-center">Register</h1>
-            <form noValidate>
+            <form onSubmit={this.onSubmit} noValidate>
               <TextInput
                 label="Email"
                 type="email"
                 id="email"
                 name="email"
                 value={this.state.email}
+                error={errors.email}
                 onChange={this.onChange}
               />
               <TextInput
@@ -65,6 +81,7 @@ class Register extends Component {
                 id="password"
                 name="password"
                 value={this.state.password}
+                error={errors.password}
                 onChange={this.onChange}
               />
               <TextInput
@@ -73,6 +90,7 @@ class Register extends Component {
                 id="confirmPassword"
                 name="confirmPassword"
                 value={this.state.confirmPassword}
+                error={errors.confirmPassword}
                 onChange={this.onChange}
               />
               <SubmitButton
