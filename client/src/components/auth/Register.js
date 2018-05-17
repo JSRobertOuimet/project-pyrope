@@ -1,13 +1,20 @@
+//==================================================
+// React
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
+import propTypes from "prop-types";
 
 // Components
+import { Link } from "react-router-dom";
 import TextInput from "../common/TextInput";
 import SubmitButton from "../common/SubmitButton";
 
 // Methods
-// import { registerUser } from "../actions/authActions";
-import axios from "axios";
+import { registerUser } from "../../actions/authActions";
+
+// Redux
+import { connect } from "react-redux";
+//==================================================
 
 class Register extends Component {
   constructor() {
@@ -47,14 +54,7 @@ class Register extends Component {
       confirmPassword: this.state.confirmPassword
     };
 
-    axios
-      .post("/auth/register", newUser)
-      .then(res => console.log(res))
-      .catch(err => this.setState({
-        errors: err.response.data
-      }));
-
-    // this.props.registerUser(newUser, this.props.history);
+    this.props.registerUser(newUser, this.props.history);
   }
 
   render() {
@@ -108,4 +108,15 @@ class Register extends Component {
   }
 }
 
-export default Register;
+Register.propTypes = {
+  errors: propTypes.object.isRequired,
+  auth: propTypes.object.isRequired,
+  registerUser: propTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  errors: state.errors,
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, { registerUser })(withRouter(Register));
