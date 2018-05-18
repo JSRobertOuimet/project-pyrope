@@ -1,15 +1,116 @@
+//==================================================
+// React
 import React, { Component } from "react";
+import propTypes from "prop-types";
+
+// Components
+import { Link } from "react-router-dom";
+import TextInput from "../common/TextInput";
+import SubmitButton from "../common/SubmitButton";
+
+// Methods
+import { signInUser } from "../../actions/authActions";
+
+// Redux
+import { connect } from "react-redux";
+//==================================================
 
 class SignIn extends Component {
+  constructor() {
+    super();
+    
+    this.state = {
+      email: "",
+      password: "",
+      errors: {}
+    };
+
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+    
+    if(nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
+    }
+  }
+
+  onChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    });
+  }
+
+  onSubmit(e) {
+    e.preventDefault();
+
+    const userData = {
+      email: this.state.email,
+      password: this.state.password
+    };
+
+    this.props.signInUser(userData);
+  }
+
   render() {
+    const { errors } = this.state;
+
     return (
-      <div className="card">
-        <div className="card-body">
-          Sign In...
+      <div className="col-sm-8 col-md-6 col-lg-4 mt-5">
+        {errors.message && (<div className="alert alert-danger" role="alert">{errors.message}</div>)}
+        <div className="card mb-1">
+          <div className="card-body">
+            <h1 className="card-title h3 text-center">Sign In</h1>
+            <form onSubmit={this.onSubmit} noValidate>
+              <TextInput
+                label="Email"
+                type="email"
+                id="email"
+                name="email"
+                value={this.state.email}
+                error={errors.email}
+                onChange={this.onChange}
+              />
+              <TextInput
+                label="Password"
+                type="password"
+                id="password"
+                name="password"
+                value={this.state.password}
+                error={errors.password}
+                onChange={this.onChange}
+              />
+              <SubmitButton
+                buttonType="secondary"
+                block="block"
+                value="Sign In"
+              />
+            </form>
+          </div>
         </div>
+        <Link to="/auth/reset-password">Reset Password</Link>
+        <Link to="/auth/register" className="float-right">Register</Link>
       </div>
     );
   }
 }
 
-export default SignIn;
+SignIn.propTypes = {
+  errors: propTypes.object.isRequired,
+  auth: propTypes.object.isRequired,
+  history: propTypes.object.isRequired,
+  signInUser: propTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  errors: state.errors,
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, { signInUser })(SignIn);

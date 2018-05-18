@@ -40,8 +40,10 @@ router.post("/", (req, res) => {
                 jwt.sign(payload, jwtKey, { expiresIn: 3600 /* 1 hour */ }, (err, token) => {
                   if(err) throw err;
                   res
-                    .status(303)
-                    .json({ message: messages.successLoggedIn, token: "Bearer " + token });
+                    .json({
+                      message: messages.successLoggedIn,
+                      token: "Bearer " + token
+                    });
                 });
               }
               else {

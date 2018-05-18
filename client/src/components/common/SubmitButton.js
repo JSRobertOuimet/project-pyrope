@@ -2,7 +2,7 @@ import React from "react";
 import classnames from "classnames";
 import propTypes from "prop-types";
 
-const SubmitButton = ({ buttonType, block, disabled, value }) => {
+const SubmitButton = ({ buttonType, block, value, disabled }) => {
   return (
     <input
       type="submit"
@@ -17,9 +17,9 @@ const SubmitButton = ({ buttonType, block, disabled, value }) => {
 };
 
 SubmitButton.propTypes = {
-  value: propTypes.string.isRequired,
-  primary: propTypes.string,
+  buttonType: propTypes.string.isRequired,
   block: propTypes.string,
+  value: propTypes.string.isRequired,
   disabled: propTypes.string,
 };
 
