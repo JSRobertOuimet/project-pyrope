@@ -61,7 +61,7 @@ class Register extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="col-md-6 col-lg-4 mt-5">
+      <div className="col-sm-8 col-md-6 col-lg-4 mt-5">
         <div className="card mb-1">
           <div className="card-body">
             <h1 className="card-title h3 text-center">Register</h1>

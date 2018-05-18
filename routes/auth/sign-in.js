@@ -41,7 +41,7 @@ router.post("/", (req, res) => {
                   if(err) throw err;
                   res
                     .json({
-                      message: messages.successLoggedIn,
+                      message: messages.successSignedIn,
                       token: "Bearer " + token
                     });
                 });
