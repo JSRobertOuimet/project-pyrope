@@ -18,7 +18,7 @@ import { connect } from "react-redux";
 class ResetPassword extends Component {
   constructor() {
     super();
-    
+
     this.state = {
       email: "",
       errors: {}
@@ -44,7 +44,7 @@ class ResetPassword extends Component {
 
   onSubmit(e) {
     const { email } = this.state;
-    
+
     e.preventDefault();
 
     this.props.resetPassword(email);
@@ -52,7 +52,6 @@ class ResetPassword extends Component {
 
   render() {
     const { errors } = this.state;
-    const { feedback } = this.state;
 
     return (
       <div className="col-sm-8 col-md-6 col-lg-4 mt-5">
