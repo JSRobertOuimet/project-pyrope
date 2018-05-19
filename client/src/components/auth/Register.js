@@ -31,6 +31,12 @@ class Register extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentDidMount() {
+    if(this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if(nextProps.errors) {
       this.setState({
@@ -46,13 +52,13 @@ class Register extends Component {
   }
 
   onSubmit(e) {
-    e.preventDefault();
-
     const newUser = {
       email: this.state.email,
       password: this.state.password,
       confirmPassword: this.state.confirmPassword
     };
+
+    e.preventDefault();
 
     this.props.registerUser(newUser, this.props.history);
   }

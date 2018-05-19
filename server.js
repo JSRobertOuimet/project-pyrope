@@ -7,7 +7,7 @@ const
 
   register = require("./routes/auth/register"),
   signIn = require("./routes/auth/sign-in"),
-  reset = require("./routes/auth/reset"),
+  resetPassword = require("./routes/auth/reset-password"),
   profiles = require("./routes/browse/profiles"),
   dashboard = require("./routes/dashboard/dashboard"),
   account = require("./routes/account/account"),
@@ -43,7 +43,7 @@ require("./config/passport")(passport);
 // Auth
 app.use("/auth/register", register);
 app.use("/auth/sign-in", signIn);
-app.use("/auth/reset", reset);
+app.use("/auth/reset-password", resetPassword);
 
 // Browse
 app.use("/browse/profiles", profiles);

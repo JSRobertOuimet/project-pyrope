@@ -46,6 +46,18 @@ export const signInUser = userData => dispatch => {
     );
 };
 
+export const resetPassword = email => dispatch => {
+  axios
+    .post("/auth/reset-password", email)
+    .then(res => console.log(res.data))
+    .catch (err => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      });
+    });
+};
+
 export const setCurrentUser = decoded => {
   return {
     type: SET_CURRENT_USER,
