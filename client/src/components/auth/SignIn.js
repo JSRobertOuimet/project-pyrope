@@ -68,7 +68,7 @@ class SignIn extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="col-sm-8 col-md-6 col-lg-4 mt-5">
+      <div className="col-sm-8 col-md-6 col-lg-4">
         {errors.message && (<div className="alert alert-danger" role="alert">{errors.message}</div>)}
         <div className="card mb-1">
           <div className="card-body">

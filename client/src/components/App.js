@@ -1,7 +1,7 @@
 //==================================================
 // React
 import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 // Other Modules
 import jwt_decode from "jwt-decode";
@@ -46,8 +46,10 @@ class App extends Component {
               <div className="row justify-content-center">
                 <Route exact path="/auth/register" component={Register} />
                 <Route exact path="/auth/sign-in" component={SignIn} />
-                <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </div>
+              <Switch>
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
+              </Switch>
             </div>
           </React.Fragment>
         </BrowserRouter>

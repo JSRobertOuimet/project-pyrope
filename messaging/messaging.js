@@ -1,6 +1,6 @@
 const messages = {
   errorEmailAlreadyUsed: "This email address has already been used.",
-  errorIncorrectEmailOrPassword: "The email address or password is incorrect.",
+  errorIncorrectEmailOrPassword: "The email or password is incorrect.",
   errorInvalidAbout: "Your profile’s about section cannot exceed 140 characters.",
   errorInvalidEmail: "Please enter a valid email address.",
   errorInvalidPassword: "Your password must be at least 8 characters long.",

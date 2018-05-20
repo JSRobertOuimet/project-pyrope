@@ -47,7 +47,7 @@ class Navbar extends Component {
         </ul>
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <Link className="nav-link" to="/account">Account</Link>
+            <Link className="nav-link" to="/account">My Profile</Link>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="" onClick={this.onSignOutUserClick.bind(this)}>Sign Out</a>
@@ -57,9 +57,9 @@ class Navbar extends Component {
     );
 
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
         <div className="container">
-          <Link to="/" className="navbar-brand">(PP)</Link>
+          <Link to="/" className="navbar-brand">Project Pyrope</Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
