@@ -108,7 +108,9 @@ class Register extends Component {
           </div>
         </div>
         {/* <Link to="/auth/reset-password">Forgot password?</Link> */}
-        <Link to="/auth/sign-in">Sign In</Link>
+        <div className="d-flex justify-content-center">
+          <Link to="/auth/sign-in">Have an account? Sign In!</Link>
+        </div>
       </div>
     );
   }

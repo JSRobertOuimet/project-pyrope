@@ -15,7 +15,7 @@ import Dashboard from "./dashboard/Dashboard";
 
 // Methods
 import setAuthToken from "../utils/setAuthToken";
-import { setCurrentUser } from "../actions/authActions";
+import { setCurrentUser, signOutUser } from "../actions/authActions";
 
 // Redux
 import { Provider } from "react-redux";
@@ -24,9 +24,15 @@ import store from "../store";
 
 if(localStorage.jwtToken) {
   const decoded = jwt_decode(localStorage.jwtToken);
+  const currentTime = Date.now() / 1000;
 
   setAuthToken(localStorage.jwtToken);
   store.dispatch(setCurrentUser(decoded));
+
+  if(decoded.exp < currentTime) {
+    store.dispatch(signOutUser);
+    window.location.href = "/auth/sign-in";
+  }
 }
 
 class App extends Component {

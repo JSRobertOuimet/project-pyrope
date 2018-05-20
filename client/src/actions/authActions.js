@@ -46,6 +46,12 @@ export const signInUser = userData => dispatch => {
     );
 };
 
+export const signOutUser = () => dispatch => {
+  localStorage.removeItem("jwtToken");
+  setAuthToken(false);
+  dispatch(setCurrentUser({}));
+};
+
 export const setCurrentUser = decoded => {
   return {
     type: SET_CURRENT_USER,

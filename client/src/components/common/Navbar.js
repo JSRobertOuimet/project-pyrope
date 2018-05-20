@@ -1,19 +1,61 @@
 //==================================================
 // React
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 // Components
 import { Link } from "react-router-dom";
 
 // Methods
-// import { signOutUser } from "../../actions/authActions";
+import { signOutUser } from "../../actions/authActions";
 
 // Redux
 import { connect } from "react-redux";
 //==================================================
 
 class Navbar extends Component {
+  onSignOutUserClick(e) {
+    e.preventDefault();
+
+    this.props.signOutUser();
+  }
+
   render() {
+    const { isAuthenticated } = this.props.auth;
+    const guestLinks = (
+      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item">
+            <Link className="nav-link" to="/auth/register">Register</Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/auth/sign-in">Sign In</Link>
+          </li>
+        </ul>
+      </div>
+    );
+
+    const userLinks = (
+      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <Link className="nav-link" to="/dashboard">Dashboard</Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/browse">Browse</Link>
+          </li>
+        </ul>
+        <ul className="navbar-nav ml-auto">
+          <li className="nav-item">
+            <Link className="nav-link" to="/account">Account</Link>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="" onClick={this.onSignOutUserClick.bind(this)}>Sign Out</a>
+          </li>
+        </ul>
+      </div>
+    );
+
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container">
@@ -22,32 +64,20 @@ class Navbar extends Component {
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/dashboard">Dashboard</Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/browse">Browse</Link>
-              </li>
-            </ul>
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  More
-                </a>
-                <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                  <Link className="dropdown-item" to="/account">Account</Link>
-                  <div className="dropdown-divider"></div>
-                  <a className="dropdown-item" href="">Sign Out</a>
-                </div>
-              </li>
-            </ul>
-          </div>
+          { isAuthenticated ? userLinks : guestLinks }
         </div>
       </nav>
     );
   }
 }
 
-export default connect(null, {})(Navbar);
+Navbar.propTypes = {
+  auth: PropTypes.object.isRequired,
+  signOutUser: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, { signOutUser })(Navbar);

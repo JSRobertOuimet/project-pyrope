@@ -29,6 +29,12 @@ class SignIn extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  componentDidMount() {
+    if(this.props.auth.isAuthenticated) {
+      this.props.history.push("/dashboard");
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if(nextProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
@@ -95,7 +101,9 @@ class SignIn extends Component {
           </div>
         </div>
         {/* <Link to="/auth/reset-password">Reset Password</Link> */}
-        <Link to="/auth/register">Register</Link>
+        <div className="d-flex justify-content-center">
+          <Link to="/auth/register">Don&#8217;t have an account? Register!</Link>
+        </div>
       </div>
     );
   }
