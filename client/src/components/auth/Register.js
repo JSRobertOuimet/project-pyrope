@@ -2,7 +2,7 @@
 // React
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import propTypes from "prop-types";
+import PropTypes from "prop-types";
 
 // Components
 import { Link } from "react-router-dom";
@@ -107,18 +107,18 @@ class Register extends Component {
             </form>
           </div>
         </div>
-        <Link to="/auth/reset-password">Forgot password?</Link>
-        <Link to="/auth/sign-in" className="float-right">Sign In</Link>
+        {/* <Link to="/auth/reset-password">Forgot password?</Link> */}
+        <Link to="/auth/sign-in">Sign In</Link>
       </div>
     );
   }
 }
 
 Register.propTypes = {
-  errors: propTypes.object.isRequired,
-  auth: propTypes.object.isRequired,
-  history: propTypes.object.isRequired,
-  registerUser: propTypes.func.isRequired
+  errors: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  registerUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({

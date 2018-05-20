@@ -1,6 +1,6 @@
 import React from "react";
 import classnames from "classnames";
-import propTypes from "prop-types";
+import PropTypes from "prop-types";
 
 const SubmitButton = ({ buttonType, block, value, disabled }) => {
   return (
@@ -17,10 +17,10 @@ const SubmitButton = ({ buttonType, block, value, disabled }) => {
 };
 
 SubmitButton.propTypes = {
-  buttonType: propTypes.string.isRequired,
-  block: propTypes.string,
-  value: propTypes.string.isRequired,
-  disabled: propTypes.string,
+  buttonType: PropTypes.string.isRequired,
+  block: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  disabled: PropTypes.string,
 };
 
 export default SubmitButton;

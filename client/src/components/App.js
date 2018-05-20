@@ -7,9 +7,11 @@ import { BrowserRouter, Route } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 // Components
+import Navbar from "./common/Navbar";
+import PrivateRoute from "./common/PrivateRoute";
 import Register from "./auth/Register";
 import SignIn from "./auth/SignIn";
-import ResetPassword from "./auth/ResetPassword";
+import Dashboard from "./dashboard/Dashboard";
 
 // Methods
 import setAuthToken from "../utils/setAuthToken";
@@ -33,11 +35,12 @@ class App extends Component {
       <Provider store={store}>
         <BrowserRouter>
           <React.Fragment>
+            <Navbar />
             <div className="container">
               <div className="row justify-content-center">
                 <Route exact path="/auth/register" component={Register} />
                 <Route exact path="/auth/sign-in" component={SignIn} />
-                <Route exact path="/auth/reset-password" component={ResetPassword} />
+                <PrivateRoute exact path="/dashboard" component={Dashboard} />
               </div>
             </div>
           </React.Fragment>

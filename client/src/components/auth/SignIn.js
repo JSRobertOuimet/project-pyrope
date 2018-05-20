@@ -1,7 +1,7 @@
 //==================================================
 // React
 import React, { Component } from "react";
-import propTypes from "prop-types";
+import PropTypes from "prop-types";
 
 // Components
 import { Link } from "react-router-dom";
@@ -18,7 +18,7 @@ import { connect } from "react-redux";
 class SignIn extends Component {
   constructor() {
     super();
-    
+
     this.state = {
       email: "",
       password: "",
@@ -33,7 +33,7 @@ class SignIn extends Component {
     if(nextProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard");
     }
-    
+
     if(nextProps.errors) {
       this.setState({
         errors: nextProps.errors
@@ -94,18 +94,18 @@ class SignIn extends Component {
             </form>
           </div>
         </div>
-        <Link to="/auth/reset-password">Reset Password</Link>
-        <Link to="/auth/register" className="float-right">Register</Link>
+        {/* <Link to="/auth/reset-password">Reset Password</Link> */}
+        <Link to="/auth/register">Register</Link>
       </div>
     );
   }
 }
 
 SignIn.propTypes = {
-  errors: propTypes.object.isRequired,
-  auth: propTypes.object.isRequired,
-  history: propTypes.object.isRequired,
-  signInUser: propTypes.func.isRequired
+  errors: PropTypes.object.isRequired,
+  auth: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+  signInUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
