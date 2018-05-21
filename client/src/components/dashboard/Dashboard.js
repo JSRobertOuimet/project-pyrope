@@ -17,7 +17,7 @@ class Dashboard extends Component {
     return (
       <React.Fragment>
         <h2 className="text-dark mb-3">My Stats</h2>
-        <div className="row">
+        <div className="row mb-5">
           <div className="col-sm-3">
             <div className="card text-center">
               <div className="card-body">
@@ -51,8 +51,8 @@ class Dashboard extends Component {
             </div>
           </div>
         </div>
-        <h2 className="text-dark mt-5 mb-3">My Challenges</h2>
-        <div className="row mb-5">
+        <h2 className="text-dark mb-3">My Challenges</h2>
+        <div className="row mb-3">
           <div className="col-sm-4">
             <div className="card border-0">
               <img src={bookImg1} alt="[Book Title]" className="card-img rounded-0"/>
@@ -105,6 +105,9 @@ class Dashboard extends Component {
             </div>
           </div>
         </div>
+        <Link to="/dashboard/create-challenge" className="btn btn-secondary float-right mb-5">
+          Create challenge
+        </Link>
       </React.Fragment>
     );
   }
