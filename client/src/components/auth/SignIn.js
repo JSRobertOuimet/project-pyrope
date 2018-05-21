@@ -68,41 +68,42 @@ class SignIn extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="col-sm-8 col-md-6 col-lg-4">
-        {errors.message && (<div className="alert alert-danger" role="alert">{errors.message}</div>)}
-        <div className="card mb-1">
-          <div className="card-body">
-            <h1 className="card-title h3 text-center">Sign In</h1>
-            <form onSubmit={this.onSubmit} noValidate>
-              <TextInput
-                label="Email"
-                type="email"
-                id="email"
-                name="email"
-                value={this.state.email}
-                error={errors.email}
-                onChange={this.onChange}
-              />
-              <TextInput
-                label="Password"
-                type="password"
-                id="password"
-                name="password"
-                value={this.state.password}
-                error={errors.password}
-                onChange={this.onChange}
-              />
-              <SubmitButton
-                buttonType="secondary"
-                block="block"
-                value="Sign In"
-              />
-            </form>
+      <div className="row justify-content-center">
+        <div className="col-sm-8 col-md-6 col-lg-4">
+          {errors.message && (<div className="alert alert-danger text-center" role="alert">{errors.message}</div>)}
+          <div className="card mb-1">
+            <div className="card-body">
+              <h1 className="card-title h3 text-center">Sign In</h1>
+              <form onSubmit={this.onSubmit} noValidate>
+                <TextInput
+                  label="Email"
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={this.state.email}
+                  error={errors.email}
+                  onChange={this.onChange}
+                />
+                <TextInput
+                  label="Password"
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={this.state.password}
+                  error={errors.password}
+                  onChange={this.onChange}
+                />
+                <SubmitButton
+                  buttonType="secondary"
+                  block="block"
+                  value="Sign In"
+                />
+              </form>
+            </div>
           </div>
-        </div>
-        {/* <Link to="/auth/reset-password">Reset Password</Link> */}
-        <div className="d-flex justify-content-center">
-          <Link to="/auth/register">Don&#8217;t have an account? Register!</Link>
+          <div className="d-flex justify-content-center">
+            <Link to="/auth/register">Don&#8217;t have an account? Register!</Link>
+          </div>
         </div>
       </div>
     );

@@ -67,49 +67,50 @@ class Register extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="col-sm-8 col-md-6 col-lg-4">
-        <div className="card mb-1">
-          <div className="card-body">
-            <h1 className="card-title h3 text-center">Register</h1>
-            <form onSubmit={this.onSubmit} noValidate>
-              <TextInput
-                label="Email"
-                type="email"
-                id="email"
-                name="email"
-                value={this.state.email}
-                error={errors.email}
-                onChange={this.onChange}
-              />
-              <TextInput
-                label="Password"
-                type="password"
-                id="password"
-                name="password"
-                value={this.state.password}
-                error={errors.password}
-                onChange={this.onChange}
-              />
-              <TextInput
-                label="Confirm Password"
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={this.state.confirmPassword}
-                error={errors.confirmPassword}
-                onChange={this.onChange}
-              />
-              <SubmitButton
-                buttonType="secondary"
-                block="block"
-                value="Register"
-              />
-            </form>
+      <div className="row justify-content-center">
+        <div className="col-sm-8 col-md-6 col-lg-4">
+          <div className="card mb-1">
+            <div className="card-body">
+              <h1 className="card-title h3 text-center">Register</h1>
+              <form onSubmit={this.onSubmit} noValidate>
+                <TextInput
+                  label="Email"
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={this.state.email}
+                  error={errors.email}
+                  onChange={this.onChange}
+                />
+                <TextInput
+                  label="Password"
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={this.state.password}
+                  error={errors.password}
+                  onChange={this.onChange}
+                />
+                <TextInput
+                  label="Confirm Password"
+                  type="password"
+                  id="confirmPassword"
+                  name="confirmPassword"
+                  value={this.state.confirmPassword}
+                  error={errors.confirmPassword}
+                  onChange={this.onChange}
+                />
+                <SubmitButton
+                  buttonType="secondary"
+                  block="block"
+                  value="Register"
+                />
+              </form>
+            </div>
           </div>
-        </div>
-        {/* <Link to="/auth/reset-password">Forgot password?</Link> */}
-        <div className="d-flex justify-content-center">
-          <Link to="/auth/sign-in">Have an account? Sign In!</Link>
+          <div className="d-flex justify-content-center">
+            <Link to="/auth/sign-in">Have an account? Sign In!</Link>
+          </div>
         </div>
       </div>
     );

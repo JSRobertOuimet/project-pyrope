@@ -12,6 +12,7 @@ import PrivateRoute from "./common/PrivateRoute";
 import Register from "./auth/Register";
 import SignIn from "./auth/SignIn";
 import Dashboard from "./dashboard/Dashboard";
+import Account from "./account/Account";
 
 // Methods
 import setAuthToken from "../utils/setAuthToken";
@@ -31,7 +32,7 @@ if(localStorage.jwtToken) {
 
   if(decoded.exp < currentTime) {
     store.dispatch(signOutUser);
-    window.location.href = "/auth/sign-in";
+    // TODO: redirect to /
   }
 }
 
@@ -43,12 +44,11 @@ class App extends Component {
           <React.Fragment>
             <Navbar />
             <div className="container">
-              <div className="row justify-content-center">
-                <Route exact path="/auth/register" component={Register} />
-                <Route exact path="/auth/sign-in" component={SignIn} />
-              </div>
+              <Route exact path="/auth/register" component={Register} />
+              <Route exact path="/auth/sign-in" component={SignIn} />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                <PrivateRoute exact path="/account" component={Account} />
               </Switch>
             </div>
           </React.Fragment>
