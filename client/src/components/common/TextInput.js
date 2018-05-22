@@ -1,6 +1,9 @@
+//==================================================
+// React
 import React from "react";
 import classnames from "classnames";
 import PropTypes from "prop-types";
+//==================================================
 
 const TextInput = ({ label, type, name, value, placeholder, error, onChange }) => {
   return (

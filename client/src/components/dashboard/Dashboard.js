@@ -24,13 +24,13 @@ class Dashboard extends Component {
     let content;
 
     if (loading === true) {
-      content = <div className="loader lead text-center text-muted">Fetching profile...</div>;
+      content = <div className="block-center lead text-center text-muted">Fetching profile...</div>;
     }
     else {
       if (profile === null) {
         content = (
           <React.Fragment>
-            <div className="text-center cta-create-profile">
+            <div className="block-center text-center">
               <p className="lead text-muted">You don&#8217;t have a profile yet.</p>
               <Link to="/dashboard/create-profile" className="btn btn-outline-info">Create one!</Link>
             </div>

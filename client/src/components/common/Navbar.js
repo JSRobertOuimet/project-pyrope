@@ -9,9 +9,6 @@ import { Link } from "react-router-dom";
 // Methods
 import { signOutUser } from "../../actions/authActions";
 
-// Assets
-import PPLogo from "../../img/pp-logo.svg";
-
 // Redux
 import { connect } from "react-redux";
 //==================================================
@@ -62,8 +59,8 @@ class Navbar extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
         <div className="container">
-          <Link to="/" className="d-flex align-items-center mr-3">
-            <img src={PPLogo} alt="Project Pyrope"/>
+          <Link to={ isAuthenticated ? "/dashboard" : "/" } className="logo d-flex align-items-center mr-4">
+            PP
           </Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>

@@ -16,7 +16,7 @@ import Account from "./account/Account";
 
 // Methods
 import setAuthToken from "../utils/setAuthToken";
-import { setCurrentUser, signOutUser } from "../actions/authActions";
+import { setCurrentUser, signOutUser, clearCurrentProfile } from "../actions/authActions";
 
 // Redux
 import { Provider } from "react-redux";
@@ -31,8 +31,7 @@ if(localStorage.jwtToken) {
   store.dispatch(setCurrentUser(decoded));
 
   if(decoded.exp < currentTime) {
-    store.dispatch(signOutUser);
-    // TODO: redirect to /
+    store.dispatch(signOutUser());
   }
 }
 

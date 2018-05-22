@@ -2,10 +2,18 @@
   height: calc(100vh - 104px);
 }
 
-.cta-create-profile,
-.loader {
+.block-center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.logo {
+  color: white;
+}
+
+.logo:hover {
+  color: white;
+  text-decoration: none;
 }

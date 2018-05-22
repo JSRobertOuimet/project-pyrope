@@ -9,6 +9,7 @@ import placeholderBookCoverImage from "../../img/placeholder-book-cover-image.pn
 
 // Redux
 import { connect } from "react-redux";
+//==================================================
 
 class Challenges extends Component {
   render() {
@@ -37,7 +38,7 @@ class Challenges extends Component {
         <div className="row mb-3">
           {challenges}
         </div>
-        <div className="row">
+        <div className="row mb-5">
           <div className="col">
             <Link to="/dashboard/create-challenge" className="btn btn-info float-right">
               Create challenge
