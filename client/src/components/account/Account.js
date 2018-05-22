@@ -7,6 +7,9 @@ import PropTypes from "prop-types";
 import TextInput from "../common/TextInput";
 import SubmitButton from "../common/SubmitButton";
 
+// Methods
+import { setCurrentProfile } from "../../actions/profileActions";
+
 // Redux
 import { connect } from "react-redux";
 //==================================================
@@ -22,6 +25,18 @@ class Account extends Component {
       confirmPassword: "",
       errors: {}
     };
+
+    this.onChange = this.onChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.setCurrentProfile();
+  }
+
+  onChange(e) {
+    this.setState({
+      [e.target.name] : e.target.value
+    });
   }
 
   render() {
@@ -76,7 +91,7 @@ class Account extends Component {
             </form>
           </div>
         </div>
-      </React.Fragment> 
+      </React.Fragment>
     );
   }
 }
@@ -84,7 +99,8 @@ class Account extends Component {
 Account.propTypes = {
   errors: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  setCurrentProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -92,4 +108,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, {  })(Account);
+export default connect(mapStateToProps, { setCurrentProfile })(Account);

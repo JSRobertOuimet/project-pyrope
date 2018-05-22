@@ -9,14 +9,22 @@ const
   Challenge = require("../../models/Challenge"),
   Session = require("../../models/Session");
 
-// @desc      GET logged in user's dashboard
+// @desc      GET specific challenge
 // @access    Private
 router
-  .get("/", passport.authenticate("jwt", { session: false }), (req, res) => {
+  .get("/:challengeId", passport.authenticate("jwt", { session: false }), (req, res) => {
     Profile
       .findOne({ userId: req.user.id })
       .then(profile => {
-        res.json(profile);
+        const challenges = profile.challenges;
+
+        challenges.forEach(challenge => {
+          if(challenge._id.toString() === req.params.challengeId) {
+            res
+              .status(200)
+              .json(challenge);
+          }
+        });
       })
       .catch(err => console.log(err));
   });
@@ -24,7 +32,7 @@ router
 // @desc      POST challenge
 // @access    Private
 router
-  .post("/create-challenge", passport.authenticate("jwt", { session: false }), (req, res) => {
+  .post("/create", passport.authenticate("jwt", { session: false }), (req, res) => {
     Profile
       .findOne({ userId: req.user.id })
       .then(profile => {
@@ -55,30 +63,10 @@ router
       .catch(err => console.log(err));
   });
 
-// @desc      GET specific challenge
-// @access    Private
-router
-  .get("/challenges/:challengeId", passport.authenticate("jwt", { session: false }), (req, res) => {
-    Profile
-      .findOne({ userId: req.user.id })
-      .then(profile => {
-        const challenges = profile.challenges;
-
-        challenges.forEach(challenge => {
-          if(challenge._id.toString() === req.params.challengeId) {
-            res
-              .status(200)
-              .json(challenge);
-          }
-        });
-      })
-      .catch(err => console.log(err));
-  });
-
 // @desc      DELETE specific challenge
 // @access    Private
 router
-  .delete("/challenges/:challengeId", passport.authenticate("jwt", { session: false }), (req, res) => {
+  .delete("/:challengeId", passport.authenticate("jwt", { session: false }), (req, res) => {
     Profile
       .findOne({ userId: req.user.id })
       .then(profile => {
@@ -105,7 +93,7 @@ router
 // @desc      GET session for a specific challenge
 // @access    Private
 router
-  .get("/challenges/:challengeId/sessions", passport.authenticate("jwt", { session: false }), (req, res) => {
+  .get("/:challengeId/sessions", passport.authenticate("jwt", { session: false }), (req, res) => {
     Profile
       .findOne({ userId: req.user.id })
       .then(profile => {
@@ -128,7 +116,7 @@ router
 // @desc      POST session for a specific challenge
 // @access    Private
 router
-  .post("/challenges/:challengeId/sessions", passport.authenticate("jwt", { session: false }), (req, res) => {
+  .post("/:challengeId/sessions", passport.authenticate("jwt", { session: false }), (req, res) => {
     Profile
       .findOne({ userId: req.user.id })
       .then(profile => {

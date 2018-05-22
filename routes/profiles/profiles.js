@@ -9,14 +9,35 @@ const
   User = require("../../models/User"),
   Profile = require("../../models/Profile");
 
-// @desc      GET logged in user's account
+// @desc      GET all public profiles
 // @access    Private
 router
   .get("/", passport.authenticate("jwt", { session: false }), (req, res) => {
-    User
-      .findOne({ _id: req.user.id })
-      .then(user => {
-        res.json(user);
+    Profile
+      .find({ public: true })
+      .then(profiles => {
+        if (profiles.length === 0) {
+          res
+            .status(404)
+            .json({ message: messages.errorNoProfileFound });
+        }
+        else {
+          res
+            .status(200)
+            .json(profiles);
+        }
+      })
+      .catch(err => console.log(err));
+  });
+
+// @desc      GET logged in user's profile
+// @access    Private
+router
+  .get("/me", passport.authenticate("jwt", { session: false }), (req, res) => {
+    Profile
+      .findOne({ userId: req.user.id })
+      .then(profile => {
+        res.json(profile);
       })
       .catch(err => console.log(err));
   });
@@ -24,7 +45,7 @@ router
 // @desc      POST user profile (create or edit)
 // @access    Private
 router
-  .post("/", passport.authenticate("jwt", { session: false }), (req, res) => {
+  .post("/me", passport.authenticate("jwt", { session: false }), (req, res) => {
     const
       errors = validateUserInputs(req.body, "updateOrCreateProfile"),
       profileData = {};
@@ -87,7 +108,7 @@ router
 // @desc      DELETE user account and profile
 // @access    Private
 router
-  .delete("/", passport.authenticate("jwt", { session: false }), (req, res) => {
+  .delete("/me", passport.authenticate("jwt", { session: false }), (req, res) => {
     Profile
       .findOneAndRemove({ userId: req.user.id })
       .then(() => {
@@ -98,6 +119,27 @@ router
               .json({ message: messages.successDeletedProfileAndUser });
           })
           .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+  });
+
+// @desc      GET specific public profile by username
+// @access    Private
+router
+  .get("/:username", passport.authenticate("jwt", { session: false }), (req, res) => {
+    Profile
+      .findOne({ username: req.params.username })
+      .then(profile => {
+        if (!profile || profile.public === false) {
+          res
+            .status(400)
+            .json({ message: messages.errorNoProfileFound });
+        }
+        else {
+          res
+            .status(200)
+            .json(profile);
+        }
       })
       .catch(err => console.log(err));
   });

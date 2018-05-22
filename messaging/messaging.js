@@ -15,7 +15,7 @@ const messages = {
   successDeletedChallenge: "Your reading challenge has been deleted.",
   successDeletedProfileAndUser: "Your profile and account have been deleted.",
   successEmailSent: "An email with a link to reset your password has been sent.",
-  successSignedIn: "Welcome back!",
+  successSignedIn: "You are signed in.",
   successProfileFound: "The profile you were looking for was found.",
   successRegisteredUser: "You have been registered.",
   successUpdatedChallenge: "Your challenge has been updated.",

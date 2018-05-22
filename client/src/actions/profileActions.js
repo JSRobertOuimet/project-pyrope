@@ -15,7 +15,7 @@ export const setCurrentProfile = () => dispatch => {
   dispatch(fetchCurrentProfile());
 
   axios
-    .get("/dashboard")
+    .get("/profiles/me")
     .then(res =>
       dispatch({
         type: SET_CURRENT_PROFILE,

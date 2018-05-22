@@ -8,9 +8,8 @@ const
   register = require("./routes/auth/register"),
   signIn = require("./routes/auth/sign-in"),
   resetPassword = require("./routes/auth/reset-password"),
-  profiles = require("./routes/browse/profiles"),
-  dashboard = require("./routes/dashboard/dashboard"),
-  account = require("./routes/account/account"),
+  profiles = require("./routes/profiles/profiles"),
+  challenges = require("./routes/challenges/challenges"),
 
   app = express(),
   port = 5000;
@@ -45,13 +44,10 @@ app.use("/auth/register", register);
 app.use("/auth/sign-in", signIn);
 app.use("/auth/reset-password", resetPassword);
 
-// Browse
-app.use("/browse/profiles", profiles);
+// Profiles
+app.use("/profiles", profiles);
 
-// Dashboard
-app.use("/dashboard", dashboard);
-
-// Account
-app.use("/account", account);
+// Challenges
+app.use("/challenges", challenges);
 
 app.listen(port, () => console.log(`Server listening on port ${port}...`));

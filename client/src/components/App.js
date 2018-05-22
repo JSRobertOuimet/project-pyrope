@@ -16,7 +16,7 @@ import Account from "./account/Account";
 
 // Methods
 import setAuthToken from "../utils/setAuthToken";
-import { setCurrentUser, signOutUser, clearCurrentProfile } from "../actions/authActions";
+import { setCurrentUser, signOutUser } from "../actions/authActions";
 
 // Redux
 import { Provider } from "react-redux";
