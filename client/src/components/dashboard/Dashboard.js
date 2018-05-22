@@ -2,9 +2,9 @@
 // React
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 
 // Components
+import { Link } from "react-router-dom";
 import Challenges from "../challenges/Challenges";
 
 // Methods
@@ -28,12 +28,19 @@ class Dashboard extends Component {
     }
     else {
       if (profile === null) {
-        content = <span>Please create a profile.</span>;
+        content = (
+          <React.Fragment>
+            <div className="text-center cta-create-profile">
+              <p className="lead text-muted">You don&#8217;t have a profile yet...</p>
+              <Link to="/dashboard/create-profile" className="btn btn-outline-info">Create one!</Link>
+            </div>
+          </React.Fragment>
+        );
       }
       else {
         content = (
           <React.Fragment>
-            <h1 className="text-dark mb-3">My Stats</h1>
+            <h2 className="text-dark mb-3">My Stats</h2>
             <div className="row mb-5">
               <div className="col-sm-3">
                 <div className="card text-center">

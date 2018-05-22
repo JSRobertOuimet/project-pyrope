@@ -94,7 +94,7 @@ class SignIn extends Component {
                   onChange={this.onChange}
                 />
                 <SubmitButton
-                  buttonType="secondary"
+                  buttonType="success"
                   block="block"
                   value="Sign In"
                 />

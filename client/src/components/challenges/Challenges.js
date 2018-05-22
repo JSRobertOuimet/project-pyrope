@@ -33,13 +33,17 @@ class Challenges extends Component {
 
     return (
       <React.Fragment>
-        <h1 className="text-dark mb-3">My Challenges</h1>
+        <h2 className="text-dark mb-3">My Challenges</h2>
         <div className="row mb-3">
           {challenges}
         </div>
-        <Link to="/dashboard/create-challenge" className="btn btn-secondary float-right mb-5">
-          Create challenge
-        </Link>
+        <div className="row">
+          <div className="col">
+            <Link to="/dashboard/create-challenge" className="btn btn-info float-right">
+              Create challenge
+            </Link>
+          </div>
+        </div>
       </React.Fragment>
     );
   }
