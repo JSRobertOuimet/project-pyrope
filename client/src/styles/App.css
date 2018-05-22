@@ -2,7 +2,8 @@
   height: calc(100vh - 104px);
 }
 
-.cta-create-profile {
+.cta-create-profile,
+.loader {
   position: absolute;
   top: 50%;
   left: 50%;
