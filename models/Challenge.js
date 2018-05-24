@@ -31,10 +31,6 @@ const
         required: true
       }
     },
-    sessions: {
-      type: Array,
-      required: true
-    },
     completed: {
       type: Boolean,
       default: false,

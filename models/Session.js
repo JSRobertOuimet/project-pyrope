@@ -3,6 +3,14 @@ const
   Schema = mongoose.Schema,
 
   sessionSchema = new Schema({
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "user"
+    },
+    challengeId: {
+      type: Schema.Types.ObjectId,
+      ref: "challenge"
+    },
     date: {
       type: Date,
       default: Date.now(),
@@ -20,4 +28,4 @@ const
     }
   });
 
-module.exports = mongoose.model("ReadingSession", sessionSchema);
+module.exports = mongoose.model("Session", sessionSchema);

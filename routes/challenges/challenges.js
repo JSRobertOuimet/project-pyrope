@@ -11,21 +11,32 @@ const
 
 // @desc      GET signed in user’s challenges
 // @access    Private
-// router
-//   .get("/challenges", passport.authenticate("jwt", { session: false }), (req, res) => {
+router
+  .get("/", passport.authenticate("jwt", { session: false }), (req, res) => {
+    Challenge
+      .find({ userId: req.user.id })
+      .then(challenges => {
+        res
+          .status(200)
+          .json(challenges);
+      })
+      .catch(err => console.log(err));
+  });
 
-//   });
-
-// @desc      GET specific challenge
+// @desc      GET signed in user’s specific challenge
 // @access    Private
 router
   .get("/:challengeId", passport.authenticate("jwt", { session: false }), (req, res) => {
     Challenge
-      .findOne({ _id: req.params.challengeId })
-      .then(challenge => {
-        res
-          .status(200)
-          .json(challenge);
+      .find({ userId: req.user.id })
+      .then(challenges => {
+        challenges.forEach(challenge => {
+          if(challenge.id === req.params.challengeId) {
+            res
+              .status(200)
+              .json(challenge);
+          }
+        });
       })
       .catch(err => console.log(err));
   });
@@ -56,22 +67,15 @@ router
       });
   });
 
-// @desc      DELETE specific challenge
+// @desc      DELETE signed in user’s specific challenge
 // @access    Private
 router
   .delete("/:challengeId", passport.authenticate("jwt", { session: false }), (req, res) => {
-    Profile
-      .findOne({ userId: req.user.id })
-      .then(() => {
-        Challenge
-          .findOne({ _id: req.params.challengeId })
-          .then(challenge => {
-            if(challenge.userId.toString() !== req.user.id) {
-              res
-                .status(401)
-                .json({ message: messages.errorNotAuthorized });
-            }
-
+    Challenge
+      .find({ userId: req.user.id })
+      .then(challenges => {
+        challenges.forEach(challenge => {
+          if(challenge.id === req.params.challengeId) {
             challenge
               .remove()
               .then(() => {
@@ -80,31 +84,37 @@ router
                   .json({ message: messages.successDeletedChallenge });
               })
               .catch(err => console.log(err));
-          })
-          .catch(err => console.log(err));
+          }
+        });
       })
       .catch(err => console.log(err));
   });
 
-// @desc      GET session for a specific challenge
+// @desc      GET signed in user’s specific challenge’s sessions
 // @access    Private
 router
   .get("/:challengeId/sessions", passport.authenticate("jwt", { session: false }), (req, res) => {
-    Profile
-      .findOne({ userId: req.user.id })
-      .then(profile => {
-        const challenges = profile.challenges;
-        let currentChallenge;
+    Session
+      .find({ userId: req.user.id })
+      .then(sessions => {
+        let currentChallengeSessions = [];
 
-        challenges.forEach(challenge => {
-          if(challenge._id.toString() === req.params.challengeId) {
-            currentChallenge = challenge;
+        sessions.forEach(session => {
+          if(session.challengeId.toString() === req.params.challengeId) {
+            currentChallengeSessions.push(session);
           }
         });
 
-        res
-          .status(200)
-          .json(currentChallenge.sessions);
+        if(currentChallengeSessions.length === 0) {
+          res
+            .status(404)
+            .json({ message: messages.errorNoSessionFound });
+        }
+        else {
+          res
+            .status(200)
+            .json(currentChallengeSessions);
+        }
       })
       .catch(err => console.log(err));
   });
@@ -113,29 +123,24 @@ router
 // @access    Private
 router
   .post("/:challengeId/sessions", passport.authenticate("jwt", { session: false }), (req, res) => {
-    Profile
-      .findOne({ userId: req.user.id })
-      .then(profile => {
-        const challenges = profile.challenges;
-
+    Challenge
+      .find({ userId: req.user.id })
+      .then(challenges => {
         challenges.forEach(challenge => {
-          if (challenge._id.toString() === req.params.challengeId) {
+          if (challenge.id === req.params.challengeId) {
             const session = new Session({
+              userId: req.user.id,
+              challengeId: req.params.challengeId,
               numberOfPagesRead: req.body.numberOfPagesRead,
               notes: req.body.notes
             });
 
-            challenge.sessions
-              .unshift(session);
-
-            profile.markModified("challenges");
-
-            profile
+            session
               .save()
-              .then(profile => {
+              .then(session => {
                 res
                   .status(201)
-                  .json({ message: messages.successCreatedSession, profile });
+                  .json({ message: messages.successCreatedSession, session });
               })
               .catch(err => console.log(err));
           }

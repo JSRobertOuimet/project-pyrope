@@ -6,6 +6,7 @@ const messages = {
   errorInvalidPassword: "Your password must be at least 8 characters long.",
   errorInvalidUsername: "Your username must be between 2 and 40 characters long.",
   errorNoChallengeFound: "No challenge found.",
+  errorNoSessionFound: "No session found",
   errorNoProfileFound: "No profile found.",
   errorNotAuthorized: "You are not authorized to perform this action.",
   errorNoUserFound: "No user found.",
