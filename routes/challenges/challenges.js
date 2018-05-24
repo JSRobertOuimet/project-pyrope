@@ -4,8 +4,7 @@ const
   passport = require("passport"),
 
   messages = require("../../messaging/messaging"),
-
-  Profile = require("../../models/Profile"),
+  
   Challenge = require("../../models/Challenge"),
   Session = require("../../models/Session");
 
