@@ -3,10 +3,10 @@ const
   router = express.Router(),
   passport = require("passport"),
 
-  messages = require("../../messaging/messaging"),
+  messages = require("../messaging/messaging"),
   
-  Challenge = require("../../models/Challenge"),
-  Session = require("../../models/Session");
+  Challenge = require("../models/Challenge"),
+  Session = require("../models/Session");
 
 // @desc      GET signed in user’s challenges
 // @access    Private

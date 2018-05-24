@@ -5,11 +5,9 @@ const
   mongoURI = require("./config/credentials").mongoURI,
   connect = require("./config/connection"),
 
-  register = require("./routes/auth/register"),
-  signIn = require("./routes/auth/sign-in"),
-  resetPassword = require("./routes/auth/reset-password"),
-  profiles = require("./routes/profiles/profiles"),
-  challenges = require("./routes/challenges/challenges"),
+  auth = require("./routes/auth"),
+  profiles = require("./routes/profiles"),
+  challenges = require("./routes/challenges"),
 
   app = express(),
   port = 5000;
@@ -40,9 +38,7 @@ require("./config/passport")(passport);
 // ------------------------------
 
 // Auth
-app.use("/auth/register", register);
-app.use("/auth/sign-in", signIn);
-app.use("/auth/reset-password", resetPassword);
+app.use("/auth", auth);
 
 // Profiles
 app.use("/profiles", profiles);

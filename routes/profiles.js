@@ -3,11 +3,11 @@ const
   router = express.Router(),
   passport = require("passport"),
 
-  validateUserInputs = require("../../validation/validation"),
-  messages = require("../../messaging/messaging"),
+  validateUserInputs = require("../validation/validation"),
+  messages = require("../messaging/messaging"),
 
-  User = require("../../models/User"),
-  Profile = require("../../models/Profile");
+  User = require("../models/User"),
+  Profile = require("../models/Profile");
 
 // @desc      GET all public profiles
 // @access    Private
