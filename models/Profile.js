@@ -15,10 +15,6 @@ const
       type: String,
       required: false
     },
-    challenges: {
-      type: Array,
-      required: false
-    },
     friends: {
       type: Array,
       required: false

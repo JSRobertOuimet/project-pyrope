@@ -9,22 +9,23 @@ const
   Challenge = require("../../models/Challenge"),
   Session = require("../../models/Session");
 
+// @desc      GET signed in user’s challenges
+// @access    Private
+// router
+//   .get("/challenges", passport.authenticate("jwt", { session: false }), (req, res) => {
+
+//   });
+
 // @desc      GET specific challenge
 // @access    Private
 router
   .get("/:challengeId", passport.authenticate("jwt", { session: false }), (req, res) => {
-    Profile
-      .findOne({ userId: req.user.id })
-      .then(profile => {
-        const challenges = profile.challenges;
-
-        challenges.forEach(challenge => {
-          if(challenge._id.toString() === req.params.challengeId) {
-            res
-              .status(200)
-              .json(challenge);
-          }
-        });
+    Challenge
+      .findOne({ _id: req.params.challengeId })
+      .then(challenge => {
+        res
+          .status(200)
+          .json(challenge);
       })
       .catch(err => console.log(err));
   });
@@ -33,34 +34,26 @@ router
 // @access    Private
 router
   .post("/create", passport.authenticate("jwt", { session: false }), (req, res) => {
-    Profile
-      .findOne({ userId: req.user.id })
-      .then(profile => {
-        const challenge = new Challenge({
-          book: {
-            author: req.body.author,
-            title: req.body.title,
-            numberOfPages: req.body.bookNumberOfPages
-          },
-          goal: {
-            numberOfPages: req.body.goalNumberOfPages,
-            timePeriod: req.body.goalTimePeriod
-          }
-        });
+    const challenge = new Challenge({
+      userId: req.user.id,
+      book: {
+        author: req.body.author,
+        title: req.body.title,
+        numberOfPages: req.body.bookNumberOfPages
+      },
+      goal: {
+        numberOfPages: req.body.goalNumberOfPages,
+        timePeriod: req.body.goalTimePeriod
+      }
+    });
 
-        profile.challenges
-          .unshift(challenge);
-
-        profile
-          .save()
-          .then(profile => {
-            res
-              .status(201)
-              .json({ message: messages.successCreatedChallenge, profile });
-          })
-          .catch(err => console.log(err));
-      })
-      .catch(err => console.log(err));
+    challenge
+      .save()
+      .then(challenge => {
+        res
+          .status(200)
+          .json({ message: messages.successCreatedChallenge, challenge });
+      });
   });
 
 // @desc      DELETE specific challenge
@@ -69,21 +62,24 @@ router
   .delete("/:challengeId", passport.authenticate("jwt", { session: false }), (req, res) => {
     Profile
       .findOne({ userId: req.user.id })
-      .then(profile => {
-        const challenges = profile.challenges;
+      .then(() => {
+        Challenge
+          .findOne({ _id: req.params.challengeId })
+          .then(challenge => {
+            if(challenge.userId.toString() !== req.user.id) {
+              res
+                .status(401)
+                .json({ message: messages.errorNotAuthorized });
+            }
 
-        const index = challenges
-          .map(challenge => challenge._id.toString())
-          .indexOf(req.params.challengeId);
-
-        challenges.splice(index, 1);
-        profile.markModified("challenges");
-        profile
-          .save()
-          .then(profile => {
-            res
-              .status(200)
-              .json({ message: messages.successDeletedChallenge, profile });
+            challenge
+              .remove()
+              .then(() => {
+                res
+                  .status(200)
+                  .json({ message: messages.successDeletedChallenge });
+              })
+              .catch(err => console.log(err));
           })
           .catch(err => console.log(err));
       })

@@ -3,6 +3,10 @@ const
   Schema = mongoose.Schema,
 
   challengeSchema = new Schema({
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "user"
+    },
     book: {
       author: {
         type: String,

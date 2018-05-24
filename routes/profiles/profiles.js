@@ -30,7 +30,7 @@ router
       .catch(err => console.log(err));
   });
 
-// @desc      GET logged in user's profile
+// @desc      GET signed in user's profile
 // @access    Private
 router
   .get("/me", passport.authenticate("jwt", { session: false }), (req, res) => {
