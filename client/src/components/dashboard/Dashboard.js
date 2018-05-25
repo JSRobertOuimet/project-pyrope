@@ -9,6 +9,7 @@ import Challenges from "../challenges/Challenges";
 
 // Methods
 import { setCurrentProfile } from "../../actions/profileActions";
+import { setChallenges } from "../../actions/challengeActions";
 
 // Redux
 import { connect } from "react-redux";
@@ -17,17 +18,19 @@ import { connect } from "react-redux";
 class Dashboard extends Component {
   componentDidMount() {
     this.props.setCurrentProfile();
+    this.props.setChallenges();
   }
 
   render() {
-    const { profile, loading } = this.props.profile;
+    const { profile, profileLoading } = this.props.profile;
+    const { challenges, challengesLoading } = this.props.challenge;
     let content;
 
-    if (loading === true) {
+    if(profileLoading === true) {
       content = <div className="block-center lead text-center text-muted">Fetching profile...</div>;
     }
     else {
-      if (profile === null) {
+      if(profile === null) {
         content = (
           <React.Fragment>
             <div className="block-center text-center">
@@ -38,6 +41,12 @@ class Dashboard extends Component {
         );
       }
       else {
+        if(challengesLoading === true) {
+          content = <div className="block-center lead text-center text-muted">Fetching Challenges...</div>;
+        }
+        else {
+          content = "Challenges!";
+        }
         content = (
           <React.Fragment>
             <h2 className="text-dark mb-3">My Stats</h2>
@@ -75,7 +84,7 @@ class Dashboard extends Component {
                 </div>
               </div>
             </div>
-            <Challenges challenges={profile.challenges} />
+            {/* <Challenges challenges={challenges} /> */}
           </React.Fragment>
         );
       }
@@ -92,12 +101,15 @@ class Dashboard extends Component {
 Dashboard.propTypes = {
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
-  setCurrentProfile: PropTypes.func.isRequired
+  challenge: PropTypes.object.isRequired,
+  setCurrentProfile: PropTypes.func.isRequired,
+  setChallenges: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  profile: state.profile
+  profile: state.profile,
+  challenge: state.challenge
 });
 
-export default connect(mapStateToProps, { setCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, { setCurrentProfile, setChallenges })(Dashboard);
