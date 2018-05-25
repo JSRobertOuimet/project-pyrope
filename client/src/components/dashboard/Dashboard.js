@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 
 // Components
 import { Link } from "react-router-dom";
-import Challenges from "../challenges/Challenges";
 
 // Methods
 import { setCurrentProfile } from "../../actions/profileActions";
@@ -18,38 +17,31 @@ import { connect } from "react-redux";
 class Dashboard extends Component {
   componentDidMount() {
     this.props.setCurrentProfile();
-    this.props.setChallenges();
   }
 
   render() {
     const { profile, profileLoading } = this.props.profile;
-    const { challenges, challengesLoading } = this.props.challenge;
+    const { challengesLoading } = this.props.challenge;
     let content;
 
-    if(profileLoading === true) {
-      content = <div className="block-center lead text-center text-muted">Fetching profile...</div>;
+    if(profileLoading === false && profile === null) {
+      content = (
+        <React.Fragment>
+          <div className="block-center text-center">
+            <p className="lead text-muted">You don&#8217;t have a profile yet.</p>
+            <Link to="/dashboard/create-profile" className="btn btn-outline-info">Create one!</Link>
+          </div>
+        </React.Fragment>
+      );
     }
     else {
-      if(profile === null) {
-        content = (
-          <React.Fragment>
-            <div className="block-center text-center">
-              <p className="lead text-muted">You don&#8217;t have a profile yet.</p>
-              <Link to="/dashboard/create-profile" className="btn btn-outline-info">Create one!</Link>
-            </div>
-          </React.Fragment>
-        );
+      if(challengesLoading === null) {
+        content = <div className="block-center lead text-center text-muted">Fetching challenges...</div>;
       }
       else {
-        if(challengesLoading === true) {
-          content = <div className="block-center lead text-center text-muted">Fetching Challenges...</div>;
-        }
-        else {
-          content = "Challenges!";
-        }
         content = (
           <React.Fragment>
-            <h2 className="text-dark mb-3">My Stats</h2>
+            {/* <h2 className="text-dark mb-3">My Stats</h2>
             <div className="row mb-5">
               <div className="col-sm-3">
                 <div className="card text-center">
@@ -83,7 +75,7 @@ class Dashboard extends Component {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
             {/* <Challenges challenges={challenges} /> */}
           </React.Fragment>
         );
