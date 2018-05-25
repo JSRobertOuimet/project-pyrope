@@ -12,17 +12,8 @@ const
   app = express(),
   port = 5000;
 
-
-// ------------------------------
 // Database
-// ------------------------------
-
 connect(mongoURI);
-
-
-// ------------------------------
-// Middleware
-// ------------------------------
 
 // Express
 app.use(express.json());
@@ -32,18 +23,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 require("./config/passport")(passport);
 
-
-// ------------------------------
 // Routes
-// ------------------------------
-
-// Auth
 app.use("/auth", auth);
-
-// Profiles
 app.use("/profiles", profiles);
-
-// Challenges
 app.use("/challenges", challenges);
 
 app.listen(port, () => console.log(`Server listening on port ${port}...`));
