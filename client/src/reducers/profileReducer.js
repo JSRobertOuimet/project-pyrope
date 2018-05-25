@@ -1,26 +1,26 @@
 import {
-  FETCH_CURRENT_PROFILE,
-  SET_CURRENT_PROFILE,
+  FETCH_CURRENT_PROFILE_REQUEST,
+  FETCH_CURRENT_PROFILE_SUCCESS,
   CLEAR_CURRENT_PROFILE
 } from "../actions/types";
 
 const initialState = {
-  loading: false,
+  profileLoading: false,
   profiles: null,
   profile: null
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case FETCH_CURRENT_PROFILE:
+    case FETCH_CURRENT_PROFILE_REQUEST:
       return {
         ...state,
-        loading: true
+        profileLoading: true
       };
-    case SET_CURRENT_PROFILE:
+    case FETCH_CURRENT_PROFILE_SUCCESS:
       return {
         ...state,
-        loading: false,
+        profileLoading: false,
         profile: action.payload
       };
     case CLEAR_CURRENT_PROFILE:

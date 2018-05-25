@@ -1,13 +1,13 @@
 import axios from "axios";
 import {
   GET_ERRORS,
-  FETCH_CURRENT_PROFILE,
-  SET_CURRENT_PROFILE,
+  FETCH_CURRENT_PROFILE_REQUEST,
+  FETCH_CURRENT_PROFILE_SUCCESS
 } from "./types";
 
 export const fetchCurrentProfile = () => {
   return {
-    type: FETCH_CURRENT_PROFILE
+    type: FETCH_CURRENT_PROFILE_REQUEST
   };
 };
 
@@ -18,7 +18,7 @@ export const setCurrentProfile = () => dispatch => {
     .get("/profiles/me")
     .then(res =>
       dispatch({
-        type: SET_CURRENT_PROFILE,
+        type: FETCH_CURRENT_PROFILE_SUCCESS,
         payload: res.data
       })
     )

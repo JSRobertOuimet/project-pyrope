@@ -1,39 +1,28 @@
 import {
-  FETCH_CHALLENGES,
-  SET_CHALLENGES,
-  FETCH_CURRENT_CHALLENGE,
-  SET_CURRENT_CHALLENGE
+  // FETCH_CHALLENGES,
+  // SET_CHALLENGES,
+  FETCH_CHALLENGES_REQUEST,
+  FETCH_CHALLENGES_SUCCESS
 } from "../actions/types";
 
 const initialState = {
-  loading: false,
+  challengesLoading: false,
   challenges: null,
   challenge: null
 };
 
 export default function(state = initialState, action) {
   switch(action.type) {
-    case FETCH_CHALLENGES:
+    case FETCH_CHALLENGES_REQUEST:
       return {
         ...state,
-        loading: true
+        challengesLoading: true
       };
-    case SET_CHALLENGES:
+    case FETCH_CHALLENGES_SUCCESS:
       return {
         ...state,
-        loading: false,
+        challengesLoading: false,
         challenges: action.payload
-      };
-    case FETCH_CURRENT_CHALLENGE:
-      return {
-        ...state,
-        loading: true
-      };
-    case SET_CURRENT_CHALLENGE:
-      return {
-        ...state,
-        loading: false,
-        challenge: action.payload
       };
     default:
       return state;
