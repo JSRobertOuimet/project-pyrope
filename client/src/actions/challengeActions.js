@@ -27,7 +27,7 @@ export const setChallenges = () => dispatch => {
         payload: res.data
       })
     )
-    .catch(err =>
+    .catch(() =>
       dispatch({
         type: GET_ERRORS,
         payload: {}
