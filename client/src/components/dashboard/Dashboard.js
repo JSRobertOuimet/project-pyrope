@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 
 // Components
 import { Link } from "react-router-dom";
+import Stats from "../stats/Stats";
+import Challenges from "../challenges/Challenges";
 
 // Methods
 import { setCurrentProfile } from "../../actions/profileActions";
@@ -16,67 +18,39 @@ import { connect } from "react-redux";
 
 class Dashboard extends Component {
   componentDidMount() {
-    this.props.setCurrentProfile();
+    Promise
+      .resolve(this.props.setCurrentProfile())
+      .then(this.props.setChallenges());
   }
 
   render() {
     const { profile, profileLoading } = this.props.profile;
-    const { challengesLoading } = this.props.challenge;
-    let content;
+    const { challenges, challengesLoading } = this.props.challenge;
+    let content, challengeSection;
 
-    if(profileLoading === false && profile === null) {
-      content = (
-        <React.Fragment>
+    if(profileLoading === true) {
+      content = <div className="block-center lead text-center text-muted">Fetching profile...</div>;
+    }
+    else {
+      if(profile === null) {
+        content = (
           <div className="block-center text-center">
             <p className="lead text-muted">You don&#8217;t have a profile yet.</p>
             <Link to="/dashboard/create-profile" className="btn btn-outline-info">Create one!</Link>
           </div>
-        </React.Fragment>
-      );
-    }
-    else {
-      if(challengesLoading === null) {
-        content = <div className="block-center lead text-center text-muted">Fetching challenges...</div>;
+        );
       }
       else {
+        if(challengesLoading === true) {
+          challengeSection = <div className="block-center lead text-center text-muted">Fetching challenges...</div>;
+        }
+        else {
+          challengeSection = <Challenges challenges={challenges} />;
+        }
         content = (
           <React.Fragment>
-            {/* <h2 className="text-dark mb-3">My Stats</h2>
-            <div className="row mb-5">
-              <div className="col-sm-3">
-                <div className="card text-center">
-                  <div className="card-body">
-                    <div className="display-3 text-dark">25</div>
-                    <div className="text-muted">avg. pages read / day</div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-3">
-                <div className="card text-center">
-                  <div className="card-body">
-                    <div className="display-3 text-dark">3</div>
-                    <div className="text-muted">authors read</div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-3">
-                <div className="card text-center">
-                  <div className="card-body">
-                    <div className="display-3 text-dark">7</div>
-                    <div className="text-muted">books read</div>
-                  </div>
-                </div>
-              </div>
-              <div className="col-sm-3">
-                <div className="card text-center">
-                  <div className="card-body">
-                    <div className="display-3 text-dark">2</div>
-                    <div className="text-muted">challenges completed</div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
-            {/* <Challenges challenges={challenges} /> */}
+            <Stats />
+            {challengeSection}
           </React.Fragment>
         );
       }
@@ -85,7 +59,7 @@ class Dashboard extends Component {
     return (
       <React.Fragment>
         {content}
-      </React.Fragment>
+      </React.Fragment>   
     );
   }
 }

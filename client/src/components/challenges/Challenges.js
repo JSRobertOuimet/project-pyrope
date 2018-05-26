@@ -4,19 +4,14 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-// Methods
-import { getChallenge } from "../../actions/challengeActions";
-
 // Assets
 import placeholderBookCoverImage from "../../img/placeholder-book-cover-image.png";
-
-// Redux
-import { connect } from "react-redux";
 //==================================================
 
 class Challenges extends Component {
   render() {
-    const challenges = this.props.challenges.map(challenge => (
+    const { challenges } = this.props;
+    const challengeList = challenges.map(challenge => (
       <div className="col-sm-4" key={challenge._id}>
         <Link to={`/dashboard/challenges/${challenge._id}`}>
           <div className="card border-0">
@@ -39,7 +34,7 @@ class Challenges extends Component {
       <React.Fragment>
         <h2 className="text-dark mb-3">My Challenges</h2>
         <div className="row mb-3">
-          {challenges}
+          {challengeList}
         </div>
         <div className="row mb-5">
           <div className="col">
@@ -57,4 +52,4 @@ Challenges.propTypes = {
   challenges: PropTypes.array.isRequired
 };
 
-export default connect(null, {})(Challenges);
+export default Challenges;
