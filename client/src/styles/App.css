@@ -17,3 +17,13 @@
   color: white;
   text-decoration: none;
 }
+
+.no-underline {
+  text-decoration: none !important;
+}
+
+.create-challenge:after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
