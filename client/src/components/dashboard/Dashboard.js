@@ -40,7 +40,7 @@ class Dashboard extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.errors) {
+    if (nextProps.errors) {
       this.setState({
         errors: nextProps.errors
       });
@@ -68,11 +68,11 @@ class Dashboard extends Component {
 
   render() {
     const { errors } = this.state;
-    const { profile, profileLoading } = this.props.profile;
+    const { profile, profilesLoading } = this.props.profile;
     const { challenges, challengesLoading } = this.props.challenge;
     let content, challengeSection, modalContent;
 
-    if (profileLoading === true) {
+    if (profilesLoading === true) {
       content = <div className="block-center lead text-center text-muted">Fetching profile...</div>;
     }
     else {
@@ -134,7 +134,7 @@ class Dashboard extends Component {
 }
 
 Dashboard.propTypes = {
-  errors: PropTypes.object.isRequired,  
+  errors: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   challenge: PropTypes.object.isRequired,
   clearErrors: PropTypes.func.isRequired,

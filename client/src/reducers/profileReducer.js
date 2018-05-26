@@ -6,7 +6,7 @@ import {
 } from "../actions/types";
 
 const initialState = {
-  profileLoading: false,
+  profilesLoading: false,
   profiles: null,
   profile: null
 };
@@ -16,12 +16,12 @@ export default (state = initialState, action) => {
     case FETCH_CURRENT_PROFILE_REQUEST:
       return {
         ...state,
-        profileLoading: true
+        profilesLoading: true
       };
     case FETCH_CURRENT_PROFILE_SUCCESS:
       return {
         ...state,
-        profileLoading: false,
+        profilesLoading: false,
         profile: action.payload
       };
     case CREATE_PROFILE:
