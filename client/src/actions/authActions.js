@@ -17,7 +17,7 @@ import setAuthToken from "../utils/setAuthToken";
 export const registerUser = (userData, history) => dispatch => {
   axios
     .post("/auth/register", userData)
-    .then(res => history.push("/auth/sign-in"))
+    .then(() => history.push("/auth/sign-in"))
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
