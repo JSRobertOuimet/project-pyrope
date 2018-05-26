@@ -2,8 +2,11 @@ import axios from "axios";
 import {
   GET_ERRORS,
   FETCH_CURRENT_PROFILE_REQUEST,
-  FETCH_CURRENT_PROFILE_SUCCESS
+  FETCH_CURRENT_PROFILE_SUCCESS,
+  CREATE_PROFILE
 } from "./types";
+
+import { clearErrors } from "./errorActions";
 
 export const fetchCurrentProfile = () => {
   return {
@@ -12,6 +15,7 @@ export const fetchCurrentProfile = () => {
 };
 
 export const setCurrentProfile = () => dispatch => {
+  dispatch(clearErrors());  
   dispatch(fetchCurrentProfile());
 
   axios
@@ -22,10 +26,29 @@ export const setCurrentProfile = () => dispatch => {
         payload: res.data
       })
     )
-    .catch(err =>
+    .catch(() =>
       dispatch({
         type: GET_ERRORS,
         payload: {}
+      })
+    );
+};
+
+export const createProfile = newProfile => dispatch => {
+  dispatch(clearErrors());
+
+  axios
+    .post("/profiles/me", newProfile)
+    .then(res =>
+      dispatch({
+        type: CREATE_PROFILE,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
       })
     );
 };

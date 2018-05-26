@@ -1,6 +1,7 @@
 import {
   FETCH_CURRENT_PROFILE_REQUEST,
   FETCH_CURRENT_PROFILE_SUCCESS,
+  CREATE_PROFILE,
   CLEAR_CURRENT_PROFILE
 } from "../actions/types";
 
@@ -21,6 +22,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         profileLoading: false,
+        profile: action.payload
+      };
+    case CREATE_PROFILE:
+      return {
+        ...state,
         profile: action.payload
       };
     case CLEAR_CURRENT_PROFILE:

@@ -12,6 +12,7 @@ import {
 
 // Methods
 import setAuthToken from "../utils/setAuthToken";
+import { clearErrors } from "../actions/errorActions";
 //==================================================
 
 export const registerUser = (userData, history) => dispatch => {
@@ -52,6 +53,7 @@ export const signOutUser = () => dispatch => {
   setAuthToken(false);
   dispatch(setCurrentUser({}));
   dispatch(clearCurrentProfile());
+  dispatch(clearErrors());  
 };
 
 export const setCurrentUser = decoded => {
