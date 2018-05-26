@@ -12,7 +12,7 @@ const
   app = express(),
   port = 5000;
 
-// Database
+// MongoDB
 connect(mongoURI);
 
 // Express
