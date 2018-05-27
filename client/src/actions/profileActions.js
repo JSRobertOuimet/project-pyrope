@@ -15,7 +15,7 @@ export const fetchCurrentProfile = () => {
 };
 
 export const setCurrentProfile = () => dispatch => {
-  dispatch(clearErrors());  
+  dispatch(clearErrors());
   dispatch(fetchCurrentProfile());
 
   axios
@@ -34,17 +34,18 @@ export const setCurrentProfile = () => dispatch => {
     );
 };
 
-export const createProfile = newProfile => dispatch => {
+export const createProfile = (newProfile, history) => dispatch => {
   dispatch(clearErrors());
 
   axios
     .post("/profiles/me", newProfile)
-    .then(res =>
+    .then(res => {
       dispatch({
         type: CREATE_PROFILE,
         payload: res.data
-      })
-    )
+      });
+      history.push("/dashboard");
+    })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

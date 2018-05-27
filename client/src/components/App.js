@@ -12,7 +12,9 @@ import PrivateRoute from "./common/PrivateRoute";
 import Register from "./auth/Register";
 import SignIn from "./auth/SignIn";
 import Dashboard from "./dashboard/Dashboard";
+import CreateProfile from "./account/CreateProfile";
 import Challenge from "./challenges/Challenge";
+import CreateChallenge from "./challenges/CreateChallenge";
 import Account from "./account/Account";
 
 // Methods
@@ -48,7 +50,9 @@ class App extends Component {
               <Route exact path="/auth/sign-in" component={SignIn} />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                <PrivateRoute exact path="/dashboard/challenges/:challengeId" component={Challenge} />
+                <PrivateRoute exact path="/profile/create" component={CreateProfile} />
+                <PrivateRoute exact path="/challenges/create" component={CreateChallenge} />
+                <PrivateRoute exact path="/challenges/:challengeId" component={Challenge} />
                 <PrivateRoute exact path="/account" component={Account} />
               </Switch>
             </div>

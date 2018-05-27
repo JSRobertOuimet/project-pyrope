@@ -4,9 +4,6 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-// Components
-import CreateChallenge from "../challenges/CreateChallenge";
-
 // Assets
 import placeholderBookCoverImage from "../../img/placeholder-book-cover-image.png";
 //==================================================
@@ -38,7 +35,13 @@ class Challenges extends Component {
         <h2 className="text-dark mb-3">My Challenges</h2>
         <div className="row mb-5">
           {challengeList}
-          <CreateChallenge />
+          <div className="col-sm-3">
+            <Link to="/dashboard/create-challenge" className="text-dark no-underline">
+              <div className="card bg-light create-challenge d-flex justify-content-center align-items-center">
+                <i className="position-absolute fas fa-plus-circle fa-2x"></i>
+              </div>
+            </Link>
+          </div>
         </div>
       </React.Fragment>
     );
