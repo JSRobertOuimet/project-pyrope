@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 // Components
 import TextInput from "../common/TextInput";
 import TextArea from "../common/TextArea";
+import Checkbox from "../common/Checkbox";
 import SubmitButton from "../common/SubmitButton";
 
 // Methods
@@ -22,10 +23,12 @@ class CreateProfile extends Component {
     this.state = {
       username: "",
       about: "",
+      public: true,
       errors: {}
     };
 
     this.onChange = this.onChange.bind(this);
+    this.onToggleChange = this.onToggleChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -43,10 +46,17 @@ class CreateProfile extends Component {
     });
   }
 
+  onToggleChange() {
+    this.setState({
+      public: !this.state.public
+    });
+  }
+
   onSubmit(e) {
     const newProfile = {
       username: this.state.username,
       about: this.state.about,
+      public: this.state.public
     };
 
     e.preventDefault();
@@ -83,6 +93,13 @@ class CreateProfile extends Component {
                   onChange={this.onChange}
                 >
                 </TextArea>
+                <Checkbox
+                  label="Public"
+                  id="public"
+                  name="public"
+                  checked={this.state.public}
+                  onChange={this.onToggleChange}
+                />
                 <SubmitButton
                   buttonType="success"
                   block="block"

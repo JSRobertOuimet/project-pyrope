@@ -13,7 +13,7 @@ class Challenges extends Component {
     const { challenges } = this.props;
     const challengeList = challenges.map(challenge => (
       <div className="col-sm-3" key={challenge._id}>
-        <Link to={`/dashboard/challenges/${challenge._id}`}>
+        <Link to={`/challenges/${challenge._id}`}>
           <div className="card border-0">
             <img src={placeholderBookCoverImage} alt={challenge.book.title} className="card-img rounded-0" />
             <div className="card-img-overlay d-flex flex-column justify-content-between">
@@ -36,7 +36,7 @@ class Challenges extends Component {
         <div className="row mb-5">
           {challengeList}
           <div className="col-sm-3">
-            <Link to="/dashboard/create-challenge" className="text-dark no-underline">
+            <Link to="/challenges/create" className="text-dark no-underline">
               <div className="card bg-light create-challenge d-flex justify-content-center align-items-center">
                 <i className="position-absolute fas fa-plus-circle fa-2x"></i>
               </div>
@@ -49,7 +49,7 @@ class Challenges extends Component {
 }
 
 Challenges.propTypes = {
-  challenges: PropTypes.array.isRequired
+  challenges: PropTypes.array
 };
 
 export default Challenges;

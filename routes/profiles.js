@@ -59,6 +59,7 @@ router
       profileData.userId = req.user.id;
       profileData.username = req.body.username;
       profileData.about = req.body.about;
+      profileData.public = req.body.public;
 
       Profile
         .findOne({ userId: req.user.id })

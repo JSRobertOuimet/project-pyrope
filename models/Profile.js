@@ -21,7 +21,6 @@ const
     },
     public: {
       type: Boolean,
-      default: true,
       required: true
     }
   });
