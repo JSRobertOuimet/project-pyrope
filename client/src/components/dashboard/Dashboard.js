@@ -59,8 +59,6 @@ class Dashboard extends Component {
       about: this.state.about
     };
 
-    console.log(newProfile);
-
     e.preventDefault();
 
     this.props.createProfile(newProfile);
