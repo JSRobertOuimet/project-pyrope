@@ -15,7 +15,7 @@ class Challenges extends Component {
   render() {
     const { challenges } = this.props;
     const challengeList = challenges.map(challenge => (
-      <div className="col-sm-4" key={challenge._id}>
+      <div className="col-sm-3" key={challenge._id}>
         <Link to={`/dashboard/challenges/${challenge._id}`}>
           <div className="card border-0">
             <img src={placeholderBookCoverImage} alt={challenge.book.title} className="card-img rounded-0" />
@@ -36,7 +36,7 @@ class Challenges extends Component {
     return (
       <React.Fragment>
         <h2 className="text-dark mb-3">My Challenges</h2>
-        <div className="row mb-3">
+        <div className="row mb-5">
           {challengeList}
           <CreateChallenge />
         </div>
