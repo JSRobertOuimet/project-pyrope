@@ -47,7 +47,7 @@ class Navbar extends Component {
         </ul>
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <Link className="nav-link" to="/account">My Account</Link>
+            <Link className="nav-link" to="/settings">Settings</Link>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="" onClick={this.onSignOutUserClick.bind(this)}>Sign Out</a>

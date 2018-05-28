@@ -12,10 +12,11 @@ import PrivateRoute from "./common/PrivateRoute";
 import Register from "./auth/Register";
 import SignIn from "./auth/SignIn";
 import Dashboard from "./dashboard/Dashboard";
-import CreateProfile from "./account/CreateProfile";
+import CreateProfile from "./settings/CreateProfile";
 import Challenge from "./challenges/Challenge";
 import CreateChallenge from "./challenges/CreateChallenge";
-import Account from "./account/Account";
+import Settings from "./settings/Settings";
+import Profile from "./settings/Profile";
 
 // Methods
 import setAuthToken from "../utils/setAuthToken";
@@ -53,7 +54,8 @@ class App extends Component {
                 <PrivateRoute exact path="/profile/create" component={CreateProfile} />
                 <PrivateRoute exact path="/challenges/create" component={CreateChallenge} />
                 <PrivateRoute exact path="/challenges/:challengeId" component={Challenge} />
-                <PrivateRoute exact path="/account" component={Account} />
+                <PrivateRoute exact path="/settings" component={Settings} />
+                <PrivateRoute exact path="/settings/profile" component={Profile} />
               </Switch>
             </div>
           </React.Fragment>
