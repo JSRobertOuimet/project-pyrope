@@ -23,7 +23,7 @@ class Challenge extends Component {
     let challengeSection;
 
     if(challengesLoading === true || challenge === null) {
-      challengeSection = <div className="block-center lead text-center text-muted">Fetching challenge...</div>;      
+      challengeSection = <div className="block-center lead text-center text-muted">Fetching challenge...</div>;
     }
     else {
       challengeSection = (
@@ -46,7 +46,7 @@ class Challenge extends Component {
     return (
       <React.Fragment>
         <h2 className="text-dark mb-3">My Challenge</h2>
-        <div className="row mb-5">
+        <div className="row mb-3">
           {challengeSection}
         </div>
         <h2 className="text-dark mb-3">My Sessions</h2>
