@@ -13,7 +13,7 @@ class Settings extends Component {
       <React.Fragment>
         <div className="row">
           <div className="col-sm-9 offset-sm-3">
-            <h1 className="text-dark mb-3">My Profile</h1>
+            <h2 className="text-dark mb-3">My Profile</h2>
           </div>
         </div>
         <div className="row">

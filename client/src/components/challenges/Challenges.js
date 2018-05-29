@@ -12,7 +12,7 @@ class Challenges extends Component {
   render() {
     const { challenges } = this.props;
     const challengeList = challenges.map(challenge => (
-      <div className="col-sm-3" key={challenge._id}>
+      <div className="col-sm-6 col-md-4 col-lg-3 mb-3" key={challenge._id}>
         <Link to={`/challenges/${challenge._id}`}>
           <div className="card border-0">
             <img src={placeholderBookCoverImage} alt={challenge.book.title} className="card-img rounded-0" />
@@ -32,10 +32,10 @@ class Challenges extends Component {
 
     return (
       <React.Fragment>
-        <h2 className="text-dark mb-3">My Challenges</h2>
-        <div className="row mb-5">
+        <h2 className="text-dark mb-3 mt-3">My Challenges</h2>
+        <div className="row">
           {challengeList}
-          <div className="col-sm-3">
+          <div className="col-sm-6 col-md-4 col-lg-3 mb-3">
             <Link to="/challenges/create" className="text-dark no-underline">
               <div className="card bg-light create-challenge d-flex justify-content-center align-items-center">
                 <i className="position-absolute fas fa-plus-circle fa-2x"></i>

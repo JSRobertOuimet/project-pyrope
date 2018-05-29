@@ -18,7 +18,7 @@ class Stats extends Component {
     return (
       <React.Fragment>
         <h2 className="text-dark mb-3">My Stats</h2>
-        <div className="row mb-5">
+        <div className="row">
           <DataCard label="avg. pages read / day" value={data.avgPagesReadByDay} />
           <DataCard label="authors read" value={data.authorsRead} />
           <DataCard label="books read" value={data.booksRead} />

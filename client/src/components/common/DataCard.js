@@ -4,9 +4,9 @@ import React from "react";
 import PropTypes from "prop-types";
 //==================================================
 
-const Data = ({ label, value }) => {
+const DataCard = ({ label, value }) => {
   return (
-    <div className="col-sm-3">
+    <div className="col-sm-6 col-md-4 col-lg-3 mb-3">
       <div className="card text-center">
         <div className="card-body">
           <div className="display-3 text-dark">{value}</div>
@@ -17,9 +17,9 @@ const Data = ({ label, value }) => {
   );
 };
 
-Data.propTypes = {
+DataCard.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired
 };
 
-export default Data;
+export default DataCard;

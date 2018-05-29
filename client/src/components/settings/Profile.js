@@ -7,9 +7,6 @@ import PropTypes from "prop-types";
 import TextInput from "../common/TextInput";
 import SubmitButton from "../common/SubmitButton";
 
-// Methods
-import { setCurrentProfile } from "../../actions/profileActions";
-
 // Redux
 import { connect } from "react-redux";
 //==================================================
@@ -27,10 +24,6 @@ class Profile extends Component {
     };
 
     this.onChange = this.onChange.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.setCurrentProfile();
   }
 
   onChange(e) {
@@ -94,7 +87,6 @@ class Profile extends Component {
 Profile.propTypes = {
   errors: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  setCurrentProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -102,4 +94,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { setCurrentProfile })(Profile);
+export default connect(mapStateToProps, { })(Profile);
