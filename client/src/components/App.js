@@ -13,8 +13,8 @@ import Register from "./auth/Register";
 import SignIn from "./auth/SignIn";
 import Dashboard from "./dashboard/Dashboard";
 import CreateProfile from "./settings/CreateProfile";
-import Challenge from "./challenges/Challenge";
-import CreateChallenge from "./challenges/CreateChallenge";
+import Challenge from "./dashboard/challenges/Challenge";
+import CreateChallenge from "./dashboard/challenges/CreateChallenge";
 import Settings from "./settings/Settings";
 import Profile from "./settings/Profile";
 

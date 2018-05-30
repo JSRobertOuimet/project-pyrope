@@ -3,7 +3,7 @@
 import React, { Component } from "react";
 
 // Components
-import DataCard from "../common/DataCard";
+import DataCard from "../../common/DataCard";
 //==================================================
 
 class Stats extends Component {

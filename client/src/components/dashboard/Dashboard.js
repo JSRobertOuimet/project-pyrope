@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 
 // Components
 import { Link } from "react-router-dom";
-import Stats from "../stats/Stats";
-import Challenges from "../challenges/Challenges";
+import Stats from "./stats/Stats";
+import Challenges from "./challenges/Challenges";
 
 // Methods
 import { setCurrentProfile } from "../../actions/profileActions";

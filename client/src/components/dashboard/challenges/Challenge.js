@@ -4,10 +4,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 // Assets
-import placeholderBookCoverImage from "../../img/placeholder-book-cover-image.png";
+import placeholderBookCoverImage from "../../../img/placeholder-book-cover-image.png";
 
 // Methods
-import { setChallenge } from "../../actions/challengeActions";
+import { setChallenge } from "../../../actions/challengeActions";
 
 // Redux
 import { connect } from "react-redux";

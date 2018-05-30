@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 // Assets
-import placeholderBookCoverImage from "../../img/placeholder-book-cover-image.png";
+import placeholderBookCoverImage from "../../../img/placeholder-book-cover-image.png";
 //==================================================
 
 class Challenges extends Component {
