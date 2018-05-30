@@ -8,6 +8,7 @@ import placeholderBookCoverImage from "../../../img/placeholder-book-cover-image
 
 // Methods
 import { setChallenge } from "../../../actions/challengeActions";
+import { setSessions } from "../../../actions/sessionActions";
 
 // Redux
 import { connect } from "react-redux";
@@ -15,12 +16,15 @@ import { connect } from "react-redux";
 
 class Challenge extends Component {
   componentDidMount() {
-    this.props.setChallenge(this.props.match.params.challengeId);
+    Promise
+      .resolve(this.props.setChallenge(this.props.match.params.challengeId))
+      .then(this.props.setSessions(this.props.match.params.challengeId));
   }
 
   render() {
     const { challenge, challengesLoading } = this.props.challenge;
-    let challengeSection;
+    const { session, sessionsLoading } = this.props.session;
+    let challengeSection, sessionsSection;
 
     if(challengesLoading === true || challenge === null) {
       challengeSection = <div className="block-center lead text-center text-muted">Fetching challenge...</div>;
@@ -43,6 +47,13 @@ class Challenge extends Component {
       );
     }
 
+    if(sessionsLoading === true || session === null) {
+      sessionsSection = <div className="block-center lead text-center text-muted">Fetching sessions...</div>;
+    }
+    else {
+      sessionsSection = <div>Sessions</div>;
+    }
+
     return (
       <React.Fragment>
         <h2 className="text-dark mb-3">My Challenge</h2>
@@ -50,6 +61,7 @@ class Challenge extends Component {
           {challengeSection}
         </div>
         <h2 className="text-dark mb-3">My Sessions</h2>
+        {sessionsSection}
       </React.Fragment>
     );
   }
@@ -58,11 +70,14 @@ class Challenge extends Component {
 Challenge.propTypes = {
   match: PropTypes.object.isRequired,
   challenge: PropTypes.object.isRequired,
-  setChallenge: PropTypes.func.isRequired
+  session: PropTypes.object.isRequired,
+  setChallenge: PropTypes.func.isRequired,
+  setSessions: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  challenge: state.challenge
+  challenge: state.challenge,
+  session: state.session
 });
 
-export default connect(mapStateToProps, { setChallenge })(Challenge);
+export default connect(mapStateToProps, { setChallenge, setSessions })(Challenge);
