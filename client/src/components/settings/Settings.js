@@ -12,15 +12,15 @@ class Settings extends Component {
     return (
       <React.Fragment>
         <div className="row">
-          <div className="col-sm-9 offset-sm-3">
+          <div className="col-lg-9 offset-lg-3">
             <h2 className="text-dark mb-3">My Profile</h2>
           </div>
         </div>
         <div className="row">
-          <div className="col-sm-3">
+          <div className="col-lg-3 mb-3">
             <Sidebar />
           </div>
-          <div className="col-sm-9">
+          <div className="col-lg-9">
             <div className="card">
               <div className="card-body">
                 <div className="tab-content" id="nav-tabContent">
