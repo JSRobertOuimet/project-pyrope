@@ -34,10 +34,19 @@ router
 // @access    Private
 router
   .get("/me", passport.authenticate("jwt", { session: false }), (req, res) => {
-    Profile
-      .findOne({ userId: req.user.id })
-      .then(profile => {
-        res.json(profile);
+    User
+      .findOne({ _id: req.user.id })
+      .then(user => {
+        Profile
+          .findOne({ userId: req.user.id })
+          .then(profile => {
+            res.json({
+              email: user.email,
+              registrationDate: user.registrationDate,
+              profile
+            });
+          })
+          .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
   });
