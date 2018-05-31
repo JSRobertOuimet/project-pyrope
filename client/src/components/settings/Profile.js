@@ -46,9 +46,9 @@ class Profile extends Component {
     if(nextProps.profile.profile) {
       const profile = nextProps.profile.profile;
 
-      profile.username = profile.profile.username;
+      profile.username = profile.username;
       profile.email = profile.email;
-      profile.about = profile.profile.about;
+      profile.about = profile.about;
 
       this.setState({
         username: profile.username,

@@ -41,9 +41,13 @@ router
           .findOne({ userId: req.user.id })
           .then(profile => {
             res.json({
-              email: user.email,
+              userId: profile.userId,
               registrationDate: user.registrationDate,
-              profile
+              email: user.email,
+              username: profile.username,
+              about: profile.about,
+              friends: profile.friends,
+              public: profile.public
             });
           })
           .catch(err => console.log(err));
