@@ -13,6 +13,7 @@ import placeholderBookCoverImage from "../../../img/placeholder-book-cover-image
 // Methods
 import { setChallenge } from "../../../actions/challengeActions";
 import { setSessions } from "../../../actions/sessionActions";
+import completed from "../../../utils/stats";
 
 // Redux
 import { connect } from "react-redux";
@@ -32,7 +33,7 @@ class Challenge extends Component {
     const { sessionsLoading, sessions } = this.props.session;
     let challengeSection, sessionsSection;
 
-    if(challengesLoading === true || challenge === null) {
+    if(challengesLoading === true || sessionsLoading === true || challenge === null || sessions === null) {
       challengeSection = <div className="block-center lead text-center text-muted">Fetching challenge...</div>;
     }
     else {
@@ -44,31 +45,33 @@ class Challenge extends Component {
             </div>
           </div>
           <div className="col-sm-8 mb-3">
-            <h3 className="display-4">{challenge.book.title}</h3>
+            <h3 className="display-4 n-pl">{challenge.book.title}</h3>
             <p className="lead">{challenge.book.author}</p>
+            <p>{challenge.book.numberOfPages} pages</p>
             <div>{challenge.goal.numberOfPages} pages / {challenge.goal.timePeriod}</div>
-            <div>8 % completed</div>
+            <div>{ completed(sessions, challenge.book.numberOfPages) } % completed</div>
           </div>
         </React.Fragment>
       );
-    }
 
-    if(sessionsLoading === true || sessions === null) {
-      sessionsSection = <div className="mx-auto lead text-center text-muted">Fetching sessions...</div>;
-    }
-    else {
-      if (sessions.length === 0) {
-        sessionsSection = (
-          <div className="mx-auto text-center">
-            <p className="lead text-muted">You don&#8217;t have any sessions yet.</p>
-            <Link to={`/challenges/${challenge._id}/sessions/create`} className="btn btn-outline-info">Add your first one!</Link>
-          </div>
-        );
+      if(sessionsLoading === true || sessions === null) {
+        sessionsSection = <div className="mx-auto lead text-center text-muted">Fetching sessions...</div>;
       }
       else {
-        sessionsSection = <Sessions sessions={sessions} />;
+        if (sessions.length === 0) {
+          sessionsSection = (
+            <div className="mx-auto text-center">
+              <p className="lead text-muted">You don&#8217;t have any sessions yet.</p>
+              <Link to={`/challenges/${challenge._id}/sessions/create`} className="btn btn-outline-info">Add your first one!</Link>
+            </div>
+          );
+        }
+        else {
+          sessionsSection = <Sessions sessions={sessions} />;
+        }
       }
     }
+
 
     return (
       <React.Fragment>
