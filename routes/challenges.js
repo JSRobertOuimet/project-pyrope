@@ -4,7 +4,7 @@ const
   passport = require("passport"),
 
   messages = require("../messaging/messaging"),
-  
+
   Challenge = require("../models/Challenge"),
   Session = require("../models/Session");
 
@@ -104,16 +104,9 @@ router
           }
         });
 
-        if(currentChallengeSessions.length === 0) {
-          res
-            .status(404)
-            .json({ message: messages.errorNoSessionFound });
-        }
-        else {
-          res
-            .status(200)
-            .json(currentChallengeSessions);
-        }
+        res
+          .status(200)
+          .json(currentChallengeSessions);
       })
       .catch(err => console.log(err));
   });

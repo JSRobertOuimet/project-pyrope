@@ -2,6 +2,10 @@
 // React
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+
+// Components
+import Sessions from "../sessions/Sessions";
 
 // Assets
 import placeholderBookCoverImage from "../../../img/placeholder-book-cover-image.png";
@@ -16,14 +20,16 @@ import { connect } from "react-redux";
 
 class Challenge extends Component {
   componentDidMount() {
+    const challengeId = this.props.match.params.challengeId;
+
     Promise
-      .resolve(this.props.setChallenge(this.props.match.params.challengeId))
-      .then(this.props.setSessions(this.props.match.params.challengeId));
+      .resolve(this.props.setChallenge(challengeId))
+      .then(this.props.setSessions(challengeId));
   }
 
   render() {
     const { challenge, challengesLoading } = this.props.challenge;
-    const { session, sessionsLoading } = this.props.session;
+    const { sessionsLoading, sessions } = this.props.session;
     let challengeSection, sessionsSection;
 
     if(challengesLoading === true || challenge === null) {
@@ -32,14 +38,14 @@ class Challenge extends Component {
     else {
       challengeSection = (
         <React.Fragment>
-          <div className="col-sm-4">
+          <div className="col-sm-4 mb-3">
             <div className="card border-0">
               <img src={placeholderBookCoverImage} alt={challenge.book.title} className="card-img rounded-0" />
             </div>
           </div>
-          <div className="col-sm-8">
-            <h3>{challenge.book.title}</h3>
-            <div>{challenge.book.author}</div>
+          <div className="col-sm-8 mb-3">
+            <h3 className="display-4">{challenge.book.title}</h3>
+            <p className="lead">{challenge.book.author}</p>
             <div>{challenge.goal.numberOfPages} pages / {challenge.goal.timePeriod}</div>
             <div>8 % completed</div>
           </div>
@@ -47,21 +53,32 @@ class Challenge extends Component {
       );
     }
 
-    if(sessionsLoading === true || session === null) {
-      sessionsSection = <div className="block-center lead text-center text-muted">Fetching sessions...</div>;
+    if(sessionsLoading === true || sessions === null) {
+      sessionsSection = <div className="mx-auto lead text-center text-muted">Fetching sessions...</div>;
     }
     else {
-      sessionsSection = <div>Sessions</div>;
+      if (sessions.length === 0) {
+        sessionsSection = (
+          <div className="mx-auto text-center">
+            <p className="lead text-muted">You don&#8217;t have any sessions yet.</p>
+            <Link to={`/challenges/${challenge._id}/sessions/create`} className="btn btn-outline-info">Add your first one!</Link>
+          </div>
+        );
+      }
+      else {
+        sessionsSection = <Sessions sessions={sessions} />;
+      }
     }
 
     return (
       <React.Fragment>
-        <h2 className="text-dark mb-3">My Challenge</h2>
-        <div className="row mb-3">
+        <div className="row">
           {challengeSection}
         </div>
-        <h2 className="text-dark mb-3">My Sessions</h2>
-        {sessionsSection}
+        <h2 className="my-3">My Sessions</h2>
+        <div className="row mb-5">
+          {sessionsSection}
+        </div>
       </React.Fragment>
     );
   }

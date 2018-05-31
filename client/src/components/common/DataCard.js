@@ -9,7 +9,7 @@ const DataCard = ({ label, value }) => {
     <div className="col-sm-6 col-md-4 col-lg-3 mb-3">
       <div className="card text-center">
         <div className="card-body">
-          <div className="display-3 text-dark">{value}</div>
+          <div className="display-3">{value}</div>
           <div className="text-muted">{label}</div>
         </div>
       </div>

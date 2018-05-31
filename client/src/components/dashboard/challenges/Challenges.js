@@ -32,7 +32,7 @@ class Challenges extends Component {
 
     return (
       <React.Fragment>
-        <h2 className="text-dark mb-3 mt-3">My Challenges</h2>
+        <h2 className="mb-3 mt-3">My Challenges</h2>
         <div className="row">
           {challengeList}
           <div className="col-sm-6 col-md-4 col-lg-3 mb-3">
