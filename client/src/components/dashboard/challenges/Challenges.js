@@ -21,30 +21,13 @@ class Challenges extends Component {
                 <h3 className="text-white">{challenge.book.title}</h3>
                 <span className="text-white">{challenge.book.author}</span>
               </div>
-              <div className="d-flex justify-content-end">
-                <span className="text-white">8 % completed</span>
-              </div>
             </div>
           </div>
         </Link>
       </div>
     ));
 
-    return (
-      <React.Fragment>
-        <h2 className="mb-3 mt-3">My Challenges</h2>
-        <div className="row">
-          {challengeList}
-          <div className="col-sm-6 col-md-4 col-lg-3 mb-3">
-            <Link to="/challenges/create" className="text-dark no-underline">
-              <div className="card bg-light create-challenge d-flex justify-content-center align-items-center">
-                <i className="position-absolute fas fa-plus-circle fa-2x"></i>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </React.Fragment>
-    );
+    return challengeList;
   }
 }
 
