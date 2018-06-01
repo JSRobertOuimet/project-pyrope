@@ -64,8 +64,8 @@ class Profile extends Component {
     });
   }
 
-  onSubmit() {
-
+  onSubmit(e) {
+    e.preventDefault();
   }
 
   render() {

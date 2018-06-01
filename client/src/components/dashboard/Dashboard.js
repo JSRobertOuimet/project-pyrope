@@ -9,14 +9,17 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 // Components
 import { Link } from "react-router-dom";
 import TextInput from "../common/TextInput";
-import SubmitButton from "../common/SubmitButton";
+import SelectInput from "../common/SelectInput";
+import Checkbox from "../common/Checkbox";
 import Stats from "./stats/Stats";
 import Challenges from "./challenges/Challenges";
 
 // Methods
+import { clearErrors } from "../../actions/errorActions";
 import { setCurrentProfile } from "../../actions/profileActions";
 import { setChallenges } from "../../actions/challengeActions";
 import { setSessions } from "../../actions/sessionActions";
+import { createChallenge } from "../../actions/challengeActions";
 
 // Redux
 import { connect } from "react-redux";
@@ -31,11 +34,15 @@ class Dashboard extends Component {
       title: "",
       bookNumberOfPages: "",
       goalNumberOfPages: "",
-      goalTimePeriod: "",
+      goalTimePeriod: "day",
+      public: true,
       errors: {},
       modal: false
     };
 
+    this.onChange = this.onChange.bind(this);
+    this.onToggleChange = this.onToggleChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
     this.toggle = this.toggle.bind(this);
   }
 
@@ -44,10 +51,26 @@ class Dashboard extends Component {
       .resolve(this.props.setCurrentProfile())
       .then(this.props.setChallenges());
   }
-  
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
+    }
+  }
+
   toggle() {
     this.setState({
-      modal: !this.state.modal
+      modal: !this.state.modal,
+      errors: {}
+    });
+    this.props.clearErrors();
+  }
+
+  onToggleChange() {
+    this.setState({
+      public: !this.state.public
     });
   }
 
@@ -58,13 +81,28 @@ class Dashboard extends Component {
   }
 
   onSubmit(e) {
+    const newChallenge = {
+      author: this.state.author,
+      title: this.state.title,
+      bookNumberOfPages: Number(this.state.bookNumberOfPages),
+      goalNumberOfPages: Number(this.state.goalNumberOfPages),
+      goalTimePeriod: this.state.goalTimePeriod,
+      public: this.state.public
+    };
+
     e.preventDefault();
+
+    this.props.createChallenge(newChallenge);
   }
 
   render() {
-    const { errors } = this.state;    
+    const { errors } = this.state;
     const { profile, profilesLoading } = this.props.profile;
     const { challenges, challengesLoading } = this.props.challenge;
+    const timePeriodOptions = [
+      { label: "day", value: "day" },
+      { label: "week", value: "week" },
+    ];
     let content, challengeSection;
 
     if (profilesLoading === true) {
@@ -111,20 +149,12 @@ class Dashboard extends Component {
       <React.Fragment>
         {content}
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Create Challenge</ModalHeader>
-          <ModalBody>
-            <form onSubmit={this.onSubmit} noValidate>
+          <form onSubmit={this.onSubmit} noValidate>
+            <ModalHeader toggle={this.toggle}>Create Challenge</ModalHeader>
+            <ModalBody>
               <div className="row">
                 <div className="col">
-                  <TextInput
-                    label="Author"
-                    type="text"
-                    id="author"
-                    name="author"
-                    value={this.state.author}
-                    error={errors.author}
-                    onChange={this.onChange}
-                  />
+                  <p className="h5">Book</p>
                   <TextInput
                     label="Title"
                     type="text"
@@ -132,6 +162,15 @@ class Dashboard extends Component {
                     name="title"
                     value={this.state.title}
                     error={errors.title}
+                    onChange={this.onChange}
+                  />
+                  <TextInput
+                    label="Author"
+                    type="text"
+                    id="author"
+                    name="author"
+                    value={this.state.author}
+                    error={errors.author}
                     onChange={this.onChange}
                   />
                   <div className="row">
@@ -142,11 +181,12 @@ class Dashboard extends Component {
                         id="bookNumberOfPages"
                         name="bookNumberOfPages"
                         value={this.state.bookNumberOfPages}
-                        error={errors.bookNumberOfPages}
+                        error={errors.numberOfPages}
                         onChange={this.onChange}
                       />
                     </div>
                   </div>
+                  <p className="h5">Goal</p>
                   <div className="row">
                     <div className="col">
                       <TextInput
@@ -155,22 +195,36 @@ class Dashboard extends Component {
                         id="goalNumberOfPages"
                         name="goalNumberOfPages"
                         value={this.state.goalNumberOfPages}
-                        error={errors.goalNumberOfPages}
+                        error={errors.numberOfPages}
                         onChange={this.onChange}
                       />
                     </div>
                     <div className="col">
-                      Time Period
+                      <SelectInput
+                        label="Time Period"
+                        options={timePeriodOptions}
+                        id="goalTimePeriod"
+                        name="goalTimePeriod"
+                        value={this.state.goalTimePeriod}
+                        onChange={this.onChange}
+                      />
                     </div>
                   </div>
+                  <Checkbox
+                    label="Public"
+                    id="public"
+                    name="public"
+                    checked={this.state.public}
+                    onChange={this.onToggleChange}
+                  />
                 </div>
               </div>
-            </form>
-          </ModalBody>
-          <ModalFooter>
-            <Button outline color="secondary" onClick={this.toggle}>Cancel</Button>
-            <Button color="success" onClick={this.toggle}>Create</Button>
-          </ModalFooter>
+            </ModalBody>
+            <ModalFooter>
+              <Button outline color="secondary" onClick={this.toggle}>Cancel</Button>
+              <input type="submit" className="btn btn-success" onClick={this.toggle} value="Create" />
+            </ModalFooter>
+          </form>
         </Modal>
       </React.Fragment>
     );
@@ -183,7 +237,9 @@ Dashboard.propTypes = {
   challenge: PropTypes.object.isRequired,
   setCurrentProfile: PropTypes.func.isRequired,
   setChallenges: PropTypes.func.isRequired,
-  setSessions: PropTypes.func.isRequired
+  setSessions: PropTypes.func.isRequired,
+  createChallenge: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -193,4 +249,4 @@ const mapStateToProps = state => ({
   sessions: state.sessions
 });
 
-export default connect(mapStateToProps, { setCurrentProfile, setChallenges, setSessions })(Dashboard);
+export default connect(mapStateToProps, { setCurrentProfile, setChallenges, setSessions, createChallenge, clearErrors })(Dashboard);

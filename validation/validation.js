@@ -22,8 +22,14 @@ const validate = (userInputs, action) => {
       usernameValidation(userInputs.username);
       aboutValidation(userInputs.about);
       break;
+    case "createChallenge":
+      titleValidation(userInputs.title);
+      authorValidation(userInputs.author);
+      pagesValidation(userInputs.bookNumberOfPages);
+      pagesValidation(userInputs.goalNumberOfPages);
+      break;
     default:
-      console.log("We're good to go!");
+      console.log("Some other error...");
   }
 
   return errors;
@@ -55,6 +61,24 @@ const validate = (userInputs, action) => {
   function aboutValidation(about) {
     if(!validator.isLength(about + "", { max: 40 })) {
       return errors.about = messages.errorInvalidAbout;
+    }
+  }
+
+  function titleValidation(title) {
+    if(validator.isEmpty(title + "")) {
+      return errors.title = messages.errorInvalidTitle;
+    }
+  }
+
+  function authorValidation(author) {
+    if(validator.isEmpty(author + "")) {
+      return errors.author = messages.errorInvalidAuthor;
+    }
+  }
+
+  function pagesValidation(numberOfPages) {
+    if(!(numberOfPages > 0)) {
+      return errors.numberOfPages = messages.errorInvalidnumberOfPages;
     }
   }
 };

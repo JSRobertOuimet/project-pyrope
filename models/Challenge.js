@@ -34,7 +34,7 @@ const
     completed: {
       type: Boolean,
       default: false,
-      required: true
+      require: true
     },
     public: {
       type: Boolean,

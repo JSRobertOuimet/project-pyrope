@@ -11,10 +11,10 @@ const TextArea = ({ label, name, value, placeholder, error, onChange }) => {
       <label htmlFor={name}>{label}</label>
       <textarea
         id={name}
+        className={classnames("form-control", { "is-invalid": error })}
         name={name}
         value={value}
         placeholder={placeholder}
-        className={classnames("form-control", { "is-invalid": error })}
         onChange={onChange}
       >
       </textarea>

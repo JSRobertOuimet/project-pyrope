@@ -3,6 +3,7 @@ const
   router = express.Router(),
   passport = require("passport"),
 
+  validate = require("../validation/validation"),
   messages = require("../messaging/messaging"),
 
   Challenge = require("../models/Challenge"),
@@ -44,6 +45,14 @@ router
 // @access    Private
 router
   .post("/create", passport.authenticate("jwt", { session: false }), (req, res) => {
+    const errors = validate(req.body, "createChallenge");
+
+    if (Object.keys(errors).length > 0) {
+      res
+        .status(400)
+        .json(errors);
+    }
+
     const challenge = new Challenge({
       userId: req.user.id,
       book: {
@@ -54,7 +63,8 @@ router
       goal: {
         numberOfPages: req.body.goalNumberOfPages,
         timePeriod: req.body.goalTimePeriod
-      }
+      },
+      public: req.body.public
     });
 
     challenge
@@ -63,7 +73,8 @@ router
         res
           .status(200)
           .json({ message: messages.successCreatedChallenge, challenge });
-      });
+      })
+      .catch(err => console.log(err));
   });
 
 // @desc      DELETE signed in user’s specific challenge

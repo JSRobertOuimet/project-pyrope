@@ -12,10 +12,10 @@ const TextInput = ({ label, type, name, value, placeholder, error, onChange }) =
       <input
         type={type}
         id={name}
+        className={classnames("form-control", { "is-invalid": error })}
         name={name}
         value={value}
         placeholder={placeholder}
-        className={classnames("form-control", { "is-invalid": error })}
         onChange={onChange}
       />
       {error && <div className="invalid-feedback">{error}</div>}
