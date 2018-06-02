@@ -78,7 +78,7 @@ const validate = (userInputs, action) => {
 
   function numberOfPagesValidation(numberOfPages) {
     if(!(numberOfPages > 0)) {
-      return errors.numberOfPages = messages.errorInvalidnumberOfPages;
+      return errors.numberOfPages = messages.errorInvalidNumberOfPages;
     }
   }
 };

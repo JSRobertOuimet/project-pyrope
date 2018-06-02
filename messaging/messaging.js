@@ -4,7 +4,7 @@ const messages = {
   errorInvalidAbout: "Your profile’s about section cannot exceed 140 characters.",
   errorInvalidAuthor: "Please enter your book’s author.",
   errorInvalidEmail: "Please enter a valid email address.",
-  errorInvalidnumberOfPages: "The number of pages must be at least 1.",
+  errorInvalidNumberOfPages: "The number of pages must be at least 1.",
   errorInvalidPassword: "Your password must be at least 8 characters long.",
   errorInvalidTitle: "Please enter your book’s title.",
   errorInvalidUsername: "Your username must be between 2 and 40 characters long.",
