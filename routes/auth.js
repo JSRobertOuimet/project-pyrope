@@ -86,6 +86,7 @@ router.post("/sign-in", (req, res) => {
                 jwt.sign(payload, jwtKey, { expiresIn: 3600 /* 1 hour */ }, (err, token) => {
                   if (err) throw err;
                   res
+                    .status(200)
                     .json({
                       message: messages.successSignedIn,
                       token: "Bearer " + token
