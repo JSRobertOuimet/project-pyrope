@@ -25,8 +25,8 @@ const validate = (userInputs, action) => {
     case "createChallenge":
       titleValidation(userInputs.title);
       authorValidation(userInputs.author);
-      pagesValidation(userInputs.bookNumberOfPages);
-      pagesValidation(userInputs.goalNumberOfPages);
+      numberOfPagesValidation(userInputs.bookNumberOfPages);
+      numberOfPagesValidation(userInputs.goalNumberOfPages);
       break;
     default:
       console.log("Some other error...");
@@ -76,7 +76,7 @@ const validate = (userInputs, action) => {
     }
   }
 
-  function pagesValidation(numberOfPages) {
+  function numberOfPagesValidation(numberOfPages) {
     if(!(numberOfPages > 0)) {
       return errors.numberOfPages = messages.errorInvalidnumberOfPages;
     }
