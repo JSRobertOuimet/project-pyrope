@@ -2,7 +2,8 @@ const
   express = require("express"),
   passport = require("passport"),
 
-  mongoURI = require("./config/credentials").mongoURI,
+  // mongoURI_remote = require("./config/credentials").mongoURI_remote,
+  mongoURI_local = require("./config/credentials").mongoURI_local,
   connect = require("./config/connection"),
 
   auth = require("./routes/auth"),
@@ -13,7 +14,7 @@ const
   port = 5000;
 
 // MongoDB
-connect(mongoURI);
+connect(mongoURI_local);
 
 // Express
 app.use(express.json());
