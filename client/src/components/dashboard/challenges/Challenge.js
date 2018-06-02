@@ -13,7 +13,7 @@ import placeholderBookCoverImage from "../../../img/placeholder-book-cover-image
 // Methods
 import { setChallenge } from "../../../actions/challengeActions";
 import { setSessions } from "../../../actions/sessionActions";
-import completed from "../../../utils/stats";
+import { completionPercentage } from "../../../logic/stats";
 
 // Redux
 import { connect } from "react-redux";
@@ -49,7 +49,7 @@ class Challenge extends Component {
             <p className="lead">{challenge.book.author}</p>
             <p>{challenge.book.numberOfPages} pages</p>
             <div>{challenge.goal.numberOfPages} pages / {challenge.goal.timePeriod}</div>
-            <div>{ completed(sessions, challenge.book.numberOfPages) } % completed</div>
+            <div>{ completionPercentage(sessions, challenge.book.numberOfPages) } % completed</div>
           </div>
         </React.Fragment>
       );
