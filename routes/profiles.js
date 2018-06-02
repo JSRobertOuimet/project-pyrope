@@ -53,6 +53,10 @@ router
                   public: profile.public
                 });
             }
+            else {
+              res
+                .json(null);
+            }
           })
           .catch(err => console.log(err));
       })
