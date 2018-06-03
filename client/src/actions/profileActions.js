@@ -34,11 +34,11 @@ export const setCurrentProfile = () => dispatch => {
     );
 };
 
-export const createProfile = (newProfile, history) => dispatch => {
+export const createProfile = (profileData, history) => dispatch => {
   dispatch(clearErrors());
 
   axios
-    .post("/profiles/me", newProfile)
+    .post("/profiles/me", profileData)
     .then(res => {
       dispatch({
         type: CREATE_PROFILE,
