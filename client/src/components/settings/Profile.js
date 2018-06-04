@@ -6,10 +6,12 @@ import PropTypes from "prop-types";
 // Components
 import TextInput from "../common/TextInput";
 import TextArea from "../common/TextArea";
+import Checkbox from "../common/Checkbox";
 import SubmitButton from "../common/SubmitButton";
 
 // Methods
 import { setCurrentProfile } from "../../actions/profileActions";
+import { createProfile } from "../../actions/profileActions";
 
 // Redux
 import { connect } from "react-redux";
@@ -23,11 +25,11 @@ class Profile extends Component {
       username: "",
       email: "",
       about: "",
-      newPassword: "",
-      confirmPassword: "",
+      public: true,
       errors: {}
     };
 
+    this.toggleCheckbox = this.toggleCheckbox.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -46,16 +48,19 @@ class Profile extends Component {
     if(nextProps.profile.profile) {
       const profile = nextProps.profile.profile;
 
-      profile.username = profile.username;
-      profile.email = profile.email;
-      profile.about = profile.about;
-
       this.setState({
         username: profile.username,
         email: profile.email,
-        about: profile.about
+        about: profile.about,
+        public: profile.public
       });
     }
+  }
+
+  toggleCheckbox() {
+    this.setState({
+      public: !this.state.public
+    });
   }
 
   onChange(e) {
@@ -65,7 +70,15 @@ class Profile extends Component {
   }
 
   onSubmit(e) {
+    const updatedProfile = {
+      username: this.state.username,
+      email: this.state.email,
+      about: this.state.about,
+      public: this.state.public
+    };
+
     e.preventDefault();
+    this.props.createProfile(updatedProfile);
   }
 
   render() {
@@ -96,31 +109,18 @@ class Profile extends Component {
               />
               <TextArea
                 label="About"
-                type="text"
                 id="about"
                 name="about"
                 value={this.state.about}
                 error={errors.about}
                 onChange={this.onChange}
-              >
-              </TextArea>
-              <TextInput
-                label="New Password"
-                type="password"
-                id="newPassword"
-                name="newPassword"
-                value={this.state.newPassword}
-                error={errors.newPassword}
-                onChange={this.onChange}
               />
-              <TextInput
-                label="Confirm Password"
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={this.state.confirmPassword}
-                error={errors.confirmPassword}
-                onChange={this.onChange}
+              <Checkbox
+                label="Public"
+                id="public"
+                name="public"
+                checked={(this.state.public)}
+                onChange={this.toggleCheckbox}
               />
               <SubmitButton
                 buttonType="success"
@@ -136,15 +136,14 @@ class Profile extends Component {
 
 Profile.propTypes = {
   errors: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
-  setCurrentProfile: PropTypes.func.isRequired
+  setCurrentProfile: PropTypes.func.isRequired,
+  createProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
   errors: state.errors,
-  auth: state.auth,
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { setCurrentProfile })(Profile);
+export default connect(mapStateToProps, { setCurrentProfile, createProfile })(Profile);
