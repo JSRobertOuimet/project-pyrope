@@ -43,7 +43,7 @@ export const fetchChallenge = () => {
   };
 };
 
-export const setChallenge = (id) => dispatch => {
+export const setChallenge = id => dispatch => {
   dispatch(fetchChallenge());
 
   axios
@@ -62,7 +62,7 @@ export const setChallenge = (id) => dispatch => {
     );
 };
 
-export const createChallenge = (newChallenge) => dispatch => {
+export const createChallenge = newChallenge => dispatch => {
   axios
     .post("/challenges/create", newChallenge)
     .then(() => dispatch(setChallenges()))

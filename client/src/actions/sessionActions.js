@@ -16,7 +16,7 @@ export const fetchSessions = () => {
   };
 };
 
-export const setSessions = (id) => dispatch => {
+export const setSessions = id => dispatch => {
   dispatch(fetchSessions());
 
   axios
