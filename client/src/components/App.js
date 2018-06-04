@@ -12,7 +12,6 @@ import PrivateRoute from "./common/PrivateRoute";
 import Register from "./auth/Register";
 import SignIn from "./auth/SignIn";
 import Dashboard from "./dashboard/Dashboard";
-import CreateProfile from "./settings/CreateProfile";
 import Challenge from "./dashboard/challenges/Challenge";
 import Settings from "./settings/Settings";
 import Profile from "./settings/Profile";
@@ -50,7 +49,6 @@ class App extends Component {
               <Route exact path="/auth/sign-in" component={SignIn} />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
-                <PrivateRoute exact path="/profile/create" component={CreateProfile} />
                 <PrivateRoute exact path="/challenges/:challengeId" component={Challenge} />
                 <PrivateRoute exact path="/settings" component={Settings} />
                 <PrivateRoute exact path="/settings/profile" component={Profile} />

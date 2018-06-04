@@ -16,8 +16,7 @@ const TextArea = ({ label, name, value, placeholder, error, onChange }) => {
         value={value}
         placeholder={placeholder}
         onChange={onChange}
-      >
-      </textarea>
+      />
       {error && <div className="invalid-feedback">{error}</div>}
     </div>
   );
