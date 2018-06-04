@@ -25,8 +25,8 @@ const validate = (userInputs, action) => {
     case "createChallenge":
       titleValidation(userInputs.title);
       authorValidation(userInputs.author);
-      numberOfPagesValidation(userInputs.bookNumberOfPages);
-      numberOfPagesValidation(userInputs.goalNumberOfPages);
+      bookNumberOfPagesValidation(userInputs.bookNumberOfPages);
+      goalNumberOfPagesValidation(userInputs.goalNumberOfPages);
       break;
     default:
       console.log("Some other error...");
@@ -76,9 +76,15 @@ const validate = (userInputs, action) => {
     }
   }
 
-  function numberOfPagesValidation(numberOfPages) {
+  function bookNumberOfPagesValidation(numberOfPages) {
     if(!(numberOfPages > 0)) {
-      return errors.numberOfPages = messages.errorInvalidNumberOfPages;
+      return errors.bookNumberOfPages = messages.errorInvalidBookNumberOfPages;
+    }
+  }
+
+  function goalNumberOfPagesValidation(numberOfPages) {
+    if(!(numberOfPages > 0)) {
+      return errors.goalNumberOfPages = messages.errorInvalidGoalNumberOfPages;
     }
   }
 };

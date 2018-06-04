@@ -102,7 +102,7 @@ class Dashboard extends Component {
     this.props.createChallenge(newChallenge);
 
     setTimeout(() => {
-      if(!(this.state.errors.title || this.state.errors.author || this.state.errors.numberOfPages)) {
+      if(!(this.state.errors.title || this.state.errors.author || this.state.errors.bookNumberOfPages || this.state.errors.goalumberOfPages)) {
         this.toggle();
       }
     }, 2000);
@@ -196,7 +196,7 @@ class Dashboard extends Component {
                         id="bookNumberOfPages"
                         name="bookNumberOfPages"
                         value={this.state.bookNumberOfPages}
-                        error={errors.numberOfPages}
+                        error={errors.bookNumberOfPages}
                         onChange={this.onChange}
                       />
                     </div>
@@ -211,7 +211,7 @@ class Dashboard extends Component {
                         id="goalNumberOfPages"
                         name="goalNumberOfPages"
                         value={this.state.goalNumberOfPages}
-                        error={errors.numberOfPages}
+                        error={errors.goalNumberOfPages}
                         onChange={this.onChange}
                       />
                     </div>
