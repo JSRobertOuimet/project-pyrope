@@ -6,8 +6,6 @@ import {
   CREATE_PROFILE
 } from "./types";
 
-import { clearErrors } from "./errorActions";
-
 export const fetchCurrentProfile = () => {
   return {
     type: FETCH_CURRENT_PROFILE_REQUEST
@@ -15,7 +13,6 @@ export const fetchCurrentProfile = () => {
 };
 
 export const setCurrentProfile = () => dispatch => {
-  dispatch(clearErrors());
   dispatch(fetchCurrentProfile());
 
   axios
@@ -34,9 +31,7 @@ export const setCurrentProfile = () => dispatch => {
     );
 };
 
-export const createProfile = (profileData, history) => dispatch => {
-  dispatch(clearErrors());
-
+export const createProfile = profileData => dispatch => {
   axios
     .post("/profiles/me", profileData)
     .then(res => {
@@ -44,7 +39,6 @@ export const createProfile = (profileData, history) => dispatch => {
         type: CREATE_PROFILE,
         payload: res.data
       });
-      history.push("/dashboard");
     })
     .catch(err =>
       dispatch({
