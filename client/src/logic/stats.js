@@ -1,5 +1,5 @@
 export const completionPercentage = (sessions, pagesToRead) => {
-  const pagesReadEntries = [];
+  const pagesReadEntries = [0];
   let pagesReadTotal, completionPercentage;
 
   sessions.map(session => pagesReadEntries.push(session.numberOfPagesRead));
