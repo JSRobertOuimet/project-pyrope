@@ -1,10 +1,10 @@
 export const completionPercentage = (sessions, pagesToRead) => {
-  const pagesRead = [0];
-  const reducer = (total, currentValue) => total + currentValue;
+  const pagesReadEntries = [];
+  let pagesReadTotal, completionPercentage;
 
-  sessions.map(session => {
-    pagesRead.push(session.numberOfPagesRead);
-  });
+  sessions.map(session => pagesReadEntries.push(session.numberOfPagesRead));
+  pagesReadTotal = pagesReadEntries.reduce((accumulator, currentValue) => accumulator + currentValue);
+  completionPercentage = (pagesReadTotal / pagesToRead).toFixed(2) * 100;
 
-  return (pagesRead.reduce(reducer) / pagesToRead).toFixed(2) * 100;
+  return completionPercentage;
 };
