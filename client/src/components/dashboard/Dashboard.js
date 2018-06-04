@@ -2,8 +2,6 @@
 // React
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
-// ReactStrap
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 // Components
@@ -11,6 +9,7 @@ import { Link } from "react-router-dom";
 import TextInput from "../common/TextInput";
 import SelectInput from "../common/SelectInput";
 import Checkbox from "../common/Checkbox";
+import AddCard from "../common/AddCard";
 import Stats from "./stats/Stats";
 import Challenges from "./challenges/Challenges";
 
@@ -40,10 +39,10 @@ class Dashboard extends Component {
       modal: false
     };
 
-    this.onChange = this.onChange.bind(this);
-    this.onToggleChange = this.onToggleChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.toggleCheckbox = this.toggleCheckbox.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -62,13 +61,21 @@ class Dashboard extends Component {
 
   toggle() {
     this.setState({
+      author: "",
+      title: "",
+      bookNumberOfPages: "",
+      goalNumberOfPages: "",
+      goalTimePeriod: "day",
+      public: true,
       modal: !this.state.modal,
-      errors: {}
     });
-    this.props.clearErrors();
+
+    if(this.state.errors) {
+      this.props.clearErrors();
+    }
   }
 
-  onToggleChange() {
+  toggleCheckbox() {
     this.setState({
       public: !this.state.public
     });
@@ -91,8 +98,14 @@ class Dashboard extends Component {
     };
 
     e.preventDefault();
-
+    this.props.clearErrors();
     this.props.createChallenge(newChallenge);
+
+    setTimeout(() => {
+      if(!(this.state.errors.title || this.state.errors.author || this.state.errors.numberOfPages)) {
+        this.toggle();
+      }
+    }, 2000);
   }
 
   render() {
@@ -126,12 +139,8 @@ class Dashboard extends Component {
             <React.Fragment>
               <h2 className="mb-3 mt-3">My Challenges</h2>
               <div className="row">
-                <Challenges challenges={challenges} />
-                <div className="col-sm-6 col-md-4 col-lg-3 mb-3">
-                  <a className="card bg-light create-challenge d-flex justify-content-center align-items-center" onClick={this.toggle}>
-                    <i className="position-absolute fas fa-plus-circle fa-2x"></i>
-                  </a>
-                </div>
+                { challenges ? <Challenges challenges={challenges} /> : null }
+                <AddCard onClick={this.toggle} />
               </div>
             </React.Fragment>
           );
@@ -154,25 +163,31 @@ class Dashboard extends Component {
             <ModalBody>
               <div className="row">
                 <div className="col">
-                  <p className="h5">Book</p>
-                  <TextInput
-                    label="Title"
-                    type="text"
-                    id="title"
-                    name="title"
-                    value={this.state.title}
-                    error={errors.title}
-                    onChange={this.onChange}
-                  />
-                  <TextInput
-                    label="Author"
-                    type="text"
-                    id="author"
-                    name="author"
-                    value={this.state.author}
-                    error={errors.author}
-                    onChange={this.onChange}
-                  />
+                  <p className="lead">Book</p>
+                  <div className="row">
+                    <div className="col">
+                      <TextInput
+                        label="Title"
+                        type="text"
+                        id="title"
+                        name="title"
+                        value={this.state.title}
+                        error={errors.title}
+                        onChange={this.onChange}
+                      />
+                    </div>
+                    <div className="col">
+                      <TextInput
+                        label="Author"
+                        type="text"
+                        id="author"
+                        name="author"
+                        value={this.state.author}
+                        error={errors.author}
+                        onChange={this.onChange}
+                      />
+                    </div>
+                  </div>
                   <div className="row">
                     <div className="col-6">
                       <TextInput
@@ -186,7 +201,8 @@ class Dashboard extends Component {
                       />
                     </div>
                   </div>
-                  <p className="h5">Goal</p>
+                  <hr/>
+                  <p className="lead">Goal</p>
                   <div className="row">
                     <div className="col">
                       <TextInput
@@ -215,14 +231,14 @@ class Dashboard extends Component {
                     id="public"
                     name="public"
                     checked={this.state.public}
-                    onChange={this.onToggleChange}
+                    onChange={this.toggleCheckbox}
                   />
                 </div>
               </div>
             </ModalBody>
             <ModalFooter>
               <Button outline color="secondary" onClick={this.toggle}>Cancel</Button>
-              <input type="submit" className="btn btn-success" onClick={this.toggle} value="Create" />
+              <input type="submit" className="btn btn-success" value="Create" />
             </ModalFooter>
           </form>
         </Modal>
