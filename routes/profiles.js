@@ -16,7 +16,7 @@ router
     Profile
       .find({ public: true })
       .then(profiles => {
-        if (profiles.length === 0) {
+        if(profiles.length === 0) {
           res
             .status(404)
             .json({ message: messages.errorNoProfileFound });
@@ -71,7 +71,7 @@ router
       errors = validateUserInputs(req.body, "updateOrCreateProfile"),
       profileData = {};
 
-    if (Object.keys(errors).length > 0) {
+    if(Object.keys(errors).length > 0) {
       res
         .status(400)
         .json(errors);
@@ -86,7 +86,7 @@ router
         .findOne({ userId: req.user.id })
         .then(profile => {
           // Update existing profile
-          if (profile) {
+          if(profile) {
             Profile
               .findOneAndUpdate(
                 { userId: req.user.id },
@@ -105,7 +105,7 @@ router
             Profile
               .findOne({ username: profileData.username })
               .then(profile => {
-                if (profile) {
+                if(profile) {
                   res
                     .status(409)
                     .json({ message: messages.errorUsernameAlreadyUsed });
@@ -152,7 +152,7 @@ router
     Profile
       .findOne({ username: req.params.username })
       .then(profile => {
-        if (!profile || profile.public === false) {
+        if(!profile || profile.public === false) {
           res
             .status(400)
             .json({ message: messages.errorNoProfileFound });

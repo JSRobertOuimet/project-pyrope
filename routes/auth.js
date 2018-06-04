@@ -18,7 +18,7 @@ const
 router.post("/register", (req, res) => {
   const errors = validate(req.body, "registerUser");
 
-  if (Object.keys(errors).length > 0) {
+  if(Object.keys(errors).length > 0) {
     res
       .status(400)
       .json(errors);
@@ -27,7 +27,7 @@ router.post("/register", (req, res) => {
     User
       .findOne({ email: req.body.email })
       .then(user => {
-        if (user) {
+        if(user) {
           res
             .status(409)
             .json({ message: messages.errorEmailAlreadyUsed });
@@ -39,10 +39,10 @@ router.post("/register", (req, res) => {
           });
 
           bcrypt.genSalt(10, (err, salt) => {
-            if (err) throw err;
+            if(err) throw err;
 
             bcrypt.hash(newUser.password, salt, (err, hash) => {
-              if (err) throw err;
+              if(err) throw err;
 
               newUser.password = hash;
               newUser
@@ -62,7 +62,7 @@ router.post("/register", (req, res) => {
 router.post("/sign-in", (req, res) => {
   const errors = validate(req.body, "signInUser");
 
-  if (Object.keys(errors).length > 0) {
+  if(Object.keys(errors).length > 0) {
     res
       .status(400)
       .json(errors);
@@ -71,7 +71,7 @@ router.post("/sign-in", (req, res) => {
     User
       .findOne({ email: req.body.email })
       .then(user => {
-        if (!user) {
+        if(!user) {
           res
             .status(401)
             .json({ message: messages.errorIncorrectEmailOrPassword });
@@ -80,11 +80,11 @@ router.post("/sign-in", (req, res) => {
           bcrypt
             .compare(req.body.password, user.password)
             .then(isMatch => {
-              if (isMatch) {
+              if(isMatch) {
                 const payload = { id: user.id };
 
                 jwt.sign(payload, jwtKey, { expiresIn: 3600 /* 1 hour */ }, (err, token) => {
-                  if (err) throw err;
+                  if(err) throw err;
                   res
                     .status(200)
                     .json({
@@ -112,7 +112,7 @@ router
   .post("/reset-password", (req, res) => {
     const errors = validate(req.body, "resetPassword");
 
-    if (Object.keys(errors).length > 0) {
+    if(Object.keys(errors).length > 0) {
       res
         .status(400)
         .json(errors);

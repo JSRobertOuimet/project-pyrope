@@ -58,7 +58,7 @@ class Challenge extends Component {
         sessionsSection = <div className="mx-auto lead text-center text-muted">Fetching sessions...</div>;
       }
       else {
-        if (sessions.length === 0) {
+        if(sessions.length === 0) {
           sessionsSection = (
             <div className="mx-auto text-center">
               <p className="lead text-muted">You don&#8217;t have any sessions yet.</p>

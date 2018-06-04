@@ -47,7 +47,7 @@ router
   .post("/create", passport.authenticate("jwt", { session: false }), (req, res) => {
     const errors = validate(req.body, "createChallenge");
 
-    if (Object.keys(errors).length > 0) {
+    if(Object.keys(errors).length > 0) {
       res
         .status(400)
         .json(errors);
@@ -130,7 +130,7 @@ router
       .find({ userId: req.user.id })
       .then(challenges => {
         challenges.forEach(challenge => {
-          if (challenge.id === req.params.challengeId) {
+          if(challenge.id === req.params.challengeId) {
             const session = new Session({
               userId: req.user.id,
               challengeId: req.params.challengeId,

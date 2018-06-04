@@ -118,11 +118,11 @@ class Dashboard extends Component {
     ];
     let content, challengeSection;
 
-    if (profilesLoading === true) {
+    if(profilesLoading === true) {
       content = <div className="block-center lead text-center text-muted">Fetching profile...</div>;
     }
     else {
-      if (profile === null) {
+      if(profile === null) {
         content = (
           <div className="block-center text-center">
             <p className="lead text-muted">You don&#8217;t have a profile yet.</p>
@@ -131,7 +131,7 @@ class Dashboard extends Component {
         );
       }
       else {
-        if (challengesLoading === true) {
+        if(challengesLoading === true) {
           challengeSection = <div className="block-center lead text-center text-muted">Fetching challenges...</div>;
         }
         else {
