@@ -28,6 +28,10 @@ const validate = (userInputs, action) => {
       bookNumberOfPagesValidation(userInputs.bookNumberOfPages);
       goalNumberOfPagesValidation(userInputs.goalNumberOfPages);
       break;
+    case "createSession":
+      numberOfPagesReadValidation(userInputs.numberOfPagesRead);
+      notesValidation(userInputs.notes);
+      break;
     default:
       console.log("Some other error...");
   }
@@ -85,6 +89,18 @@ const validate = (userInputs, action) => {
   function goalNumberOfPagesValidation(numberOfPages) {
     if(!(numberOfPages > 0)) {
       return errors.goalNumberOfPages = messages.errorInvalidGoalNumberOfPages;
+    }
+  }
+
+  function numberOfPagesReadValidation(numberOfPages) {
+    if(!(numberOfPages > 0)) {
+      return errors.numberOfPagesRead = messages.errorInvalidNumberOfPagesRead;
+    }
+  }
+
+  function notesValidation(notes) {
+    if(!validator.isLength(notes + "", { max: 5000 })) {
+      return errors.notes = messages.errorInvalidNotes;
     }
   }
 };

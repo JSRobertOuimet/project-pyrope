@@ -6,6 +6,8 @@ const messages = {
   errorInvalidEmail: "Please enter a valid email address.",
   errorInvalidBookNumberOfPages: "Please enter your book’s number of pages.",
   errorInvalidGoalNumberOfPages: "The number of pages for your goal must be at least 1.",
+  errorInvalidNotes: "Your session’s notes cannot exceed 5000 characters.",
+  errorInvalidNumberOfPagesRead: "The number of pages for your session must be at least 1.",
   errorInvalidPassword: "The password must be at least 8 characters long.",
   errorInvalidTitle: "Please enter your book’s title.",
   errorInvalidUsername: "Your username must be between 2 and 40 characters long.",

@@ -126,6 +126,14 @@ router
 // @access    Private
 router
   .post("/:challengeId/sessions", passport.authenticate("jwt", { session: false }), (req, res) => {
+    const errors = validate(req.body, "createSession");
+
+    if(Object.keys(errors).length > 0) {
+      res
+        .status(400)
+        .json(errors);
+    }
+
     Challenge
       .find({ userId: req.user.id })
       .then(challenges => {

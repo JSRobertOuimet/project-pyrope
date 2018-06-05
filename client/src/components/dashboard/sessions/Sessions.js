@@ -24,20 +24,18 @@ class Sessions extends Component {
 
     return (
       <React.Fragment>
-        <div className="col">
-          <table className="table">
-            <thead>
-              <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Pages Read</th>
-                <th scope="col">Notes</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sessionList}
-            </tbody>
-          </table>
-        </div>
+        <table className="table">
+          <thead>
+            <tr>
+              <th scope="col">Date</th>
+              <th scope="col">Pages Read</th>
+              <th scope="col">Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sessionList}
+          </tbody>
+        </table>
       </React.Fragment>
     );
   }

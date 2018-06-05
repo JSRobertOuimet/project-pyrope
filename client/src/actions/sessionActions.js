@@ -34,3 +34,14 @@ export const setSessions = id => dispatch => {
       })
     );
 };
+
+export const createSession = (sessionData, id) => dispatch => {
+  axios
+    .post(`/challenges/${id}/sessions`, sessionData)
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
