@@ -21,7 +21,7 @@ class Navbar extends Component {
 
   render() {
     const { isAuthenticated } = this.props.auth;
-    
+
     const guestLinks = (
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav ml-auto">
@@ -59,9 +59,7 @@ class Navbar extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
         <div className="container">
-          <Link to={ isAuthenticated ? "/dashboard" : "/" } className="logo d-flex align-items-center mr-4">
-            PP
-          </Link>
+          <Link to={ isAuthenticated ? "/dashboard" : "/" } className="logo d-flex align-items-center mr-4">PP</Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>

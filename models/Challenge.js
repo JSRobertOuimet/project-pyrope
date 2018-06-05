@@ -18,12 +18,14 @@ const
       },
       numberOfPages: {
         type: Number,
+        min: 1,
         required: true
       }
     },
     goal: {
       numberOfPages: {
         type: Number,
+        min: 1,
         required: true
       },
       timePeriod: {

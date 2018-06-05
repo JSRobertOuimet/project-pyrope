@@ -125,8 +125,6 @@ class Dashboard extends Component {
       publicProfile: this.state.publicProfile
     };
 
-    console.log(newProfile);
-
     e.preventDefault();
     this.props.clearErrors();
     this.props.createProfile(newProfile);
@@ -337,12 +335,12 @@ Dashboard.propTypes = {
   errors: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   challenge: PropTypes.object.isRequired,
+  clearErrors: PropTypes.func.isRequired,
   setCurrentProfile: PropTypes.func.isRequired,
   setChallenges: PropTypes.func.isRequired,
   setSessions: PropTypes.func.isRequired,
   createProfile: PropTypes.func.isRequired,
-  createChallenge: PropTypes.func.isRequired,
-  clearErrors: PropTypes.func.isRequired
+  createChallenge: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
