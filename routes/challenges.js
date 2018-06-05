@@ -64,7 +64,7 @@ router
         numberOfPages: req.body.goalNumberOfPages,
         timePeriod: req.body.goalTimePeriod
       },
-      public: req.body.public
+      public: req.body.publicChallenge
     });
 
     challenge

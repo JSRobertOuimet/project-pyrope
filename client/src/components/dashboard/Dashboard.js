@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 // Components
-import { Link } from "react-router-dom";
 import TextInput from "../common/TextInput";
+import TextArea from "../common/TextArea";
 import SelectInput from "../common/SelectInput";
 import Checkbox from "../common/Checkbox";
 import AddCard from "../common/AddCard";
@@ -18,6 +18,7 @@ import { clearErrors } from "../../actions/errorActions";
 import { setCurrentProfile } from "../../actions/profileActions";
 import { setChallenges } from "../../actions/challengeActions";
 import { setSessions } from "../../actions/sessionActions";
+import { createProfile } from "../../actions/profileActions";
 import { createChallenge } from "../../actions/challengeActions";
 
 // Redux
@@ -29,20 +30,31 @@ class Dashboard extends Component {
     super(props);
 
     this.state = {
+      username: "",
+      about: "",
+      publicProfile: true,
+
       author: "",
       title: "",
       bookNumberOfPages: "",
       goalNumberOfPages: "",
       goalTimePeriod: "day",
-      public: true,
+      publicChallenge: true,
+
       errors: {},
-      modal: false
+
+      createProfileModal: false,
+      createChallengeModal: false,
     };
 
-    this.toggle = this.toggle.bind(this);
-    this.toggleCheckbox = this.toggleCheckbox.bind(this);
+    this.toggleCreateProfileModal = this.toggleCreateProfileModal.bind(this);
+    this.toggleCreateChallengeModal = this.toggleCreateChallengeModal.bind(this);
+
+    this.toggleProfileCheckbox = this.toggleProfileCheckbox.bind(this);
+    this.toggleChallengeCheckbox = this.toggleChallengeCheckbox.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.onSubmitProfile = this.onSubmitProfile.bind(this);
+    this.onSubmitChallenge = this.onSubmitChallenge.bind(this);
   }
 
   componentDidMount() {
@@ -59,15 +71,12 @@ class Dashboard extends Component {
     }
   }
 
-  toggle() {
+  toggleCreateProfileModal() {
     this.setState({
-      author: "",
-      title: "",
-      bookNumberOfPages: "",
-      goalNumberOfPages: "",
-      goalTimePeriod: "day",
-      public: true,
-      modal: !this.state.modal,
+      username: "",
+      about: "",
+      publicProfile: true,
+      createProfileModal: !this.state.createProfileModal,
     });
 
     if(this.state.errors) {
@@ -75,9 +84,31 @@ class Dashboard extends Component {
     }
   }
 
-  toggleCheckbox() {
+  toggleCreateChallengeModal() {
     this.setState({
-      public: !this.state.public
+      author: "",
+      title: "",
+      bookNumberOfPages: "",
+      goalNumberOfPages: "",
+      goalTimePeriod: "day",
+      publicChallenge: true,
+      createChallengeModal: !this.state.createChallengeModal,
+    });
+
+    if(this.state.errors) {
+      this.props.clearErrors();
+    }
+  }
+
+  toggleProfileCheckbox() {
+    this.setState({
+      publicProfile: !this.state.publicProfile
+    });
+  }
+
+  toggleChallengeCheckbox() {
+    this.setState({
+      publicChallenge: !this.state.publicChallenge
     });
   }
 
@@ -87,14 +118,34 @@ class Dashboard extends Component {
     });
   }
 
-  onSubmit(e) {
+  onSubmitProfile(e) {
+    const newProfile = {
+      username: this.state.username,
+      about: this.state.about,
+      publicProfile: this.state.publicProfile
+    };
+
+    console.log(newProfile);
+
+    e.preventDefault();
+    this.props.clearErrors();
+    this.props.createProfile(newProfile);
+
+    setTimeout(() => {
+      if(!(this.state.errors.username || this.state.errors.about)) {
+        this.toggleCreateProfileModal();
+      }
+    }, 2000);
+  }
+
+  onSubmitChallenge(e) {
     const newChallenge = {
       author: this.state.author,
       title: this.state.title,
       bookNumberOfPages: Number(this.state.bookNumberOfPages),
       goalNumberOfPages: Number(this.state.goalNumberOfPages),
       goalTimePeriod: this.state.goalTimePeriod,
-      public: this.state.public
+      publicChallenge: this.state.publicChallenge
     };
 
     e.preventDefault();
@@ -103,7 +154,7 @@ class Dashboard extends Component {
 
     setTimeout(() => {
       if(!(this.state.errors.title || this.state.errors.author || this.state.errors.bookNumberOfPages || this.state.errors.goalumberOfPages)) {
-        this.toggle();
+        this.toggleCreateChallengeModal();
       }
     }, 2000);
   }
@@ -126,7 +177,7 @@ class Dashboard extends Component {
         content = (
           <div className="block-center text-center">
             <p className="lead text-muted">You don&#8217;t have a profile yet.</p>
-            <Link to="/profile/create" className="btn btn-outline-info">Create one!</Link>
+            <button onClick={this.toggleCreateProfileModal} className="btn btn-outline-info">Create one!</button>
           </div>
         );
       }
@@ -140,7 +191,7 @@ class Dashboard extends Component {
               <h2 className="mb-3 mt-3">My Challenges</h2>
               <div className="row">
                 { challenges ? <Challenges challenges={challenges} /> : null }
-                <AddCard onClick={this.toggle} />
+                <AddCard onClick={this.toggleCreateChallengeModal} />
               </div>
             </React.Fragment>
           );
@@ -157,9 +208,44 @@ class Dashboard extends Component {
     return (
       <React.Fragment>
         {content}
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
-          <form onSubmit={this.onSubmit} noValidate>
-            <ModalHeader toggle={this.toggle}>Create Challenge</ModalHeader>
+        <Modal isOpen={this.state.createProfileModal} toggle={this.toggleCreateProfileModal}>
+          <form onSubmit={this.onSubmitProfile} noValidate>
+            <ModalHeader toggle={this.toggleCreateProfileModal}>Create Profile</ModalHeader>
+            <ModalBody>
+              <TextInput
+                label="Username"
+                type="text"
+                id="username"
+                name="username"
+                value={this.state.username}
+                error={errors.username}
+                onChange={this.onChange}
+              />
+              <TextArea
+                label="About"
+                id="about"
+                name="about"
+                value={this.state.about}
+                error={errors.about}
+                onChange={this.onChange}
+              />
+              <Checkbox
+                label="Public"
+                id="publicProfile"
+                name="publicProfile"
+                checked={this.state.publicProfile}
+                onChange={this.toggleProfileCheckbox}
+              />
+            </ModalBody>
+            <ModalFooter>
+              <Button outline color="secondary" onClick={this.toggleCreateProfileModal}>Cancel</Button>
+              <input type="submit" className="btn btn-success" value="Create" />
+            </ModalFooter>
+          </form>
+        </Modal>
+        <Modal isOpen={this.state.createChallengeModal} toggle={this.toggleCreateChallengeModal}>
+          <form onSubmit={this.onSubmitChallenge} noValidate>
+            <ModalHeader toggle={this.toggleCreateChallengeModal}>Create Challenge</ModalHeader>
             <ModalBody>
               <div className="row">
                 <div className="col">
@@ -228,16 +314,16 @@ class Dashboard extends Component {
                   </div>
                   <Checkbox
                     label="Public"
-                    id="public"
-                    name="public"
-                    checked={this.state.public}
-                    onChange={this.toggleCheckbox}
+                    id="publicChallenge"
+                    name="publicChallenge"
+                    checked={this.state.publicChallenge}
+                    onChange={this.toggleChallengeCheckbox}
                   />
                 </div>
               </div>
             </ModalBody>
             <ModalFooter>
-              <Button outline color="secondary" onClick={this.toggle}>Cancel</Button>
+              <Button outline color="secondary" onClick={this.toggleCreateChallengeModal}>Cancel</Button>
               <input type="submit" className="btn btn-success" value="Create" />
             </ModalFooter>
           </form>
@@ -254,6 +340,7 @@ Dashboard.propTypes = {
   setCurrentProfile: PropTypes.func.isRequired,
   setChallenges: PropTypes.func.isRequired,
   setSessions: PropTypes.func.isRequired,
+  createProfile: PropTypes.func.isRequired,
   createChallenge: PropTypes.func.isRequired,
   clearErrors: PropTypes.func.isRequired
 };
@@ -265,4 +352,4 @@ const mapStateToProps = state => ({
   sessions: state.sessions
 });
 
-export default connect(mapStateToProps, { setCurrentProfile, setChallenges, setSessions, createChallenge, clearErrors })(Dashboard);
+export default connect(mapStateToProps, { setCurrentProfile, setChallenges, setSessions, createProfile, createChallenge, clearErrors })(Dashboard);
