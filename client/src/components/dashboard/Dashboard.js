@@ -165,9 +165,9 @@ class Dashboard extends Component {
       { label: "day", value: "day" },
       { label: "week", value: "week" },
     ];
-    let content, challengeSection;
+    let content;
 
-    if(profilesLoading === true) {
+    if(profilesLoading === true || challengesLoading === true) {
       content = <div className="block-center lead text-center text-muted">Fetching profile...</div>;
     }
     else {
@@ -180,24 +180,17 @@ class Dashboard extends Component {
         );
       }
       else {
-        if(challengesLoading === true) {
-          challengeSection = <div className="block-center lead text-center text-muted">Fetching challenges...</div>;
-        }
-        else {
-          challengeSection = (
-            <React.Fragment>
-              <h2 className="mb-3 mt-3">My Challenges</h2>
-              <div className="row">
-                { challenges ? <Challenges challenges={challenges} /> : null }
-                <AddCard onClick={this.toggleCreateChallengeModal} />
-              </div>
-            </React.Fragment>
-          );
-        }
         content = (
           <React.Fragment>
-            <Stats />
-            {challengeSection}
+            <h2 className="mb-3">My Stats</h2>
+            <div className="row">
+              <Stats />
+            </div>
+            <h2 className="mb-3 mt-3">My Challenges</h2>
+            <div className="row">
+              { challenges ? <Challenges challenges={challenges} /> : null }
+              <AddCard onClick={this.toggleCreateChallengeModal} />
+            </div>
           </React.Fragment>
         );
       }
@@ -249,7 +242,7 @@ class Dashboard extends Component {
                 <div className="col">
                   <p className="lead">Book</p>
                   <div className="row">
-                    <div className="col">
+                    <div className="col-12 col-sm-6">
                       <TextInput
                         label="Title"
                         type="text"
@@ -260,7 +253,7 @@ class Dashboard extends Component {
                         onChange={this.onChange}
                       />
                     </div>
-                    <div className="col">
+                    <div className="col-12 col-sm-6">
                       <TextInput
                         label="Author"
                         type="text"
@@ -273,7 +266,7 @@ class Dashboard extends Component {
                     </div>
                   </div>
                   <div className="row">
-                    <div className="col-6">
+                    <div className="col-12 col-sm-6">
                       <TextInput
                         label="Number of pages"
                         type="number"
@@ -288,7 +281,7 @@ class Dashboard extends Component {
                   <hr/>
                   <p className="lead">Goal</p>
                   <div className="row">
-                    <div className="col">
+                    <div className="col-12 col-sm-6">
                       <TextInput
                         label="Number of pages"
                         type="number"
@@ -299,7 +292,7 @@ class Dashboard extends Component {
                         onChange={this.onChange}
                       />
                     </div>
-                    <div className="col">
+                    <div className="col-12 col-sm-6">
                       <SelectInput
                         label="Time Period"
                         options={timePeriodOptions}
