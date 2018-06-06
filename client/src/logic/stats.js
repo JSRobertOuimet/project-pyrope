@@ -4,7 +4,7 @@ export const completionPercentage = (sessions, pagesToRead) => {
 
   sessions.map(session => pagesReadEntries.push(session.numberOfPagesRead));
   pagesReadTotal = pagesReadEntries.reduce((accumulator, currentValue) => accumulator + currentValue);
-  completionPercentage = Math.trunc((pagesReadTotal / pagesToRead) * 100);
+  completionPercentage = Math.round((pagesReadTotal / pagesToRead) * 100);
 
   return completionPercentage >= 100 ? 100 : completionPercentage;
 };
