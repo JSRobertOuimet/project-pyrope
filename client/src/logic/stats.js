@@ -6,5 +6,5 @@ export const completionPercentage = (sessions, pagesToRead) => {
   pagesReadTotal = pagesReadEntries.reduce((accumulator, currentValue) => accumulator + currentValue);
   completionPercentage = (pagesReadTotal / pagesToRead).toFixed(2) * 100;
 
-  return completionPercentage;
+  return completionPercentage >= 100 ? 100 : completionPercentage;
 };
