@@ -32,10 +32,10 @@ class Challenge extends Component {
       notes: "",
       errors: {},
 
-      createSessionModal: false
+      addSessionModal: false
     };
 
-    this.toggleCreateSessionModal = this.toggleCreateSessionModal.bind(this);
+    this.toggleAddSessionModal = this.toggleAddSessionModal.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onSubmitSession = this.onSubmitSession.bind(this);
   }
@@ -56,11 +56,11 @@ class Challenge extends Component {
     }
   }
 
-  toggleCreateSessionModal() {
+  toggleAddSessionModal() {
     this.setState({
       numberOfPagesRead: "",
       notes: "",
-      createSessionModal: !this.state.createSessionModal,
+      addSessionModal: !this.state.addSessionModal,
     });
 
     if(this.state.errors) {
@@ -75,7 +75,7 @@ class Challenge extends Component {
   }
 
   onSubmitSession(e) {
-    const challengeId = this.props.match.params.challengeId;    
+    const challengeId = this.props.match.params.challengeId;
     const newSession = {
       numberOfPagesRead: Number(this.state.numberOfPagesRead),
       notes: this.state.notes
@@ -90,7 +90,7 @@ class Challenge extends Component {
         Promise
           .resolve(this.props.setChallenge(challengeId))
           .then(this.props.setSessions(challengeId))
-          .then(this.toggleCreateSessionModal());
+          .then(this.toggleAddSessionModal());
       }
     }, 2000);
   }
@@ -107,9 +107,9 @@ class Challenge extends Component {
     else {
       if(sessions.length === 0) {
         sessionsSection = (
-          <div className="mx-auto text-center">
+          <div className="mx-auto text-center my-5">
             <p className="lead text-muted">You don&#8217;t have any sessions yet.</p>
-            <button className="btn btn-outline-info" onClick={this.toggleCreateSessionModal}>Add your first one!</button>
+            <button className="btn btn-outline-info" onClick={this.toggleAddSessionModal}>Add your first one!</button>
           </div>
         );
       }
@@ -143,7 +143,7 @@ class Challenge extends Component {
           </div>
           <h2 className="my-3 d-flex justify-content-between">
             <div>My Sessions</div>
-            { sessions.length > 0 ? <button className="btn btn-info btn-sm align-self-center" onClick={this.toggleCreateSessionModal}>Add Session</button> : null }
+            { sessions.length > 0 ? <button className="btn btn-info btn-sm align-self-center" onClick={this.toggleAddSessionModal}>Add Session</button> : null }
           </h2>
           {sessionsSection}
         </React.Fragment>
@@ -153,9 +153,9 @@ class Challenge extends Component {
     return (
       <React.Fragment>
         {content}
-        <Modal isOpen={this.state.createSessionModal} toggle={this.toggleCreateSessionModal}>
+        <Modal isOpen={this.state.addSessionModal} toggle={this.toggleaddSessionModal}>
           <form onSubmit={this.onSubmitSession} noValidate>
-            <ModalHeader toggle={this.toggleCreateSessionModal}>Create Session</ModalHeader>
+            <ModalHeader toggle={this.toggleAddSessionModal}>Add Session</ModalHeader>
             <ModalBody>
               <TextInput
                 label="Number of pages read"
@@ -176,8 +176,8 @@ class Challenge extends Component {
               />
             </ModalBody>
             <ModalFooter>
-              <Button outline color="secondary" onClick={this.toggleCreateSessionModal}>Cancel</Button>
-              <input type="submit" className="btn btn-success" value="Create" />
+              <Button outline color="secondary" onClick={this.toggleAddSessionModal}>Cancel</Button>
+              <input type="submit" className="btn btn-success" value="Add" />
             </ModalFooter>
           </form>
         </Modal>
