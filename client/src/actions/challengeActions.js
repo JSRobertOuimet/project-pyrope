@@ -8,13 +8,20 @@ import {
   FETCH_CHALLENGES_REQUEST,
   FETCH_CHALLENGES_SUCCESS,
   FETCH_CHALLENGE_REQUEST,
-  FETCH_CHALLENGE_SUCCESS
+  FETCH_CHALLENGE_SUCCESS,
+  CLEAR_CURRENT_CHALLENGE
 } from "./types";
 //==================================================
 
 export const fetchChallenges = () => {
   return {
     type: FETCH_CHALLENGES_REQUEST
+  };
+};
+
+export const clearChallenge = () => {
+  return {
+    type: CLEAR_CURRENT_CHALLENGE
   };
 };
 
@@ -65,7 +72,25 @@ export const setChallenge = id => dispatch => {
 export const createChallenge = newChallenge => dispatch => {
   axios
     .post("/challenges/create", newChallenge)
-    .then(() => dispatch(setChallenges()))
+    .then(() => {
+      dispatch(setChallenges());
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+export const deleteChallenge = (id, history) => dispatch => {
+  axios
+    .delete(`/challenges/${id}`)
+    .then(() => {
+      dispatch(clearChallenge());
+      dispatch(setChallenges());
+      history.push("/dashboard");
+    })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

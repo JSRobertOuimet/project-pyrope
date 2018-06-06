@@ -15,6 +15,7 @@ import placeholderBookCoverImage from "../../../img/placeholder-book-cover-image
 // Methods
 import { clearErrors } from "../../../actions/errorActions";
 import { setChallenge } from "../../../actions/challengeActions";
+import { deleteChallenge } from "../../../actions/challengeActions";
 import { setSessions } from "../../../actions/sessionActions";
 import { createSession } from "../../../actions/sessionActions";
 import { completionPercentage } from "../../../logic/stats";
@@ -32,11 +33,14 @@ class Challenge extends Component {
       notes: "",
       errors: {},
 
+      deleteChallengeModal: false,
       addSessionModal: false
     };
 
+    this.toggleDeleteChallengeModal = this.toggleDeleteChallengeModal.bind(this);
     this.toggleAddSessionModal = this.toggleAddSessionModal.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onDeleteChallenge = this.onDeleteChallenge.bind(this);
     this.onSubmitSession = this.onSubmitSession.bind(this);
   }
 
@@ -56,6 +60,12 @@ class Challenge extends Component {
     }
   }
 
+  toggleDeleteChallengeModal() {
+    this.setState({
+      deleteChallengeModal: !this.state.deleteChallengeModal,
+    });
+  }
+
   toggleAddSessionModal() {
     this.setState({
       numberOfPagesRead: "",
@@ -72,6 +82,13 @@ class Challenge extends Component {
     this.setState({
       [e.target.name]: e.target.value
     });
+  }
+
+  onDeleteChallenge(e) {
+    const challengeId = this.props.match.params.challengeId;
+
+    e.preventDefault();
+    this.props.deleteChallenge(challengeId, this.props.history);
   }
 
   onSubmitSession(e) {
@@ -116,7 +133,7 @@ class Challenge extends Component {
       else {
         sessionsSection = (
           <React.Fragment>
-            <div className="row mb-5">
+            <div className="row mb-3">
               <div className="col">
                 <Sessions sessions={sessions} />
               </div>
@@ -139,6 +156,11 @@ class Challenge extends Component {
               <div>{challenge.goal.numberOfPages} pages / {challenge.goal.timePeriod}</div>
               <div>{ completionPercentage(sessions, challenge.book.numberOfPages) } % completed</div>
               <div>{ challenge.public === true ? "Public" : "Private" } challenge</div>
+              <div className="row mt-3">
+                <div className="col">
+                  <button className="btn btn-outline-danger btn-sm" onClick={this.toggleDeleteChallengeModal}>Delete Challenge</button>
+                </div>
+              </div>
             </div>
           </div>
           <h2 className="my-3 d-flex justify-content-between">
@@ -153,6 +175,18 @@ class Challenge extends Component {
     return (
       <React.Fragment>
         {content}
+        <Modal isOpen={this.state.deleteChallengeModal} toggle={this.toggledeleteChallengeModal}>
+          <form onSubmit={this.onDeleteChallenge} noValidate>
+            <ModalHeader toggle={this.toggleAddSessionModal}>Delete Challenge</ModalHeader>
+            <ModalBody>
+              Are you sure you want to delete this challenge?
+            </ModalBody>
+            <ModalFooter>
+              <Button outline color="secondary" onClick={this.toggleDeleteChallengeModal}>Cancel</Button>
+              <input type="submit" className="btn btn-danger" value="Delete" onClick={this.onDeleteChallenge} />
+            </ModalFooter>
+          </form>
+        </Modal>
         <Modal isOpen={this.state.addSessionModal} toggle={this.toggleaddSessionModal}>
           <form onSubmit={this.onSubmitSession} noValidate>
             <ModalHeader toggle={this.toggleAddSessionModal}>Add Session</ModalHeader>
@@ -188,11 +222,13 @@ class Challenge extends Component {
 
 Challenge.propTypes = {
   errors: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
   challenge: PropTypes.object.isRequired,
   session: PropTypes.object.isRequired,
   clearErrors: PropTypes.func.isRequired,
   setChallenge: PropTypes.func.isRequired,
+  deleteChallenge: PropTypes.func.isRequired,
   setSessions: PropTypes.func.isRequired,
   createSession: PropTypes.func.isRequired
 };
@@ -203,4 +239,4 @@ const mapStateToProps = state => ({
   session: state.session
 });
 
-export default connect(mapStateToProps, { clearErrors, setChallenge, setSessions, createSession })(Challenge);
+export default connect(mapStateToProps, { clearErrors, setChallenge, deleteChallenge, setSessions, createSession })(Challenge);

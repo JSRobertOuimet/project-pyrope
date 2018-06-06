@@ -2,7 +2,8 @@ import {
   FETCH_CHALLENGES_REQUEST,
   FETCH_CHALLENGES_SUCCESS,
   FETCH_CHALLENGE_REQUEST,
-  FETCH_CHALLENGE_SUCCESS
+  FETCH_CHALLENGE_SUCCESS,
+  CLEAR_CURRENT_CHALLENGE
 } from "../actions/types";
 
 const initialState = {
@@ -35,6 +36,11 @@ export default function(state = initialState, action) {
         ...state,
         challengesLoading: false,
         challenge: action.payload
+      };
+    case CLEAR_CURRENT_CHALLENGE:
+      return {
+        ...state,
+        challenge: null
       };
     default:
       return state;
