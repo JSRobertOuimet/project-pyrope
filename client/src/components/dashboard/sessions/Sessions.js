@@ -13,7 +13,7 @@ class Sessions extends Component {
     const sessionList = sessions.map(session => (
       <tr key={session._id}>
         <td>
-          <Moment format="MMM Do, YYYY">
+          <Moment format="MMM Do, YYYY @ h:mm a">
             {session.date}
           </Moment>
         </td>
