@@ -75,6 +75,7 @@ class Challenge extends Component {
   }
 
   onSubmitSession(e) {
+    const challengeId = this.props.match.params.challengeId;    
     const newSession = {
       numberOfPagesRead: Number(this.state.numberOfPagesRead),
       notes: this.state.notes
@@ -82,14 +83,14 @@ class Challenge extends Component {
 
     e.preventDefault();
     this.props.clearErrors();
-    this.props.createSession(newSession, this.props.match.params.challengeId);
+    this.props.createSession(newSession, challengeId);
 
     setTimeout(() => {
       if(!(this.state.errors.numberOfPagesRead || this.state.errors.notes)) {
         Promise
-          .resolve(this.props.setChallenge(this.props.match.params.challengeId))
-          .then(this.props.setSessions(this.props.match.params.challengeId));
-        this.toggleCreateSessionModal();
+          .resolve(this.props.setChallenge(challengeId))
+          .then(this.props.setSessions(challengeId))
+          .then(this.toggleCreateSessionModal());
       }
     }, 2000);
   }
@@ -98,62 +99,60 @@ class Challenge extends Component {
     const { errors } = this.state;
     const { challenge, challengesLoading } = this.props.challenge;
     const { sessionsLoading, sessions } = this.props.session;
-    let challengeSection, sessionsSection;
+    let content, sessionsSection;
 
     if(challengesLoading === true || sessionsLoading === true || challenge === null || sessions === null) {
-      challengeSection = <div className="block-center lead text-center text-muted">Fetching challenge...</div>;
+      content = <div className="block-center lead text-center text-muted">Fetching challenge...</div>;
     }
     else {
-      challengeSection = (
-        <React.Fragment>
-          <div className="col-sm-4 mb-3">
-            <div className="card border-0">
-              <img src={placeholderBookCoverImage} alt={challenge.book.title} className="card-img rounded-0" />
-            </div>
+      if(sessions.length === 0) {
+        sessionsSection = (
+          <div className="mx-auto text-center">
+            <p className="lead text-muted">You don&#8217;t have any sessions yet.</p>
+            <button className="btn btn-outline-info" onClick={this.toggleCreateSessionModal}>Add your first one!</button>
           </div>
-          <div className="col-sm-8 mb-3">
-            <h3 className="display-4 n-pl">{challenge.book.title}</h3>
-            <p className="lead">{challenge.book.author}</p>
-            <p>{challenge.book.numberOfPages} pages</p>
-            <div>{challenge.goal.numberOfPages} pages / {challenge.goal.timePeriod}</div>
-            <div>{ completionPercentage(sessions, challenge.book.numberOfPages) } % completed</div>
-            <div>This challenge is { challenge.public === true ? "public" : "private" }</div>
-          </div>
-        </React.Fragment>
-      );
-
-      if(sessionsLoading === true || sessions === null) {
-        sessionsSection = <div className="mx-auto lead text-center text-muted">Fetching sessions...</div>;
+        );
       }
       else {
-        if(sessions.length === 0) {
-          sessionsSection = (
-            <div className="mx-auto text-center">
-              <p className="lead text-muted">You don&#8217;t have any sessions yet.</p>
-              <button className="btn btn-outline-info" onClick={this.toggleCreateSessionModal}>Add your first one!</button>
+        sessionsSection = (
+          <React.Fragment>
+            <div className="row mb-5">
+              <div className="col">
+                <Sessions sessions={sessions} />
+              </div>
             </div>
-          );
-        }
-        else {
-          sessionsSection = (
-            <React.Fragment>
-              <Sessions sessions={sessions} />
-              <button className="btn btn-outline-info" onClick={this.toggleCreateSessionModal}>Add Session</button>
-            </React.Fragment>
-          );
-        }
+          </React.Fragment>
+        );
       }
+      content = (
+        <React.Fragment>
+          <div className="row">
+            <div className="col-sm-4 mb-3">
+              <div className="card border-0">
+                <img src={placeholderBookCoverImage} alt={challenge.book.title} className="card-img rounded-0" />
+              </div>
+            </div>
+            <div className="col-sm-8 mb-3">
+              <h3 className="display-4 n-pl">{challenge.book.title}</h3>
+              <p className="lead">{challenge.book.author}</p>
+              <p>{challenge.book.numberOfPages} pages</p>
+              <div>{challenge.goal.numberOfPages} pages / {challenge.goal.timePeriod}</div>
+              <div>{ completionPercentage(sessions, challenge.book.numberOfPages) } % completed</div>
+              <div>{ challenge.public === true ? "Public" : "Private" } challenge</div>
+            </div>
+          </div>
+          <h2 className="my-3 d-flex justify-content-between">
+            <div>My Sessions</div>
+            { sessions.length > 0 ? <button className="btn btn-info btn-sm align-self-center" onClick={this.toggleCreateSessionModal}>Add Session</button> : null }
+          </h2>
+          {sessionsSection}
+        </React.Fragment>
+      );
     }
 
     return (
       <React.Fragment>
-        <div className="row">
-          {challengeSection}
-        </div>
-        <h2 className="my-3">My Sessions</h2>
-        <div className="row mb-5">
-          {sessionsSection}
-        </div>
+        {content}
         <Modal isOpen={this.state.createSessionModal} toggle={this.toggleCreateSessionModal}>
           <form onSubmit={this.onSubmitSession} noValidate>
             <ModalHeader toggle={this.toggleCreateSessionModal}>Create Session</ModalHeader>
