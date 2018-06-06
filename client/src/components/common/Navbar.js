@@ -57,7 +57,7 @@ class Navbar extends Component {
     );
 
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
+      <nav className="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
         <div className="container">
           <Link to={ isAuthenticated ? "/dashboard" : "/" } className="logo d-flex align-items-center mr-4">PP</Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

@@ -44,7 +44,7 @@ class App extends Component {
         <BrowserRouter>
           <React.Fragment>
             <Navbar />
-            <div className="container">
+            <div className="container pt-5">
               <Route exact path="/auth/register" component={Register} />
               <Route exact path="/auth/sign-in" component={SignIn} />
               <Switch>

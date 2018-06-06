@@ -123,7 +123,7 @@ class Profile extends Component {
                 onChange={this.toggleCheckbox}
               />
               <SubmitButton
-                buttonType="success"
+                buttonType="dark"
                 value="Save Changes"
               />
             </form>

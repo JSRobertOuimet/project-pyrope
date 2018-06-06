@@ -175,7 +175,7 @@ class Dashboard extends Component {
         content = (
           <div className="block-center text-center">
             <p className="lead text-muted">You don&#8217;t have a profile yet.</p>
-            <button onClick={this.toggleCreateProfileModal} className="btn btn-outline-info">Create one!</button>
+            <button onClick={this.toggleCreateProfileModal} className="btn btn-outline-dark">Create one!</button>
           </div>
         );
       }
@@ -229,8 +229,8 @@ class Dashboard extends Component {
               />
             </ModalBody>
             <ModalFooter>
-              <Button outline color="secondary" onClick={this.toggleCreateProfileModal}>Cancel</Button>
-              <input type="submit" className="btn btn-success" value="Create" />
+              <Button outline color="dark" onClick={this.toggleCreateProfileModal}>Cancel</Button>
+              <input type="submit" className="btn btn-dark" value="Create Profile" />
             </ModalFooter>
           </form>
         </Modal>
@@ -314,8 +314,8 @@ class Dashboard extends Component {
               </div>
             </ModalBody>
             <ModalFooter>
-              <Button outline color="secondary" onClick={this.toggleCreateChallengeModal}>Cancel</Button>
-              <input type="submit" className="btn btn-success" value="Create" />
+              <Button outline color="dark" onClick={this.toggleCreateChallengeModal}>Cancel</Button>
+              <input type="submit" className="btn btn-dark" value="Create Challenge" />
             </ModalFooter>
           </form>
         </Modal>
