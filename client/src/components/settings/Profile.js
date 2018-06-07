@@ -25,7 +25,7 @@ class Profile extends Component {
       username: "",
       email: "",
       about: "",
-      public: true,
+      public: false,
       errors: {}
     };
 
