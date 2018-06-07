@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 body {
   padding-top: 56px;
+  font-family: "Open Sans", sans-serif;
 }
 
 #root > .container {
