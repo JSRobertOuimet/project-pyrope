@@ -2,6 +2,7 @@
 // React
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Button } from "reactstrap";
 
 // Components
 import TextInput from "../common/TextInput";
@@ -12,6 +13,7 @@ import SubmitButton from "../common/SubmitButton";
 // Methods
 import { setCurrentProfile } from "../../actions/profileActions";
 import { createProfile } from "../../actions/profileActions";
+import { deleteProfile } from "../../actions/profileActions";
 
 // Redux
 import { connect } from "react-redux";
@@ -32,6 +34,7 @@ class Profile extends Component {
     this.toggleCheckbox = this.toggleCheckbox.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.deleteProfile = this.deleteProfile.bind(this);
   }
 
   componentDidMount() {
@@ -67,6 +70,10 @@ class Profile extends Component {
     this.setState({
       [e.target.name] : e.target.value
     });
+  }
+
+  deleteProfile() {
+    this.props.deleteProfile();
   }
 
   onSubmit(e) {
@@ -129,6 +136,12 @@ class Profile extends Component {
             </form>
           </div>
         </div>
+        <hr className="hr"/>
+        <div className="row">
+          <div className="col">
+            <Button outline color="danger" onClick={this.deleteProfile}>Delete your Profile</Button>
+          </div>
+        </div>
       </React.Fragment>
     );
   }
@@ -138,7 +151,8 @@ Profile.propTypes = {
   errors: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   setCurrentProfile: PropTypes.func.isRequired,
-  createProfile: PropTypes.func.isRequired
+  createProfile: PropTypes.func.isRequired,
+  deleteProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -146,4 +160,4 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { setCurrentProfile, createProfile })(Profile);
+export default connect(mapStateToProps, { setCurrentProfile, createProfile, deleteProfile })(Profile);

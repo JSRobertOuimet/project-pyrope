@@ -1,10 +1,13 @@
 import axios from "axios";
 import {
   GET_ERRORS,
+  SET_CURRENT_USER,
   FETCH_CURRENT_PROFILE_REQUEST,
   FETCH_CURRENT_PROFILE_SUCCESS,
   CREATE_PROFILE
 } from "./types";
+import { clearErrors } from "../actions/errorActions";
+import { clearCurrentProfile } from "../actions/authActions";
 
 export const fetchCurrentProfile = () => {
   return {
@@ -46,4 +49,17 @@ export const createProfile = profileData => dispatch => {
         payload: err.response.data
       })
     );
+};
+
+export const deleteProfile = () => dispatch => {
+  axios
+    .delete("/profiles/me")
+    .then(() => {
+      dispatch({
+        type: SET_CURRENT_USER,
+        payload: {}
+      });
+      dispatch(clearCurrentProfile());
+      dispatch(clearErrors());
+    });
 };
