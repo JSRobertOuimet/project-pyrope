@@ -186,7 +186,7 @@ class Dashboard extends Component {
             <div className="row">
               <Stats />
             </div>
-            <h2 className="mb-3 mt-3">My Challenges</h2>
+            <h2 className="mb-3 mt-3">My Challenges { challenges.length > 0 ? <small className="text-black-50">({challenges.length})</small> : null }</h2>
             <div className="row">
               { challenges ? <Challenges challenges={challenges} /> : null }
               <AddCard onClick={this.toggleCreateChallengeModal} />

@@ -166,7 +166,7 @@ class Challenge extends Component {
             </div>
           </div>
           <h2 className="my-3 d-flex justify-content-between">
-            <div>My Sessions</div>
+            <div>My Sessions { sessions.length > 0 ? <small className="text-black-50">({sessions.length})</small> : null }</div>
             { sessions.length > 0 ? <button className="btn btn-dark btn-sm align-self-center" onClick={this.toggleAddSessionModal}>Add Session</button> : null }
           </h2>
           {sessionsSection}
