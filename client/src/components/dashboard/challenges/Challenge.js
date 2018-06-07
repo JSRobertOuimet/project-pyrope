@@ -122,7 +122,7 @@ class Challenge extends Component {
       content = <div className="block-center lead text-center text-muted">Fetching challenge...</div>;
     }
     else {
-      deleteModalContent = (<p>You are about to permanently delete your challenge for the book <strong>{challenge.book.title}</strong>. Are you sure you want to proceed?</p>);
+      deleteModalContent = (<p>You are about to permanently delete your challenge for the book <strong>{challenge.book.title}</strong>.</p>);
 
       if(sessions.length === 0) {
         sessionsSection = (
@@ -146,12 +146,12 @@ class Challenge extends Component {
       content = (
         <React.Fragment>
           <div className="row">
-            <div className="col-sm-4 mb-3">
+            <div className="col-md-4 mb-3">
               <div className="card border-0">
                 <img src={placeholderBookCoverImage} alt={challenge.book.title} className="card-img rounded-0" />
               </div>
             </div>
-            <div className="col-sm-8 mb-3">
+            <div className="col-md-8 mb-3">
               <h3 className="display-4 n-pl">{challenge.book.title}</h3>
               <p className="lead">{challenge.book.author}</p>
               <p>{challenge.book.numberOfPages} pages</p>
@@ -184,8 +184,8 @@ class Challenge extends Component {
               {deleteModalContent}
             </ModalBody>
             <ModalFooter>
-              <Button outline color="dark" onClick={this.toggleDeleteChallengeModal}>No, cancel</Button>
-              <input type="submit" className="btn btn-danger" value="Yes, delete challenge" onClick={this.onDeleteChallenge} />
+              <Button outline color="dark" onClick={this.toggleDeleteChallengeModal}>Cancel</Button>
+              <input type="submit" className="btn btn-danger" value="Delete challenge" onClick={this.onDeleteChallenge} />
             </ModalFooter>
           </form>
         </Modal>
