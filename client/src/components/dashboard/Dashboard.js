@@ -47,14 +47,18 @@ class Dashboard extends Component {
       createChallengeModal: false,
     };
 
+    // Modals
     this.toggleCreateProfileModal = this.toggleCreateProfileModal.bind(this);
     this.toggleCreateChallengeModal = this.toggleCreateChallengeModal.bind(this);
 
+    // Inputs
+    this.onChange = this.onChange.bind(this);
     this.toggleProfileCheckbox = this.toggleProfileCheckbox.bind(this);
     this.toggleChallengeCheckbox = this.toggleChallengeCheckbox.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.onSubmitProfile = this.onSubmitProfile.bind(this);
-    this.onSubmitChallenge = this.onSubmitChallenge.bind(this);
+
+    // Submit
+    this.createProfile = this.createProfile.bind(this);
+    this.createChallenge = this.createChallenge.bind(this);
   }
 
   componentDidMount() {
@@ -118,7 +122,7 @@ class Dashboard extends Component {
     });
   }
 
-  onSubmitProfile(e) {
+  createProfile(e) {
     const newProfile = {
       username: this.state.username,
       about: this.state.about,
@@ -136,7 +140,7 @@ class Dashboard extends Component {
     }, 2000);
   }
 
-  onSubmitChallenge(e) {
+  createChallenge(e) {
     const newChallenge = {
       author: this.state.author,
       title: this.state.title,
@@ -152,7 +156,10 @@ class Dashboard extends Component {
 
     setTimeout(() => {
       if(!(this.state.errors.title || this.state.errors.author || this.state.errors.bookNumberOfPages || this.state.errors.goalumberOfPages)) {
-        this.toggleCreateChallengeModal();
+        Promise
+          .resolve(this.props.setCurrentProfile())
+          .then(this.props.setChallenges())
+          .then(this.toggleCreateChallengeModal());
       }
     }, 2000);
   }
@@ -200,7 +207,7 @@ class Dashboard extends Component {
       <React.Fragment>
         {content}
         <Modal isOpen={this.state.createProfileModal} toggle={this.toggleCreateProfileModal}>
-          <form onSubmit={this.onSubmitProfile} noValidate>
+          <form onSubmit={this.createProfile} noValidate>
             <ModalHeader toggle={this.toggleCreateProfileModal}>Create Profile</ModalHeader>
             <ModalBody>
               <TextInput
@@ -235,7 +242,7 @@ class Dashboard extends Component {
           </form>
         </Modal>
         <Modal isOpen={this.state.createChallengeModal} toggle={this.toggleCreateChallengeModal}>
-          <form onSubmit={this.onSubmitChallenge} noValidate>
+          <form onSubmit={this.createChallenge} noValidate>
             <ModalHeader toggle={this.toggleCreateChallengeModal}>Create Challenge</ModalHeader>
             <ModalBody>
               <div className="row">

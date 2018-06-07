@@ -28,7 +28,7 @@ class Register extends Component {
     };
 
     this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.register = this.register.bind(this);
   }
 
   componentDidMount() {
@@ -51,7 +51,7 @@ class Register extends Component {
     });
   }
 
-  onSubmit(e) {
+  register(e) {
     const newUser = {
       email: this.state.email,
       password: this.state.password,
@@ -72,7 +72,7 @@ class Register extends Component {
           <div className="card mb-2">
             <div className="card-body">
               <h1 className="card-title h3 text-center">Register</h1>
-              <form onSubmit={this.onSubmit} noValidate>
+              <form onSubmit={this.register} noValidate>
                 <TextInput
                   label="Email"
                   type="email"

@@ -31,9 +31,12 @@ class Profile extends Component {
       errors: {}
     };
 
+    // Inputs
     this.toggleCheckbox = this.toggleCheckbox.bind(this);
     this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+
+    // Submit
+    this.updateProfile = this.updateProfile.bind(this);
     this.deleteProfile = this.deleteProfile.bind(this);
   }
 
@@ -72,11 +75,7 @@ class Profile extends Component {
     });
   }
 
-  deleteProfile() {
-    this.props.deleteProfile();
-  }
-
-  onSubmit(e) {
+  updateProfile(e) {
     const updatedProfile = {
       username: this.state.username,
       email: this.state.email,
@@ -88,6 +87,10 @@ class Profile extends Component {
     this.props.createProfile(updatedProfile);
   }
 
+  deleteProfile() {
+    this.props.deleteProfile();
+  }
+
   render() {
     const { errors } = this.state;
 
@@ -95,7 +98,7 @@ class Profile extends Component {
       <React.Fragment>
         <div className="row">
           <div className="col-lg-6">
-            <form onSubmit={this.onSubmit} noValidate>
+            <form onSubmit={this.updateProfile} noValidate>
               <TextInput
                 label="Username"
                 type="text"

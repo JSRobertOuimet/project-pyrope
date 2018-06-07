@@ -37,11 +37,16 @@ class Challenge extends Component {
       addSessionModal: false
     };
 
+    // Modals
     this.toggleDeleteChallengeModal = this.toggleDeleteChallengeModal.bind(this);
     this.toggleAddSessionModal = this.toggleAddSessionModal.bind(this);
+
+    // Inputs
     this.onChange = this.onChange.bind(this);
+
+    // Submit
     this.onDeleteChallenge = this.onDeleteChallenge.bind(this);
-    this.onSubmitSession = this.onSubmitSession.bind(this);
+    this.addSession = this.addSession.bind(this);
   }
 
   componentDidMount() {
@@ -91,7 +96,7 @@ class Challenge extends Component {
     this.props.deleteChallenge(challengeId, this.props.history);
   }
 
-  onSubmitSession(e) {
+  addSession(e) {
     const challengeId = this.props.match.params.challengeId;
     const newSession = {
       numberOfPagesRead: Number(this.state.numberOfPagesRead),
@@ -190,7 +195,7 @@ class Challenge extends Component {
           </form>
         </Modal>
         <Modal isOpen={this.state.addSessionModal} toggle={this.toggleAddSessionModal}>
-          <form onSubmit={this.onSubmitSession} noValidate>
+          <form onSubmit={this.addSession} noValidate>
             <ModalHeader toggle={this.toggleAddSessionModal}>Add Session</ModalHeader>
             <ModalBody>
               <TextInput

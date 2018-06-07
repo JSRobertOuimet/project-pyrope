@@ -26,7 +26,7 @@ class SignIn extends Component {
     };
 
     this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.signIn = this.signIn.bind(this);
   }
 
   componentDidMount() {
@@ -53,7 +53,7 @@ class SignIn extends Component {
     });
   }
 
-  onSubmit(e) {
+  signIn(e) {
     e.preventDefault();
 
     const userData = {
@@ -74,7 +74,7 @@ class SignIn extends Component {
           <div className="card mb-2">
             <div className="card-body">
               <h1 className="card-title h3 text-center">Sign In</h1>
-              <form onSubmit={this.onSubmit} noValidate>
+              <form onSubmit={this.signIn} noValidate>
                 <TextInput
                   label="Email"
                   type="email"
