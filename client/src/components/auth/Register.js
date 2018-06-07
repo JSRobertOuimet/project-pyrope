@@ -101,7 +101,7 @@ class Register extends Component {
                   onChange={this.onChange}
                 />
                 <SubmitButton
-                  buttonType="success"
+                  buttonType="dark"
                   block="block"
                   value="Register"
                 />
