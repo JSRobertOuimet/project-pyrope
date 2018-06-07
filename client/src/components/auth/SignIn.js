@@ -71,7 +71,7 @@ class SignIn extends Component {
       <div className="row justify-content-center">
         <div className="col-sm-8 col-md-6 col-lg-4">
           {errors.emailOrPassword && (<div className="alert alert-danger text-center" role="alert">{errors.emailOrPassword}</div>)}
-          <div className="card mb-1">
+          <div className="card mb-2">
             <div className="card-body">
               <h1 className="card-title h3 text-center">Sign In</h1>
               <form onSubmit={this.onSubmit} noValidate>
