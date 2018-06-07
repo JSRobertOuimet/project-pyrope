@@ -152,7 +152,10 @@ class Dashboard extends Component {
 
     setTimeout(() => {
       if(!(this.state.errors.title || this.state.errors.author || this.state.errors.bookNumberOfPages || this.state.errors.goalumberOfPages)) {
-        this.toggleCreateChallengeModal();
+        Promise
+          .resolve(this.props.setCurrentProfile())
+          .then(this.props.setChallenges())
+          .then(this.toggleCreateChallengeModal());
       }
     }, 2000);
   }

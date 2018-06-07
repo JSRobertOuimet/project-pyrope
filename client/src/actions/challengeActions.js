@@ -72,9 +72,6 @@ export const setChallenge = id => dispatch => {
 export const createChallenge = newChallenge => dispatch => {
   axios
     .post("/challenges/create", newChallenge)
-    .then(() => {
-      dispatch(setChallenges());
-    })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
