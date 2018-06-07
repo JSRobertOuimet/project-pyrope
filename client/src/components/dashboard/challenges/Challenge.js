@@ -122,15 +122,13 @@ class Challenge extends Component {
       content = <div className="block-center lead text-center text-muted">Fetching challenge...</div>;
     }
     else {
-      deleteModalContent = (
-        <span>You are about to permanently delete your challenge for the book <strong>{challenge.book.title}</strong>.</span>
-      );
+      deleteModalContent = (<p>You are about to permanently delete your challenge for the book <strong>{challenge.book.title}</strong>. Are you sure you want to proceed?</p>);
 
       if(sessions.length === 0) {
         sessionsSection = (
           <div className="mx-auto text-center my-5">
             <p className="lead text-muted">You don&#8217;t have any sessions yet.</p>
-            <button className="btn btn-outline-info" onClick={this.toggleAddSessionModal}>Add your first one!</button>
+            <button className="btn btn-outline-dark" onClick={this.toggleAddSessionModal}>Add your first one!</button>
           </div>
         );
       }
@@ -168,8 +166,8 @@ class Challenge extends Component {
             </div>
           </div>
           <h2 className="my-3 d-flex justify-content-between">
-            <div>My Sessions</div>
-            { sessions.length > 0 ? <button className="btn btn-info btn-sm align-self-center" onClick={this.toggleAddSessionModal}>Add Session</button> : null }
+            <div>My Sessions { sessions.length > 0 ? <small className="text-black-50">({sessions.length})</small> : null }</div>
+            { sessions.length > 0 ? <button className="btn btn-dark btn-sm align-self-center" onClick={this.toggleAddSessionModal}>Add Session</button> : null }
           </h2>
           {sessionsSection}
         </React.Fragment>
@@ -186,8 +184,8 @@ class Challenge extends Component {
               {deleteModalContent}
             </ModalBody>
             <ModalFooter>
-              <Button outline color="secondary" onClick={this.toggleDeleteChallengeModal}>Cancel</Button>
-              <input type="submit" className="btn btn-danger" value="Delete Challenge" onClick={this.onDeleteChallenge} />
+              <Button outline color="dark" onClick={this.toggleDeleteChallengeModal}>No, cancel</Button>
+              <input type="submit" className="btn btn-danger" value="Yes, delete challenge" onClick={this.onDeleteChallenge} />
             </ModalFooter>
           </form>
         </Modal>
@@ -214,8 +212,8 @@ class Challenge extends Component {
               />
             </ModalBody>
             <ModalFooter>
-              <Button outline color="secondary" onClick={this.toggleAddSessionModal}>Cancel</Button>
-              <input type="submit" className="btn btn-success" value="Add Session" />
+              <Button outline color="dark" onClick={this.toggleAddSessionModal}>Cancel</Button>
+              <input type="submit" className="btn btn-dark" value="Add Session" />
             </ModalFooter>
           </form>
         </Modal>

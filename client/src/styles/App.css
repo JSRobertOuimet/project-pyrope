@@ -1,5 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+body {
+  padding-top: 56px;
+  font-family: "Open Sans", sans-serif;
+}
+
 #root > .container {
-  height: calc(100vh - 104px);
+  height: calc(100vh - 56px);
 }
 
 .block-center {
@@ -7,6 +14,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  margin-top: 23px;
 }
 
 .logo {

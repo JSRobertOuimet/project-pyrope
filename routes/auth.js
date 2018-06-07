@@ -30,7 +30,7 @@ router.post("/register", (req, res) => {
         if(user) {
           res
             .status(409)
-            .json({ message: messages.errorEmailAlreadyUsed });
+            .json({ email: messages.errorEmailAlreadyUsed });
         }
         else {
           const newUser = new User({
@@ -74,7 +74,7 @@ router.post("/sign-in", (req, res) => {
         if(!user) {
           res
             .status(401)
-            .json({ message: messages.errorIncorrectEmailOrPassword });
+            .json({ emailOrPassword: messages.errorIncorrectEmailOrPassword });
         }
         else {
           bcrypt
@@ -96,7 +96,7 @@ router.post("/sign-in", (req, res) => {
               else {
                 res
                   .status(401)
-                  .json({ message: messages.errorIncorrectEmailOrPassword });
+                  .json({ emailOrPassword: messages.errorIncorrectEmailOrPassword });
               }
             })
             .catch(err => console.log(err));

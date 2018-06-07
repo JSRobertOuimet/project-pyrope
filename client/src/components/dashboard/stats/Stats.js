@@ -10,6 +10,7 @@ class Stats extends Component {
   render() {
     const data = {
       avgPagesReadByDay: 25,
+      avgSessionsByWeek: 12,
       authorsRead: 3,
       booksRead: 7,
       challengesCompleted: 2
@@ -18,6 +19,7 @@ class Stats extends Component {
     return (
       <React.Fragment>
         <DataCard label="avg. pages read / day" value={data.avgPagesReadByDay} />
+        <DataCard label="avg. sessions / week" value={data.avgSessionsByWeek} />
         <DataCard label="authors read" value={data.authorsRead} />
         <DataCard label="books read" value={data.booksRead} />
         <DataCard label="challenges completed" value={data.challengesCompleted} />
