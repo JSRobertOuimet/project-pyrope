@@ -158,7 +158,7 @@ class Dashboard extends Component {
       timePeriodOptions = [ { label: "day", value: "day" }, { label: "week", value: "week" } ];
     let content;
 
-    if(profilesLoading === true || challengesLoading === true) {
+    if(profilesLoading === true || challengesLoading === true || profile === null || challenges === null) {
       content = <div className="block-center lead text-center text-muted">Fetching profile...</div>;
     }
     else {
@@ -175,7 +175,7 @@ class Dashboard extends Component {
           <React.Fragment>
             <h2 className="mb-3">My Stats</h2>
             <div className="row">
-              <Stats />
+              { challenges === null ? null : <Stats challenges={challenges} /> }
             </div>
             <h2 className="mb-3 mt-3">My Challenges { challenges.length > 0 ? <small className="text-black-50">({challenges.length})</small> : null }</h2>
             <div className="row">
