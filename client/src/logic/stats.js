@@ -9,14 +9,4 @@ export const completionPercentage = (sessions, pagesToRead) => {
   return completionPercentage >= 100 ? 100 : completionPercentage;
 };
 
-export const challengesCompleted = challenges => {
-  let completed = [];
-
-  challenges.forEach(challenge => {
-    if(challenge.completed === true) {
-      completed.push(challenge);
-    }
-  });
-
-  return completed.length;
-};
+export const challengesCompleted = challenges => challenges.filter(challenge => challenge.completed === true).length;
