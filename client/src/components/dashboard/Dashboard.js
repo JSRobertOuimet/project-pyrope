@@ -51,12 +51,8 @@ class Dashboard extends Component {
     this.toggleCreateProfileModal = this.toggleCreateProfileModal.bind(this);
     this.toggleCreateChallengeModal = this.toggleCreateChallengeModal.bind(this);
 
-    // Inputs
+    // Forms
     this.onChange = this.onChange.bind(this);
-    this.toggleProfileCheckbox = this.toggleProfileCheckbox.bind(this);
-    this.toggleChallengeCheckbox = this.toggleChallengeCheckbox.bind(this);
-
-    // Submit
     this.createProfile = this.createProfile.bind(this);
     this.createChallenge = this.createChallenge.bind(this);
   }
@@ -104,21 +100,11 @@ class Dashboard extends Component {
     }
   }
 
-  toggleProfileCheckbox() {
-    this.setState({
-      publicProfile: !this.state.publicProfile
-    });
-  }
-
-  toggleChallengeCheckbox() {
-    this.setState({
-      publicChallenge: !this.state.publicChallenge
-    });
-  }
-
   onChange(e) {
+    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name] : value
     });
   }
 
@@ -195,7 +181,7 @@ class Dashboard extends Component {
             </div>
             <h2 className="mb-3 mt-3">My Challenges { challenges.length > 0 ? <small className="text-black-50">({challenges.length})</small> : null }</h2>
             <div className="row">
-              { challenges ? <Challenges challenges={challenges} /> : null }
+              { challenges.length > 0 ? <Challenges challenges={challenges} /> : null }
               <AddCard onClick={this.toggleCreateChallengeModal} />
             </div>
           </React.Fragment>
@@ -232,7 +218,7 @@ class Dashboard extends Component {
                 id="publicProfile"
                 name="publicProfile"
                 checked={this.state.publicProfile}
-                onChange={this.toggleProfileCheckbox}
+                onChange={this.onChange}
               />
             </ModalBody>
             <ModalFooter>
@@ -315,7 +301,7 @@ class Dashboard extends Component {
                     id="publicChallenge"
                     name="publicChallenge"
                     checked={this.state.publicChallenge}
-                    onChange={this.toggleChallengeCheckbox}
+                    onChange={this.onChange}
                   />
                 </div>
               </div>

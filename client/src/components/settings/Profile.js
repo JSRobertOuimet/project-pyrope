@@ -31,11 +31,8 @@ class Profile extends Component {
       errors: {}
     };
 
-    // Inputs
-    this.toggleCheckbox = this.toggleCheckbox.bind(this);
+    // Form
     this.onChange = this.onChange.bind(this);
-
-    // Submit
     this.updateProfile = this.updateProfile.bind(this);
     this.deleteProfile = this.deleteProfile.bind(this);
   }
@@ -63,15 +60,11 @@ class Profile extends Component {
     }
   }
 
-  toggleCheckbox() {
-    this.setState({
-      public: !this.state.public
-    });
-  }
-
   onChange(e) {
+    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
+
     this.setState({
-      [e.target.name] : e.target.value
+      [e.target.name] : value
     });
   }
 
@@ -129,8 +122,8 @@ class Profile extends Component {
                 label="Public"
                 id="public"
                 name="public"
-                checked={(this.state.public)}
-                onChange={this.toggleCheckbox}
+                checked={this.state.public}
+                onChange={this.onChange}
               />
               <SubmitButton
                 buttonType="dark"
