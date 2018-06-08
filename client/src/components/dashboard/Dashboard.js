@@ -151,13 +151,11 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { errors } = this.state;
-    const { profile, profilesLoading } = this.props.profile;
-    const { challenges, challengesLoading } = this.props.challenge;
-    const timePeriodOptions = [
-      { label: "day", value: "day" },
-      { label: "week", value: "week" },
-    ];
+    const
+      { errors } = this.state,
+      { profile, profilesLoading } = this.props.profile,
+      { challenges, challengesLoading } = this.props.challenge,
+      timePeriodOptions = [ { label: "day", value: "day" }, { label: "week", value: "week" } ];
     let content;
 
     if(profilesLoading === true || challengesLoading === true) {

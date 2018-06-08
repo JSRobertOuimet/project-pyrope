@@ -118,9 +118,10 @@ class Challenge extends Component {
   }
 
   render() {
-    const { errors } = this.state;
-    const { challenge, challengesLoading } = this.props.challenge;
-    const { sessionsLoading, sessions } = this.props.session;
+    const
+      { errors } = this.state,
+      { challenge, challengesLoading } = this.props.challenge,
+      { sessionsLoading, sessions } = this.props.session;
     let content, sessionsSection, deleteModalContent;
 
     if(challengesLoading === true || sessionsLoading === true || challenge === null || sessions === null) {
