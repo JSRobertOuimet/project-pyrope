@@ -77,7 +77,7 @@ router
       .catch(err => console.log(err));
   });
 
-// @desc      DELETE signed in user’s specific challenge
+// @desc      DELETE signed in user’s specific challenge and related sessions
 // @access    Private
 router
   .delete("/:challengeId", passport.authenticate("jwt", { session: false }), (req, res) => {
@@ -89,9 +89,21 @@ router
             challenge
               .remove()
               .then(() => {
-                res
-                  .status(200)
-                  .json({ message: messages.successDeletedChallenge });
+                Session
+                  .find({ challengeId: req.params.challengeId })
+                  .then(sessions => {
+                    sessions.forEach(session => {
+                      session
+                        .remove()
+                        .then(() => {
+                          res
+                            .status(200)
+                            .json({ message: messages.successDeletedChallenge })
+                        })
+                        .catch(err => console.log(err));
+                    });
+                  })
+                  .catch(err => console.log(err));
               })
               .catch(err => console.log(err));
           }

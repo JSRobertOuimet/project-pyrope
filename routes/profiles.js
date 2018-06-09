@@ -134,7 +134,8 @@ router
     Profile
       .findOneAndRemove({ userId: req.user.id })
       .then(() => {
-        User.findOneAndRemove({ _id: req.user.id })
+        User
+          .findOneAndRemove({ _id: req.user.id })
           .then(() => {
             res
               .status(200)
