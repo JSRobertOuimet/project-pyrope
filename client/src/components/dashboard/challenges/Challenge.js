@@ -59,16 +59,12 @@ class Challenge extends Component {
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors
-      });
+      this.setState({ errors: nextProps.errors });
     }
   }
 
   toggleDeleteChallengeModal() {
-    this.setState({
-      deleteChallengeModal: !this.state.deleteChallengeModal,
-    });
+    this.setState({ deleteChallengeModal: !this.state.deleteChallengeModal });
   }
 
   toggleAddSessionModal() {
@@ -84,9 +80,7 @@ class Challenge extends Component {
   }
 
   onChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   onDeleteChallenge(e) {

@@ -65,9 +65,7 @@ class Dashboard extends Component {
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors
-      });
+      this.setState({ errors: nextProps.errors });
     }
   }
 
@@ -103,9 +101,7 @@ class Dashboard extends Component {
   onChange(e) {
     const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
 
-    this.setState({
-      [e.target.name] : value
-    });
+    this.setState({ [e.target.name] : value });
   }
 
   createProfile(e) {

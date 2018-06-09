@@ -39,16 +39,12 @@ class Register extends Component {
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors
-      });
+      this.setState({ errors: nextProps.errors });
     }
   }
 
   onChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   register(e) {
@@ -109,7 +105,7 @@ class Register extends Component {
             </div>
           </div>
           <div className="d-flex justify-content-center">
-            <Link to="/auth/sign-in">Have an account? Sign In!</Link>
+            <Link to="/auth/sign-in">Have an account? Sign in!</Link>
           </div>
         </div>
       </div>

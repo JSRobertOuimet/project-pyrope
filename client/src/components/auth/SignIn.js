@@ -41,16 +41,12 @@ class SignIn extends Component {
     }
 
     if(nextProps.errors) {
-      this.setState({
-        errors: nextProps.errors
-      });
+      this.setState({ errors: nextProps.errors });
     }
   }
 
   onChange(e) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+    this.setState({ [e.target.name]: e.target.value });
   }
 
   signIn(e) {
@@ -103,6 +99,9 @@ class SignIn extends Component {
           </div>
           <div className="d-flex justify-content-center">
             <Link to="/auth/register">Don&#8217;t have an account? Register!</Link>
+          </div>
+          <div className="d-flex justify-content-center">
+            <Link to="/auth/reset-password">Forgot your password?</Link>
           </div>
         </div>
       </div>
