@@ -9,4 +9,12 @@ export const completionPercentage = (sessions, pagesToRead) => {
   return completionPercentage >= 100 ? 100 : completionPercentage;
 };
 
+export const authorsRead = challenges => {
+  const allAuthors = [];
+  
+  challenges.map(challenge => allAuthors.push(challenge.book.author));
+
+  return Array.from(new Set(allAuthors)).length;
+};
+
 export const challengesCompleted = challenges => challenges.filter(challenge => challenge.completed === true).length;
