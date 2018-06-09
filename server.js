@@ -7,6 +7,7 @@ const
   auth = require("./routes/auth"),
   profiles = require("./routes/profiles"),
   challenges = require("./routes/challenges"),
+  sessions = require("./routes/sessions"),
 
   app = express(),
   port = 5000;
@@ -26,5 +27,6 @@ require("./config/passport")(passport);
 app.use("/auth", auth);
 app.use("/profiles", profiles);
 app.use("/challenges", challenges);
+app.use("/sessions", sessions);
 
 app.listen(port, () => console.log(`Server listening on port ${port}...`));
