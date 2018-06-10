@@ -85,7 +85,7 @@ router
                 Session
                   .find({ challengeId: req.params.challengeId })
                   .then(sessions => {
-                    if(sessions === null) {
+                    if(sessions.length === 0) {
                       res.status(200).json({ message: messages.successDeletedChallenge });
                     }
                     else {
