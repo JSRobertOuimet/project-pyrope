@@ -61,5 +61,11 @@ export const deleteProfile = () => dispatch => {
       });
       dispatch(clearCurrentProfile());
       dispatch(clearErrors());
-    });
+    })
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
 };
