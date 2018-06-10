@@ -11,6 +11,7 @@ import Navbar from "./common/Navbar";
 import PrivateRoute from "./common/PrivateRoute";
 import Register from "./auth/Register";
 import SignIn from "./auth/SignIn";
+import ResetPassword from "./auth/ResetPassword";
 import Dashboard from "./dashboard/Dashboard";
 import Challenge from "./dashboard/challenges/Challenge";
 import Settings from "./settings/Settings";
@@ -47,6 +48,7 @@ class App extends Component {
             <div className="container pt-5">
               <Route exact path="/auth/register" component={Register} />
               <Route exact path="/auth/sign-in" component={SignIn} />
+              <Route exact path="/auth/reset-password" component={ResetPassword} />
               <Switch>
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
                 <PrivateRoute exact path="/challenges/:challengeId" component={Challenge} />

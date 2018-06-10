@@ -39,6 +39,7 @@ export const signInUser = userData => dispatch => {
       const decoded = jwt_decode(token);
 
       dispatch(setCurrentUser(decoded));
+      dispatch(clearErrors());
     })
     .catch(err =>
       dispatch({
@@ -54,6 +55,10 @@ export const signOutUser = () => dispatch => {
   dispatch(setCurrentUser({}));
   dispatch(clearCurrentProfile());
   dispatch(clearErrors());  
+};
+
+export const resetPassword = () => {
+
 };
 
 export const setCurrentUser = decoded => {
