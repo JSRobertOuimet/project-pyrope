@@ -17,14 +17,10 @@ router
       .find({ public: true })
       .then(profiles => {
         if(profiles.length === 0) {
-          res
-            .status(404)
-            .json({ message: messages.errorNoProfileFound });
+          res.status(404).json({ message: messages.errorNoProfileFound });
         }
         else {
-          res
-            .status(200)
-            .json(profiles);
+          res.status(200).json(profiles);
         }
       })
       .catch(err => console.log(err));
@@ -54,8 +50,7 @@ router
                 });
             }
             else {
-              res
-                .json(null);
+              res.json(null);
             }
           })
           .catch(err => console.log(err));
@@ -72,9 +67,7 @@ router
       profileData = {};
 
     if(Object.keys(errors).length > 0) {
-      res
-        .status(400)
-        .json(errors);
+      res.status(400).json(errors);
     }
     else {
       profileData.userId = req.user.id;
@@ -85,6 +78,7 @@ router
       Profile
         .findOne({ userId: req.user.id })
         .then(profile => {
+
           // Update existing profile
           if(profile) {
             Profile
@@ -94,29 +88,24 @@ router
                 { new: true }
               )
               .then(profile => {
-                res
-                  .status(200)
-                  .json({ message: messages.successUpdatedProfile, profile });
+                res.status(200).json({ message: messages.successUpdatedProfile, profile });
               })
               .catch(err => console.log(err));
           }
+
           // Create new profile
           else {
             Profile
               .findOne({ username: profileData.username })
               .then(profile => {
                 if(profile) {
-                  res
-                    .status(409)
-                    .json({ message: messages.errorUsernameAlreadyUsed });
+                  res.status(409).json({ message: messages.errorUsernameAlreadyUsed });
                 }
                 else {
                   new Profile(profileData)
                     .save()
                     .then(profile => {
-                      res
-                        .status(201)
-                        .json({ message: messages.successCreatedProfile, profile });
+                      res.status(201).json({ message: messages.successCreatedProfile, profile });
                     })
                     .catch(err => console.log(err));
                 }
@@ -137,9 +126,7 @@ router
         User
           .findOneAndRemove({ _id: req.user.id })
           .then(() => {
-            res
-              .status(200)
-              .json({ message: messages.successDeletedProfileAndUser });
+            res.status(200).json({ message: messages.successDeletedProfileAndUser });
           })
           .catch(err => console.log(err));
       })
@@ -154,14 +141,10 @@ router
       .findOne({ username: req.params.username })
       .then(profile => {
         if(!profile || profile.public === false) {
-          res
-            .status(400)
-            .json({ message: messages.errorNoProfileFound });
+          res.status(400).json({ message: messages.errorNoProfileFound });
         }
         else {
-          res
-            .status(200)
-            .json(profile);
+          res.status(200).json(profile);
         }
       })
       .catch(err => console.log(err));

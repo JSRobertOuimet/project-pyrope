@@ -19,18 +19,14 @@ router.post("/register", (req, res) => {
   const errors = validate(req.body, "registerUser");
 
   if(Object.keys(errors).length > 0) {
-    res
-      .status(400)
-      .json(errors);
+    res.status(400).json(errors);
   }
   else {
     User
       .findOne({ email: req.body.email })
       .then(user => {
         if(user) {
-          res
-            .status(409)
-            .json({ email: messages.errorEmailAlreadyUsed });
+          res.status(409).json({ email: messages.errorEmailAlreadyUsed });
         }
         else {
           const newUser = new User({
@@ -40,10 +36,8 @@ router.post("/register", (req, res) => {
 
           bcrypt.genSalt(10, (err, salt) => {
             if(err) throw err;
-
             bcrypt.hash(newUser.password, salt, (err, hash) => {
               if(err) throw err;
-
               newUser.password = hash;
               newUser
                 .save()
@@ -63,18 +57,14 @@ router.post("/sign-in", (req, res) => {
   const errors = validate(req.body, "signInUser");
 
   if(Object.keys(errors).length > 0) {
-    res
-      .status(400)
-      .json(errors);
+    res.status(400).json(errors);
   }
   else {
     User
       .findOne({ email: req.body.email })
       .then(user => {
         if(!user) {
-          res
-            .status(401)
-            .json({ emailOrPassword: messages.errorIncorrectEmailOrPassword });
+          res.status(401).json({ emailOrPassword: messages.errorIncorrectEmailOrPassword });
         }
         else {
           bcrypt
@@ -85,18 +75,11 @@ router.post("/sign-in", (req, res) => {
 
                 jwt.sign(payload, jwtKey, { expiresIn: 3600 /* 1 hour */ }, (err, token) => {
                   if(err) throw err;
-                  res
-                    .status(200)
-                    .json({
-                      message: messages.successSignedIn,
-                      token: "Bearer " + token
-                    });
+                  res.status(200).json({ message: messages.successSignedIn, token: "Bearer " + token });
                 });
               }
               else {
-                res
-                  .status(401)
-                  .json({ emailOrPassword: messages.errorIncorrectEmailOrPassword });
+                res.status(401).json({ emailOrPassword: messages.errorIncorrectEmailOrPassword });
               }
             })
             .catch(err => console.log(err));
@@ -113,9 +96,7 @@ router
     const errors = validate(req.body, "resetPassword");
 
     if(Object.keys(errors).length > 0) {
-      res
-        .status(400)
-        .json(errors);
+      res.status(400).json(errors);
     }
     else {
       sg.setApiKey(sgAPIKey);
@@ -128,10 +109,7 @@ router
       };
 
       sg.send(msg);
-
-      res
-        .status(200)
-        .json({ message: messages.successEmailSent });
+      res.status(200).json({ message: messages.successEmailSent });
     }
   });
 

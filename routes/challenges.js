@@ -16,9 +16,7 @@ router
     Challenge
       .find({ userId: req.user.id })
       .then(challenges => {
-        res
-          .status(200)
-          .json(challenges);
+        res.status(200).json(challenges);
       })
       .catch(err => console.log(err));
   });
@@ -32,9 +30,7 @@ router
       .then(challenges => {
         challenges.forEach(challenge => {
           if(challenge.id === req.params.challengeId) {
-            res
-              .status(200)
-              .json(challenge);
+            res.status(200).json(challenge);
           }
         });
       })
@@ -48,9 +44,7 @@ router
     const errors = validate(req.body, "createChallenge");
 
     if(Object.keys(errors).length > 0) {
-      res
-        .status(400)
-        .json(errors);
+      res.status(400).json(errors);
     }
 
     const challenge = new Challenge({
@@ -70,9 +64,7 @@ router
     challenge
       .save()
       .then(challenge => {
-        res
-          .status(200)
-          .json({ message: messages.successCreatedChallenge, challenge });
+        res.status(200).json({ message: messages.successCreatedChallenge, challenge });
       })
       .catch(err => console.log(err));
   });
@@ -96,9 +88,7 @@ router
                       session
                         .remove()
                         .then(() => {
-                          res
-                            .status(200)
-                            .json({ message: messages.successDeletedChallenge })
+                          res.status(200).json({ message: messages.successDeletedChallenge });
                         })
                         .catch(err => console.log(err));
                     });
@@ -127,9 +117,7 @@ router
           }
         });
 
-        res
-          .status(200)
-          .json(currentChallengeSessions);
+        res.status(200).json(currentChallengeSessions);
       })
       .catch(err => console.log(err));
   });
@@ -141,9 +129,7 @@ router
     const errors = validate(req.body, "createSession");
 
     if(Object.keys(errors).length > 0) {
-      res
-        .status(400)
-        .json(errors);
+      res.status(400).json(errors);
     }
 
     Challenge
@@ -161,9 +147,7 @@ router
             session
               .save()
               .then(session => {
-                res
-                  .status(201)
-                  .json({ message: messages.successCreatedSession, session });
+                res.status(201).json({ message: messages.successCreatedSession, session });
               })
               .catch(err => console.log(err));
           }
