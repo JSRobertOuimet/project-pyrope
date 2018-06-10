@@ -15,6 +15,7 @@ router
   .get("/", passport.authenticate("jwt", { session: false }), (req, res) => {
     Challenge
       .find({ userId: req.user.id })
+      .sort({ date: -1 })
       .then(challenges => {
         res.status(200).json(challenges);
       })
@@ -84,14 +85,19 @@ router
                 Session
                   .find({ challengeId: req.params.challengeId })
                   .then(sessions => {
-                    sessions.forEach(session => {
-                      session
-                        .remove()
-                        .then(() => {
-                          res.status(200).json({ message: messages.successDeletedChallenge });
-                        })
-                        .catch(err => console.log(err));
-                    });
+                    if(sessions === null) {
+                      res.status(200).json({ message: messages.successDeletedChallenge });
+                    }
+                    else {
+                      sessions.forEach(session => {
+                        session
+                          .remove()
+                          .then(() => {
+                            res.status(200).json({ message: messages.successDeletedChallenge });
+                          })
+                          .catch(err => console.log(err));
+                      });
+                    }
                   })
                   .catch(err => console.log(err));
               })
@@ -108,6 +114,7 @@ router
   .get("/:challengeId/sessions", passport.authenticate("jwt", { session: false }), (req, res) => {
     Session
       .find({ userId: req.user.id })
+      .sort({ date: -1 })
       .then(sessions => {
         let currentChallengeSessions = [];
 

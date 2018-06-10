@@ -9,7 +9,8 @@ import {
   FETCH_CHALLENGES_SUCCESS,
   FETCH_CHALLENGE_REQUEST,
   FETCH_CHALLENGE_SUCCESS,
-  CLEAR_CURRENT_CHALLENGE
+  CLEAR_CURRENT_CHALLENGE,
+  CLEAR_CURRENT_SESSIONS
 } from "./types";
 //==================================================
 
@@ -19,9 +20,21 @@ export const fetchChallenges = () => {
   };
 };
 
-export const clearChallenge = () => {
+export const fetchChallenge = () => {
+  return {
+    type: FETCH_CHALLENGE_REQUEST
+  };
+};
+
+export const clearCurrentChallenge = () => {
   return {
     type: CLEAR_CURRENT_CHALLENGE
+  };
+};
+
+export const clearCurrentSessions = () => {
+  return {
+    type: CLEAR_CURRENT_SESSIONS
   };
 };
 
@@ -36,18 +49,12 @@ export const setChallenges = () => dispatch => {
         payload: res.data
       })
     )
-    .catch(() =>
+    .catch(err =>
       dispatch({
         type: GET_ERRORS,
-        payload: {}
+        payload: err.response.data
       })
     );
-};
-
-export const fetchChallenge = () => {
-  return {
-    type: FETCH_CHALLENGE_REQUEST
-  };
 };
 
 export const setChallenge = id => dispatch => {
@@ -80,12 +87,12 @@ export const createChallenge = newChallenge => dispatch => {
     );
 };
 
-export const deleteChallenge = (id, history) => dispatch => {
+export const deleteChallenge = (challengeId, history) => dispatch => {
   axios
-    .delete(`/challenges/${id}`)
+    .delete(`/challenges/${challengeId}`)
     .then(() => {
-      dispatch(clearChallenge());
-      dispatch(setChallenges());
+      dispatch(clearCurrentChallenge());
+      dispatch(clearCurrentSessions());
       history.push("/dashboard");
     })
     .catch(err =>

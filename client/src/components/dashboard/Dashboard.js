@@ -17,7 +17,7 @@ import Challenges from "./challenges/Challenges";
 import { clearErrors } from "../../actions/errorActions";
 import { setCurrentProfile } from "../../actions/profileActions";
 import { setChallenges } from "../../actions/challengeActions";
-import { setSessions } from "../../actions/sessionActions";
+import { setAllSessions } from "../../actions/sessionActions";
 import { createProfile } from "../../actions/profileActions";
 import { createChallenge } from "../../actions/challengeActions";
 
@@ -60,7 +60,8 @@ class Dashboard extends Component {
   componentDidMount() {
     Promise
       .resolve(this.props.setCurrentProfile())
-      .then(this.props.setChallenges());
+      .then(this.props.setChallenges())
+      .then(this.props.setAllSessions());
   }
 
   componentWillReceiveProps(nextProps) {
@@ -151,10 +152,11 @@ class Dashboard extends Component {
       { errors } = this.state,
       { profile, profilesLoading } = this.props.profile,
       { challenges, challengesLoading } = this.props.challenge,
+      { allSessions } = this.props.session,
       timePeriodOptions = [ { label: "day", value: "day" }, { label: "week", value: "week" } ];
     let content;
 
-    if(profilesLoading === true || challengesLoading === true || profile === null || challenges === null) {
+    if(profilesLoading === true || challengesLoading === true) {
       content = <div className="block-center lead text-center text-muted">Fetching profile...</div>;
     }
     else {
@@ -171,7 +173,7 @@ class Dashboard extends Component {
           <React.Fragment>
             <h2 className="mb-3">My Stats</h2>
             <div className="row">
-              { challenges === null ? null : <Stats challenges={challenges} /> }
+              { allSessions === null ? null : <Stats challenges={challenges} sessions={allSessions} /> }
             </div>
             <h2 className="mb-3 mt-3">My Challenges { challenges.length > 0 ? <small className="text-black-50">({challenges.length})</small> : null }</h2>
             <div className="row">
@@ -315,10 +317,11 @@ Dashboard.propTypes = {
   errors: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   challenge: PropTypes.object.isRequired,
+  session: PropTypes.object.isRequired,
   clearErrors: PropTypes.func.isRequired,
   setCurrentProfile: PropTypes.func.isRequired,
   setChallenges: PropTypes.func.isRequired,
-  setSessions: PropTypes.func.isRequired,
+  setAllSessions: PropTypes.func.isRequired,
   createProfile: PropTypes.func.isRequired,
   createChallenge: PropTypes.func.isRequired
 };
@@ -327,7 +330,7 @@ const mapStateToProps = state => ({
   errors: state.errors,
   profile: state.profile,
   challenge: state.challenge,
-  sessions: state.sessions
+  session: state.session
 });
 
-export default connect(mapStateToProps, { setCurrentProfile, setChallenges, setSessions, createProfile, createChallenge, clearErrors })(Dashboard);
+export default connect(mapStateToProps, { setCurrentProfile, setChallenges, setAllSessions, createProfile, createChallenge, clearErrors })(Dashboard);
