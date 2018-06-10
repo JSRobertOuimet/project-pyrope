@@ -7,29 +7,40 @@ import PropTypes from "prop-types";
 import DataCard from "../../common/DataCard";
 
 // Methods
-import { challengesCompleted, authorsRead } from "../../../logic/stats";
+import {
+  averagePagesReadPerDay,
+  challengesCompleted,
+  authorsRead
+} from "../../../logic/stats";
 //==================================================
 
 class Stats extends Component {
   render() {
     const 
-      { challenges } = this.props,
+      { challenges, sessions } = this.props,
+      s1 = averagePagesReadPerDay(sessions),
       s3 = authorsRead(challenges),
       s4 = challengesCompleted(challenges);
 
+    console.log(s1);
+
+    let authorsReadLabel = s3 < 2 ? "author read" : "authors read";
+    let challengesCompletedLabel = s4 < 2 ? "challenge completed" : "challenges completed";
+
     return (
       <React.Fragment>
-        {/* <DataCard label="avg. pages read / day" value={avgPagesReadByDay} />
-        <DataCard label="avg. sessions / week" value={avgSessionsByWeek} /> */}
-        <DataCard label="authors read" value={s3} />
-        <DataCard label="challenges completed" value={s4} />
+        {/* <DataCard label="avg. pages read / day" value={s1} /> */}
+        {/* <DataCard label="avg. sessions / week" value={s2} /> */}
+        <DataCard label={authorsReadLabel} value={s3} />
+        <DataCard label={challengesCompletedLabel} value={s4} />
       </React.Fragment>
     );
   }
 }
 
 Stats.propTypes = {
-  challenges: PropTypes.array
+  challenges: PropTypes.array,
+  sessions: PropTypes.array
 };
 
 export default Stats;
