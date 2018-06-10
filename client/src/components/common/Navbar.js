@@ -20,7 +20,9 @@ class Navbar extends Component {
   }
 
   render() {
-    const { isAuthenticated } = this.props.auth;
+    const
+      { isAuthenticated } = this.props.auth,
+      { profile } = this.props.profile;
 
     const guestLinks = (
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -46,9 +48,11 @@ class Navbar extends Component {
           </li>
         </ul>
         <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
-            <Link className="nav-link" to="/settings">Settings</Link>
-          </li>
+          { profile === null ? null : (
+            <li className="nav-item">
+              <Link className="nav-link" to="/settings">Settings</Link>
+            </li>
+          ) }
           <li className="nav-item">
             <a className="nav-link" href="" onClick={this.onSignOutUserClick.bind(this)}>Sign Out</a>
           </li>
@@ -72,11 +76,13 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
   auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
   signOutUser: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  profile: state.profile
 });
 
 export default connect(mapStateToProps, { signOutUser })(Navbar);
