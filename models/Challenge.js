@@ -42,7 +42,12 @@ const
       type: Boolean,
       default: true,
       required: true
-    }
+    },
+    date: {
+      type: Date,
+      default: Date.now,
+      required: true
+    },
   });
 
 module.exports = mongoose.model("Challenge", challengeSchema);
