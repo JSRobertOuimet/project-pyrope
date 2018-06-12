@@ -10,7 +10,11 @@ export const completionPercentage = (sessions, pagesToRead) => {
   completionPercentage = Math.round((pagesReadTotal / pagesToRead) * 100);
 
   if(completionPercentage < 1) completionPercentage = 1;
-  if(completionPercentage >= 100) completionPercentage = 100;
+  if(completionPercentage >= 100) {
+    completionPercentage = 100;
+
+    // Mark challenge as "completed": true
+  }
 
   return completionPercentage;
 };
@@ -35,7 +39,7 @@ export const averagePagesReadPerDay = sessions => {
       uniqueDates.push(currentValue.date);
     }
 
-    pagesReadEntries.push(currentValue.pagesRead);
+    return pagesReadEntries.push(currentValue.pagesRead);
   });
 
   pagesReadTotal = pagesReadEntries.reduce((accumulator, currentValue) => accumulator + currentValue);

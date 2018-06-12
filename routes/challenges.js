@@ -70,6 +70,25 @@ router
       .catch(err => console.log(err));
   });
 
+// @desc      EDIT specific challenge (mark as "completed": true)
+// @access    Private
+router
+  .post("/:challengeId", passport.authenticate("jwt", { session: false }), (req, res) => {
+    Challenge
+      .findOne({ _id: req.params.challengeId })
+      .then(challenge => {
+        challenge.completed = true;
+
+        challenge
+          .save()
+          .then(challenge => {
+            res.status(200).json({ message: messages.successEditedChallenge, challenge });
+          })
+          .catch(err => console.log(err));
+      })
+      .catch(err => console.log(err));
+  });
+
 // @desc      DELETE signed in user’s specific challenge and related sessions
 // @access    Private
 router
