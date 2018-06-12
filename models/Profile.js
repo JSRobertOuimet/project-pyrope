@@ -5,7 +5,7 @@ const
   profileSchema = new Schema({
     userId: {
       type: Schema.Types.ObjectId,
-      ref: "user"
+      ref: "User"
     },
     username: {
       type: String,

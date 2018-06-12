@@ -5,16 +5,15 @@ const
   sessionSchema = new Schema({
     userId: {
       type: Schema.Types.ObjectId,
-      ref: "user"
+      ref: "User"
     },
     challengeId: {
       type: Schema.Types.ObjectId,
-      ref: "challenge"
+      ref: "Challenge"
     },
     date: {
       type: Date,
-      default: Date.now,
-      required: true
+      default: Date.now
     },
     numberOfPagesRead: {
       type: Number,

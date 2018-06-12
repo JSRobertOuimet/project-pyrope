@@ -5,7 +5,7 @@ const
   challengeSchema = new Schema({
     userId: {
       type: Schema.Types.ObjectId,
-      ref: "user"
+      ref: "User"
     },
     book: {
       author: {
@@ -35,18 +35,15 @@ const
     },
     completed: {
       type: Boolean,
-      default: false,
-      require: true
+      default: false
     },
     public: {
       type: Boolean,
-      default: true,
-      required: true
+      default: true
     },
     date: {
       type: Date,
-      default: Date.now,
-      required: true
+      default: Date.now
     },
   });
 
