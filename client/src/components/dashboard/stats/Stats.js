@@ -16,20 +16,18 @@ import {
 
 class Stats extends Component {
   render() {
-    const 
+    const
       { challenges, sessions } = this.props,
       s1 = averagePagesReadPerDay(sessions),
       s3 = authorsRead(challenges),
       s4 = challengesCompleted(challenges);
-
-    console.log(s1);
 
     let authorsReadLabel = s3 < 2 ? "author read" : "authors read";
     let challengesCompletedLabel = s4 < 2 ? "challenge completed" : "challenges completed";
 
     return (
       <React.Fragment>
-        {/* <DataCard label="avg. pages read / day" value={s1} /> */}
+        <DataCard label="avg. pages read / day" value={s1} />
         {/* <DataCard label="avg. sessions / week" value={s2} /> */}
         <DataCard label={authorsReadLabel} value={s3} />
         <DataCard label={challengesCompletedLabel} value={s4} />
