@@ -11,8 +11,8 @@ export const completionPercentage = (challenge, sessions) => {
   pagesReadTotal = pagesReadEntries.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
   completionPercentage = Math.round((pagesReadTotal / challenge.book.numberOfPages) * 100);
 
-  if(completionPercentage < 1) completionPercentage = 1;
-  if(completionPercentage >= 100) completionPercentage = 100;
+  if(completionPercentage > 0 && completionPercentage < 1) completionPercentage = 1;
+  if(completionPercentage > 100) completionPercentage = 100;
 
   return completionPercentage;
 };
@@ -35,7 +35,7 @@ export const averagePagesReadPerDay = sessions => {
   sessions.map(session => pagesReadEntries.push(session.numberOfPagesRead));
   pagesReadTotal = pagesReadEntries.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
-  return pagesReadTotal / sessions.length || 0;
+  return Math.round(pagesReadTotal / sessions.length) || 0;
 };
 
 // Returns number of authors read (taking into account all challenges)
