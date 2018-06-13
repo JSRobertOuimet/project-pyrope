@@ -156,7 +156,7 @@ class Challenge extends Component {
               <p className="lead">{challenge.book.author}</p>
               <p>{challenge.book.numberOfPages} pages</p>
               <div>{challenge.goal.numberOfPages} pages / {challenge.goal.timePeriod}</div>
-              <div>{ completionPercentage(sessions, challenge.book.numberOfPages) } % completed</div>
+              <div>{ completionPercentage(challenge, sessions) } % completed</div>
               <div>{ challenge.public === true ? "Public" : "Private" } challenge</div>
               <div className="row mt-3">
                 <div className="col">

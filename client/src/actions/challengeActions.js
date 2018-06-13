@@ -68,10 +68,10 @@ export const setChallenge = id => dispatch => {
         payload: res.data
       })
     )
-    .catch(() =>
+    .catch(err =>
       dispatch({
         type: GET_ERRORS,
-        payload: {}
+        payload: err.response.data
       })
     );
 };
