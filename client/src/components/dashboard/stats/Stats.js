@@ -23,16 +23,13 @@ class Stats extends Component {
       s2 = averageSessionsPerWeek(sessions),
       s3 = authorsRead(challenges),
       s4 = challengesCompleted(challenges);
-
     let authorsReadLabel = s3 < 2 ? "author read" : "authors read";
     let challengesCompletedLabel = s4 < 2 ? "challenge completed" : "challenges completed";
-
-    console.log(s2);
 
     return (
       <React.Fragment>
         <DataCard label="avg. pages read / session" value={s1} />
-        {/* <DataCard label="avg. sessions / week" value={s2} /> */}
+        <DataCard label="avg. sessions / week" value={s2} />
         <DataCard label={authorsReadLabel} value={s3} />
         <DataCard label={challengesCompletedLabel} value={s4} />
       </React.Fragment>
