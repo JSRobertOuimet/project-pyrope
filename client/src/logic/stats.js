@@ -1,3 +1,5 @@
+import Moment from "moment";
+
 let pagesReadTotal;
 
 // Returns completion percentage for a specific challenge
@@ -6,7 +8,7 @@ export const completionPercentage = (challenge, sessions) => {
   let completionPercentage;
 
   sessions.map(session => pagesReadEntries.push(session.numberOfPagesRead));
-  pagesReadTotal = pagesReadEntries.reduce((accumulator, currentValue) => accumulator + currentValue);
+  pagesReadTotal = pagesReadEntries.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
   completionPercentage = Math.round((pagesReadTotal / challenge.book.numberOfPages) * 100);
 
   if(completionPercentage < 1) completionPercentage = 1;
@@ -15,12 +17,23 @@ export const completionPercentage = (challenge, sessions) => {
   return completionPercentage;
 };
 
+// Returns average sessions per week (taking into account all challenges)
+export const averageSessionsPerWeek = sessions => {
+  const sessionsDates = [];
+
+  sessions.map(session => {
+    sessionsDates.push(Moment(session.date).format("YYYY-MM-DD"));
+  });
+
+  return sessionsDates;
+};
+
 // Returns average pages read per session (taking into account all challenges)
 export const averagePagesReadPerDay = sessions => {
   const pagesReadEntries = [];
 
   sessions.map(session => pagesReadEntries.push(session.numberOfPagesRead));
-  pagesReadTotal = pagesReadEntries.reduce((accumulator, currentValue) => accumulator + currentValue);
+  pagesReadTotal = pagesReadEntries.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
   return pagesReadTotal / sessions.length || 0;
 };

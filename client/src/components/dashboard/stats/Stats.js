@@ -9,6 +9,7 @@ import DataCard from "../../common/DataCard";
 // Methods
 import {
   averagePagesReadPerDay,
+  averageSessionsPerWeek,
   challengesCompleted,
   authorsRead
 } from "../../../logic/stats";
@@ -19,11 +20,14 @@ class Stats extends Component {
     const
       { challenges, sessions } = this.props,
       s1 = averagePagesReadPerDay(sessions),
+      s2 = averageSessionsPerWeek(sessions),
       s3 = authorsRead(challenges),
       s4 = challengesCompleted(challenges);
 
     let authorsReadLabel = s3 < 2 ? "author read" : "authors read";
     let challengesCompletedLabel = s4 < 2 ? "challenge completed" : "challenges completed";
+
+    console.log(s2);
 
     return (
       <React.Fragment>
