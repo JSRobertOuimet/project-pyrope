@@ -27,7 +27,7 @@ class Stats extends Component {
 
     return (
       <React.Fragment>
-        <DataCard label="avg. pages read / day" value={s1} />
+        <DataCard label="avg. pages read / session" value={s1} />
         {/* <DataCard label="avg. sessions / week" value={s2} /> */}
         <DataCard label={authorsReadLabel} value={s3} />
         <DataCard label={challengesCompletedLabel} value={s4} />
