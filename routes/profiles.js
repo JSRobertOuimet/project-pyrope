@@ -118,7 +118,7 @@ router
     }
   });
 
-// @desc      DELETE user account, profile, and challenges and sessions (if any)
+// @desc      DELETE user, profile, challenges and sessions
 // @access    Private
 router
   .delete("/me", passport.authenticate("jwt", { session: false }), (req, res) => {
