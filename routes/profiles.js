@@ -7,7 +7,9 @@ const
   messages = require("../messaging/messaging"),
 
   User = require("../models/User"),
-  Profile = require("../models/Profile");
+  Profile = require("../models/Profile"),
+  Challenge = require("../models/Challenge"),
+  Session = require("../models/Session");
 
 // @desc      GET all public profiles
 // @access    Private
@@ -116,19 +118,53 @@ router
     }
   });
 
-// @desc      DELETE user account and profile
+// @desc      DELETE user account, profile, and challenges and sessions (if any)
 // @access    Private
 router
   .delete("/me", passport.authenticate("jwt", { session: false }), (req, res) => {
-    Profile
-      .findOneAndRemove({ userId: req.user.id })
-      .then(() => {
-        User
-          .findOneAndRemove({ _id: req.user.id })
-          .then(() => {
-            res.status(200).json({ message: messages.successDeletedProfileAndUser });
-          })
-          .catch(err => console.log(err));
+    Challenge
+      .find({ userId: req.user.id })
+      .then(challenges => {
+        if(challenges.length === 0) {
+          return;
+        }
+        else {
+          challenges.forEach(challenge => {
+            challenge
+              .remove()
+              .then(() => {
+                Session
+                  .find({ userId: req.user.id })
+                  .then(sessions => {
+                    if(sessions.length === 0) {
+                      return;
+                    }
+                    else {
+                      sessions.forEach(session => {
+                        session
+                          .remove()
+                          .then(() => {
+                            Profile
+                              .findOneAndRemove({ userId: req.user.id })
+                              .then(() => {
+                                User
+                                  .findOneAndRemove({ _id: req.user.id })
+                                  .then(() => {
+                                    res.status(200).json({ message: messages.successDeletedProfileAndUser });
+                                  })
+                                  .catch(err => console.log(err));
+                              })
+                              .catch(err => console.log(err));
+                          })
+                          .catch(err => console.log(err));
+                      });
+                    }
+                  })
+                  .catch(err => console.log(err));
+              })
+              .catch(err => console.log(err));
+          });
+        }
       })
       .catch(err => console.log(err));
   });
