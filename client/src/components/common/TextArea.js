@@ -5,7 +5,7 @@ import classnames from "classnames";
 import PropTypes from "prop-types";
 //==================================================
 
-const TextArea = ({ label, name, value, placeholder, error, onChange }) => {
+const TextArea = ({ label, name, value, placeholder, error, onChange, disabled }) => {
   return (
     <div className="form-group">
       <label htmlFor={name}>{label}</label>
@@ -16,6 +16,7 @@ const TextArea = ({ label, name, value, placeholder, error, onChange }) => {
         value={value}
         placeholder={placeholder}
         onChange={onChange}
+        disabled={disabled}
       />
       {error && <div className="invalid-feedback">{error}</div>}
     </div>
@@ -29,7 +30,8 @@ TextArea.propTypes = {
   value: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   error: PropTypes.string,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  disabled: PropTypes.bool
 };
 
 export default TextArea;

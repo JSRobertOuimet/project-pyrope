@@ -8,7 +8,6 @@ import { Button } from "reactstrap";
 import TextInput from "../common/TextInput";
 import TextArea from "../common/TextArea";
 import Checkbox from "../common/Checkbox";
-import SubmitButton from "../common/SubmitButton";
 
 // Methods
 import { setCurrentProfile } from "../../actions/profileActions";
@@ -33,7 +32,6 @@ class Profile extends Component {
 
     // Form
     this.onChange = this.onChange.bind(this);
-    this.updateProfile = this.updateProfile.bind(this);
     this.deleteProfile = this.deleteProfile.bind(this);
   }
 
@@ -64,18 +62,6 @@ class Profile extends Component {
     this.setState({ [e.target.name] : value });
   }
 
-  updateProfile(e) {
-    const updatedProfile = {
-      username: this.state.username,
-      email: this.state.email,
-      about: this.state.about,
-      public: this.state.public
-    };
-
-    e.preventDefault();
-    this.props.createProfile(updatedProfile);
-  }
-
   deleteProfile() {
     this.props.deleteProfile();
   }
@@ -96,6 +82,7 @@ class Profile extends Component {
                 value={this.state.username}
                 error={errors.username}
                 onChange={this.onChange}
+                disabled={true}
               />
               <TextInput
                 label="Email"
@@ -105,6 +92,7 @@ class Profile extends Component {
                 value={this.state.email}
                 error={errors.email}
                 onChange={this.onChange}
+                disabled={true}
               />
               <TextArea
                 label="About"
@@ -113,6 +101,7 @@ class Profile extends Component {
                 value={this.state.about}
                 error={errors.about}
                 onChange={this.onChange}
+                disabled={true}
               />
               <Checkbox
                 label="Public"
@@ -120,15 +109,11 @@ class Profile extends Component {
                 name="public"
                 checked={this.state.public}
                 onChange={this.onChange}
-              />
-              <SubmitButton
-                buttonType="dark"
-                value="Save Changes"
+                disabled={true}
               />
             </form>
           </div>
         </div>
-        <hr className="hr"/>
         <div className="row">
           <div className="col">
             <Button outline color="danger" onClick={this.deleteProfile}>Delete your Profile</Button>

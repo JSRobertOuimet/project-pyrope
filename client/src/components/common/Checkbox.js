@@ -4,7 +4,7 @@ import React from "react";
 import PropTypes from "prop-types";
 //==================================================
 
-const Checkbox = ({ label, name, checked, onChange }) => {
+const Checkbox = ({ label, name, checked, onChange, disabled }) => {
   return (
     <div className="form-group">
       <div className="form-check">
@@ -15,6 +15,7 @@ const Checkbox = ({ label, name, checked, onChange }) => {
           name={name}
           checked={checked}
           onChange={onChange}
+          disabled={disabled}
         />
         <label className="form-check-label" htmlFor={name}>{label}</label>
       </div>
@@ -24,10 +25,11 @@ const Checkbox = ({ label, name, checked, onChange }) => {
 
 Checkbox.propTypes = {
   label: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,  
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   checked: PropTypes.bool.isRequired,
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  disabled: PropTypes.bool
 };
 
 export default Checkbox;
