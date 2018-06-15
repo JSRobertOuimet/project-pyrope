@@ -48,7 +48,7 @@ class Navbar extends Component {
           </li>
         </ul>
         <ul className="navbar-nav ml-auto">
-          { profile === null ? null : (
+          { isAuthenticated && profile === null ? null : (
             <li className="nav-item">
               <Link className="nav-link" to="/settings">Settings</Link>
             </li>

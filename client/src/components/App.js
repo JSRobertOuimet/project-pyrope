@@ -15,7 +15,6 @@ import ResetPassword from "./auth/ResetPassword";
 import Dashboard from "./dashboard/Dashboard";
 import Challenge from "./dashboard/challenges/Challenge";
 import Settings from "./settings/Settings";
-import Profile from "./settings/Profile";
 
 // Methods
 import setAuthToken from "../utils/setAuthToken";
