@@ -48,6 +48,13 @@ body {
   margin-left: -3px;
 }
 
+.table-col {
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
 @media (max-width: 991px) {
   .display-4 {
     font-size: 2.5rem;

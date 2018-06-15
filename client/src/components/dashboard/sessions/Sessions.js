@@ -12,13 +12,13 @@ class Sessions extends Component {
     const { sessions } = this.props;
     const sessionList = sessions.map(session => (
       <tr key={session._id}>
-        <td>
+        <td className="table-col">
           <Moment format="MMMM Do, YYYY @ h:mm A">
             {session.date}
           </Moment>
         </td>
-        <td>{session.numberOfPagesRead}</td>
-        <td>{session.notes}</td>
+        <td className="table-col">{session.numberOfPagesRead}</td>
+        <td data-toggle="tooltip" title={session.notes} className="table-col">{session.notes}</td>
       </tr>
     ));
 
@@ -26,7 +26,7 @@ class Sessions extends Component {
       <React.Fragment>
         <table className="table">
           <thead>
-            <tr>
+            <tr className="table-col">
               <th scope="col">Date</th>
               <th scope="col">Pages Read</th>
               <th scope="col">Notes</th>

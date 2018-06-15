@@ -53,7 +53,6 @@ class App extends Component {
                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
                 <PrivateRoute exact path="/challenges/:challengeId" component={Challenge} />
                 <PrivateRoute exact path="/settings" component={Settings} />
-                <PrivateRoute exact path="/settings/profile" component={Profile} />
               </Switch>
             </div>
           </React.Fragment>
