@@ -27,7 +27,7 @@ TextArea.propTypes = {
   label: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   placeholder: PropTypes.string,
   error: PropTypes.string,
   onChange: PropTypes.func.isRequired,
