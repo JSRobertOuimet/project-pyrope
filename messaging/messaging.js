@@ -22,7 +22,7 @@ const messages = {
   successCreatedProfile: "Your profile has been created.",
   successCreatedSession: "Your reading session has been created.",
   successDeletedChallenge: "Your reading challenge and related sessions have been deleted.",
-  successDeletedProfileAndUser: "Your profile and account have been deleted.",
+  successDeletedAnyUserRelatedInformation: "Your personal information, profile, challenges and sessions have been deleted.",
   successEmailSent: "An email with a link to reset your password has been sent.",
   successSignedIn: "You are signed in.",
   successProfileFound: "The profile you were looking for was found.",

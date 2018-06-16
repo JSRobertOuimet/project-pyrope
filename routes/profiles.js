@@ -118,47 +118,53 @@ router
     }
   });
 
-// @desc      DELETE user, profile, challenges and sessions
+// @desc      DELETE personal information, profile, challenges and sessions
 // @access    Private
 router
   .delete("/me", passport.authenticate("jwt", { session: false }), (req, res) => {
-    Challenge
+    Session
       .find({ userId: req.user.id })
-      .then(challenges => {
-        if(challenges.length === 0) {
-          return;
+      .then(sessions => {
+        // Without session
+        if(sessions.length === 0) {
+          Challenge
+            .find({ userId: req.user.id })
+            .then(challenges => {
+              // Without challenge
+              if(challenges.length === 0) {
+                deleteProfileAndUser();
+              }
+              // With challenges
+              else {
+                challenges.forEach(challenge => {
+                  challenge
+                    .remove()
+                    .then(() => {
+                      deleteProfileAndUser();
+                    })
+                    .catch(err => console.log(err));
+                });
+              }
+            })
+            .catch(err => console.log(err));
         }
+        // With sessions (and challenges)
         else {
-          challenges.forEach(challenge => {
-            challenge
+          sessions.forEach(session => {
+            session
               .remove()
               .then(() => {
-                Session
+                Challenge
                   .find({ userId: req.user.id })
-                  .then(sessions => {
-                    if(sessions.length === 0) {
-                      return;
-                    }
-                    else {
-                      sessions.forEach(session => {
-                        session
-                          .remove()
-                          .then(() => {
-                            Profile
-                              .findOneAndRemove({ userId: req.user.id })
-                              .then(() => {
-                                User
-                                  .findOneAndRemove({ _id: req.user.id })
-                                  .then(() => {
-                                    res.status(200).json({ message: messages.successDeletedProfileAndUser });
-                                  })
-                                  .catch(err => console.log(err));
-                              })
-                              .catch(err => console.log(err));
-                          })
-                          .catch(err => console.log(err));
-                      });
-                    }
+                  .then(challenges => {
+                    challenges.forEach(challenge => {
+                      challenge
+                        .remove()
+                        .then(() => {
+                          deleteProfileAndUser();
+                        })
+                        .catch(err => console.log(err));
+                    });
                   })
                   .catch(err => console.log(err));
               })
@@ -167,6 +173,20 @@ router
         }
       })
       .catch(err => console.log(err));
+    
+    function deleteProfileAndUser() {
+      Profile
+        .findOneAndRemove({ userId: req.user.id })
+        .then(() => {
+          User
+            .findOneAndRemove({ _id: req.user.id })
+            .then(() => {
+              res.status(200).json({ message: messages.successDeletedAnyUserRelatedInformation });
+            })
+            .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
+    }
   });
 
 // @desc      GET specific public profile by username
