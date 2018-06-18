@@ -99,16 +99,12 @@ class Challenge extends Component {
 
     e.preventDefault();
     this.props.clearErrors();
-    this.props.createSession(newSession, challengeId);
 
-    setTimeout(() => {
-      if(!(this.state.errors.numberOfPagesRead || this.state.errors.notes)) {
-        Promise
-          .resolve(this.props.setChallenge(challengeId))
-          .then(this.props.setSessions(challengeId))
-          .then(this.toggleAddSessionModal());
-      }
-    }, 2000);
+    Promise
+      .resolve(this.props.createSession(newSession, challengeId))
+      .then(this.props.setChallenge(challengeId))
+      .then(this.props.setSessions(challengeId))
+      .then(this.toggleAddSessionModal());
   }
 
   render() {

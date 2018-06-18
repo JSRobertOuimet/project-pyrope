@@ -114,13 +114,10 @@ class Dashboard extends Component {
 
     e.preventDefault();
     this.props.clearErrors();
-    this.props.createProfile(newProfile);
 
-    setTimeout(() => {
-      if(!(this.state.errors.username || this.state.errors.about)) {
-        this.toggleCreateProfileModal();
-      }
-    }, 2000);
+    Promise
+      .resolve(this.props.createProfile(newProfile))
+      .then(this.toggleCreateProfileModal());
   }
 
   createChallenge(e) {
@@ -135,16 +132,12 @@ class Dashboard extends Component {
 
     e.preventDefault();
     this.props.clearErrors();
-    this.props.createChallenge(newChallenge);
 
-    setTimeout(() => {
-      if(!(this.state.errors.title || this.state.errors.author || this.state.errors.bookNumberOfPages || this.state.errors.goalumberOfPages)) {
-        Promise
-          .resolve(this.props.setCurrentProfile())
-          .then(this.props.setChallenges())
-          .then(this.toggleCreateChallengeModal());
-      }
-    }, 2000);
+    Promise
+      .resolve(this.props.createChallenge(newChallenge))
+      .then(this.props.setCurrentProfile())
+      .then(this.props.setChallenges())
+      .then(this.toggleCreateChallengeModal());
   }
 
   render() {
