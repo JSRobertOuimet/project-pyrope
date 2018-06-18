@@ -77,8 +77,7 @@ router
     Challenge
       .findOne({ _id: req.params.challengeId })
       .then(challenge => {
-        challenge.completed = true;
-
+        challenge.completed = req.body.completed;
         challenge
           .save()
           .then(challenge => {
