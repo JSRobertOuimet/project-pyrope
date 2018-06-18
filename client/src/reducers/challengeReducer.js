@@ -28,8 +28,7 @@ export default function(state = initialState, action) {
     case FETCH_CHALLENGE_REQUEST:
       return {
         ...state,
-        challengesLoading: true,
-        challenge: action.payload
+        challengesLoading: true
       };
     case FETCH_CHALLENGE_SUCCESS:
       return {
