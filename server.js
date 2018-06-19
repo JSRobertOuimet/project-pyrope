@@ -11,7 +11,7 @@ const
   sessions = require("./routes/sessions"),
 
   app = express(),
-  port = 5000;
+  port = process.env.PORT || 5000;
 
 // MongoDB
 connect("remote");
