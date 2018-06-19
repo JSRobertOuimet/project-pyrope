@@ -110,6 +110,7 @@ $RECYCLE.BIN/
 *.lnk
 
 ### Credentials ###
+client/build
 credentials-dev.js
 
 # End of https://www.gitignore.io/api/node,macos,windows
