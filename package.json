@@ -1,12 +1,13 @@
 {
   "name": "project-pyrope",
   "version": "1.0.0",
-  "description": "Set reading goals and share your progress with your friends.",
+  "description": "Set reading goals, create book clubs, and share your progress with your friends.",
   "main": "server.js",
   "scripts": {
     "server": "nodemon server.js",
     "client": "cd client && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm i --prefix client && npm run build --prefix client"
   },
   "author": "Jean-Simon Robert Ouimet",
   "license": "MIT",

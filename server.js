@@ -1,4 +1,5 @@
 const
+  path = require("path"),
   express = require("express"),
   passport = require("passport"),
 
@@ -23,10 +24,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 require("./config/passport")(passport);
 
-// Routes
+// Routes (Development)
 app.use("/auth", auth);
 app.use("/profiles", profiles);
 app.use("/challenges", challenges);
 app.use("/sessions", sessions);
+
+// Routes (Production)
+if(process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 app.listen(port, () => console.log(`Server listening on port ${port}...`));

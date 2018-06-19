@@ -1,4 +1,3 @@
-
 # Created by https://www.gitignore.io/api/node,macos,windows
 
 ### macOS ###
@@ -111,6 +110,7 @@ $RECYCLE.BIN/
 *.lnk
 
 ### Credentials ###
-credentials.js
+build/
+credentials-dev.js
 
 # End of https://www.gitignore.io/api/node,macos,windows
