@@ -63,7 +63,7 @@ const validate = (userInputs, action) => {
   }
 
   function aboutValidation(about) {
-    if(!validator.isLength(about + "", { max: 40 })) {
+    if(!validator.isLength(about + "", { max: 140 })) {
       return errors.about = messages.errorInvalidAbout;
     }
   }
