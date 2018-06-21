@@ -24,13 +24,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 require("./config/passport")(passport);
 
-// Routes (Development)
+// Routes (Dev)
 app.use("/auth", auth);
 app.use("/profiles", profiles);
 app.use("/challenges", challenges);
 app.use("/sessions", sessions);
 
-// Routes (Production)
+// Routes (Prod)
 if(process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
   app.get("*", (req, res) => {
