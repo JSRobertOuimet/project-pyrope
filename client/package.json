@@ -1,6 +1,9 @@
 {
   "name": "project-pyrope",
   "version": "1.0.0",
+  "engines": {
+    "node": "8.11.1"
+  },
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",

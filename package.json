@@ -1,6 +1,9 @@
 {
   "name": "project-pyrope",
   "version": "1.0.0",
+  "engines": {
+    "node": "8.11.1"
+  },
   "description": "Set reading goals, create book clubs, and share your progress with your friends.",
   "main": "server.js",
   "scripts": {
