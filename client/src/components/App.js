@@ -9,6 +9,7 @@ import jwt_decode from "jwt-decode";
 // Components
 import Navbar from "./common/Navbar";
 import PrivateRoute from "./common/PrivateRoute";
+import Landing from "./Landing";
 import Register from "./auth/Register";
 import SignIn from "./auth/SignIn";
 import ResetPassword from "./auth/ResetPassword";
@@ -45,6 +46,7 @@ class App extends Component {
           <React.Fragment>
             <Navbar />
             <div className="container pt-5">
+              <Route exact path="/" component={Landing} />
               <Route exact path="/auth/register" component={Register} />
               <Route exact path="/auth/sign-in" component={SignIn} />
               <Route exact path="/auth/reset-password" component={ResetPassword} />
