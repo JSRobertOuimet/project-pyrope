@@ -37,12 +37,12 @@ export const setCurrentProfile = () => dispatch => {
 export const createProfile = profileData => dispatch => {
   axios
     .post("/profiles/me", profileData)
-    .then(res => {
+    .then(res =>
       dispatch({
         type: CREATE_PROFILE,
         payload: res.data
-      });
-    })
+      })
+    )
     .catch(err =>
       dispatch({
         type: GET_ERRORS,
