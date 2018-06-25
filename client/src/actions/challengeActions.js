@@ -9,6 +9,8 @@ import {
   FETCH_CHALLENGES_SUCCESS,
   FETCH_CHALLENGE_REQUEST,
   FETCH_CHALLENGE_SUCCESS,
+  FETCH_BOOK_SUGGESTIONS_REQUEST,
+  FETCH_BOOK_SUGGESTIONS_SUCCESS,
   CLEAR_CURRENT_CHALLENGE,
   CLEAR_CURRENT_SESSIONS
 } from "./types";
@@ -23,6 +25,12 @@ export const fetchChallenges = () => {
 export const fetchChallenge = () => {
   return {
     type: FETCH_CHALLENGE_REQUEST
+  };
+};
+
+export const fetchBookSuggestions = () => {
+  return {
+    type: FETCH_BOOK_SUGGESTIONS_REQUEST
   };
 };
 
@@ -79,6 +87,25 @@ export const setChallenge = id => dispatch => {
 export const createChallenge = newChallenge => dispatch => {
   axios
     .post("/challenges/create", newChallenge)
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+export const getBookSuggestions = searchTerms => dispatch => {
+  dispatch(fetchBookSuggestions());
+
+  axios
+    .get(`https://www.googleapis.com/books/v1/volumes?q=${searchTerms}`)
+    .then(res =>
+      dispatch({
+        type: FETCH_BOOK_SUGGESTIONS_SUCCESS,
+        payload: res.data
+      })
+    )
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

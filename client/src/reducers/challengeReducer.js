@@ -3,13 +3,17 @@ import {
   FETCH_CHALLENGES_SUCCESS,
   FETCH_CHALLENGE_REQUEST,
   FETCH_CHALLENGE_SUCCESS,
-  CLEAR_CURRENT_CHALLENGE
+  CLEAR_CURRENT_CHALLENGE,
+  FETCH_BOOK_SUGGESTIONS_REQUEST,
+  FETCH_BOOK_SUGGESTIONS_SUCCESS
 } from "../actions/types";
 
 const initialState = {
   challengesLoading: false,
   challenges: null,
-  challenge: null
+  challenge: null,
+  suggestionsLoading: false,
+  bookSuggestions: null
 };
 
 export default function(state = initialState, action) {
@@ -35,6 +39,17 @@ export default function(state = initialState, action) {
         ...state,
         challengesLoading: false,
         challenge: action.payload
+      };
+    case FETCH_BOOK_SUGGESTIONS_REQUEST:
+      return {
+        ...state,
+        suggestionsLoading: true
+      };
+    case FETCH_BOOK_SUGGESTIONS_SUCCESS:
+      return {
+        ...state,
+        suggestionsLoading: false,
+        bookSuggestions: action.payload
       };
     case CLEAR_CURRENT_CHALLENGE:
       return {
