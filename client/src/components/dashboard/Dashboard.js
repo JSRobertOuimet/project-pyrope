@@ -333,7 +333,8 @@ Dashboard.propTypes = {
   setAllSessions: PropTypes.func.isRequired,
   createProfile: PropTypes.func.isRequired,
   createChallenge: PropTypes.func.isRequired,
-  getBookSuggestions: PropTypes.func.isRequired
+  getBookSuggestions: PropTypes.func.isRequired,
+  clearBookSuggestions: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
