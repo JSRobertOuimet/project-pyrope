@@ -113,7 +113,7 @@ export const getBookSuggestions = searchTerms => dispatch => {
   dispatch(fetchBookSuggestions());
 
   axios
-    .get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${searchTerms}`, config)
+    .get(`https://www.googleapis.com/books/v1/volumes?q=${searchTerms}&fields=items(volumeInfo/title,volumeInfo/authors,volumeInfo/pageCount)`, config)
     .then(res =>
       dispatch({
         type: FETCH_BOOK_SUGGESTIONS_SUCCESS,
