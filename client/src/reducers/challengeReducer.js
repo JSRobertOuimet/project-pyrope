@@ -5,7 +5,8 @@ import {
   FETCH_CHALLENGE_SUCCESS,
   CLEAR_CURRENT_CHALLENGE,
   FETCH_BOOK_SUGGESTIONS_REQUEST,
-  FETCH_BOOK_SUGGESTIONS_SUCCESS
+  FETCH_BOOK_SUGGESTIONS_SUCCESS,
+  CLEAR_BOOK_SUGGESTIONS
 } from "../actions/types";
 
 const initialState = {
@@ -50,6 +51,11 @@ export default function(state = initialState, action) {
         ...state,
         suggestionsLoading: false,
         bookSuggestions: action.payload
+      };
+    case CLEAR_BOOK_SUGGESTIONS:
+      return {
+        ...state,
+        bookSuggestions: null
       };
     case CLEAR_CURRENT_CHALLENGE:
       return {

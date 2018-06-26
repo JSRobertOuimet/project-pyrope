@@ -11,6 +11,7 @@ import {
   FETCH_CHALLENGE_SUCCESS,
   FETCH_BOOK_SUGGESTIONS_REQUEST,
   FETCH_BOOK_SUGGESTIONS_SUCCESS,
+  CLEAR_BOOK_SUGGESTIONS,
   CLEAR_CURRENT_CHALLENGE,
   CLEAR_CURRENT_SESSIONS
 } from "./types";
@@ -31,6 +32,12 @@ export const fetchChallenge = () => {
 export const fetchBookSuggestions = () => {
   return {
     type: FETCH_BOOK_SUGGESTIONS_REQUEST
+  };
+};
+
+export const clearBookSuggestions = () => {
+  return {
+    type: CLEAR_BOOK_SUGGESTIONS
   };
 };
 
@@ -96,10 +103,17 @@ export const createChallenge = newChallenge => dispatch => {
 };
 
 export const getBookSuggestions = searchTerms => dispatch => {
+  const config = {
+    transformRequest: [(data, headers) => {
+      delete headers.common.Authorization;
+      return data;
+    }]
+  };
+
   dispatch(fetchBookSuggestions());
 
   axios
-    .get(`https://www.googleapis.com/books/v1/volumes?q=${searchTerms}`)
+    .get(`https://www.googleapis.com/books/v1/volumes?q=intitle:${searchTerms}`, config)
     .then(res =>
       dispatch({
         type: FETCH_BOOK_SUGGESTIONS_SUCCESS,

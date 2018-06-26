@@ -21,6 +21,7 @@ import { setAllSessions } from "../../actions/sessionActions";
 import { createProfile } from "../../actions/profileActions";
 import { createChallenge } from "../../actions/challengeActions";
 import { getBookSuggestions } from "../../actions/challengeActions";
+import { clearBookSuggestions } from "../../actions/challengeActions";
 
 // Redux
 import { connect } from "react-redux";
@@ -104,7 +105,13 @@ class Dashboard extends Component {
     const value = e.target.type === "checkbox" ? e.target.checked : e.target.value;
 
     this.setState({ [e.target.name] : value });
-    this.props.getBookSuggestions(value);
+
+    if(value === "") {
+      this.props.clearBookSuggestions();
+    }
+    else {
+      this.props.getBookSuggestions(value);
+    }
   }
 
   createProfile(e) {
@@ -336,4 +343,13 @@ const mapStateToProps = state => ({
   session: state.session
 });
 
-export default connect(mapStateToProps, { setCurrentProfile, setChallenges, setAllSessions, createProfile, createChallenge, getBookSuggestions, clearErrors })(Dashboard);
+export default connect(mapStateToProps, {
+  setCurrentProfile,
+  setChallenges,
+  setAllSessions,
+  createProfile,
+  createChallenge,
+  getBookSuggestions,
+  clearBookSuggestions,
+  clearErrors }
+)(Dashboard);
