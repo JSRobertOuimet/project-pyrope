@@ -7,7 +7,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 // Components
-import Navbar from "./common/Navbar";
+import Navbar from "./common/layout/Navbar";
 import PrivateRoute from "./common/PrivateRoute";
 import Landing from "./Landing";
 import Register from "./auth/Register";

@@ -2,12 +2,10 @@
 // React
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-
-// Components
 import { Link } from "react-router-dom";
 
 // Methods
-import { signOutUser } from "../../actions/authActions";
+import { signOutUser } from "../../../actions/authActions";
 
 // Redux
 import { connect } from "react-redux";

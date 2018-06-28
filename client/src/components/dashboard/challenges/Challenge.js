@@ -5,9 +5,9 @@ import PropTypes from "prop-types";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 // Components
+import TextInput from "../../common/inputs/TextInput";
+import TextArea from "../../common/inputs/TextArea";
 import Sessions from "../sessions/Sessions";
-import TextInput from "../../common/TextInput";
-import TextArea from "../../common/TextArea";
 
 // Assets
 import placeholderBookCoverImage from "../../../img/placeholder-book-cover-image.png";

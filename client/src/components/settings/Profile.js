@@ -5,9 +5,9 @@ import PropTypes from "prop-types";
 import { Button } from "reactstrap";
 
 // Components
-import TextInput from "../common/TextInput";
-import TextArea from "../common/TextArea";
-import Checkbox from "../common/Checkbox";
+import TextInput from "../common/inputs/TextInput";
+import TextArea from "../common/inputs/TextArea";
+import Checkbox from "../common/inputs/Checkbox";
 
 // Methods
 import { setCurrentProfile } from "../../actions/profileActions";

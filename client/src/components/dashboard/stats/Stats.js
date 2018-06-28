@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 // Components
-import DataCard from "../../common/DataCard";
+import DataCard from "../../common/cards/DataCard";
 
 // Methods
 import {

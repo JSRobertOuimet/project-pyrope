@@ -2,11 +2,11 @@
 // React
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 // Components
-import { Link } from "react-router-dom";
-import TextInput from "../common/TextInput";
-import SubmitButton from "../common/SubmitButton";
+import TextInput from "../common/inputs/TextInput";
+import SubmitButton from "../common/inputs/SubmitButton";
 
 // Methods
 import { resetPassword } from "../../actions/authActions";
